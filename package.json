@@ -1,0 +1,11 @@
+{
+  "name": "afiliaciones",
+  "version": "0.1.0",
+  "description": "App del Partido de la Red para administrar afiliados.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "@PartidoDeLaRed",
+  "license": "GPL-3.0"
+}
