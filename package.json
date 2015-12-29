@@ -7,6 +7,7 @@
     "postinstall": "mkdirp ./build",
     "test": "standard",
     "start": "DEBUG=afiliciones* node index.js",
+    "dev": "DEBUG=afiliciones* node-dev index.js --no-deps",
     "css:build": "pleeease-compile -t build/css/admin.css lib/layouts/css/admin.css",
     "css:watch": "pleeease-watch -t build/css/admin.css lib/layouts/css/admin.css",
     "watch": "npm run css:watch",
@@ -21,17 +22,19 @@
     "cookie-parser": "^1.4.0",
     "cookie-session": "^1.2.0",
     "debug": "^2.2.0",
-    "email-validator": "^1.0.3",
     "express": "^4.13.3",
     "express-handlebars": "^2.0.1",
     "mkdirp": "^0.5.1",
+    "moment": "^2.10.6",
     "mongoose": "^4.3.4",
+    "mongoose-validators": "^0.1.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^3.1.0",
     "pleeease-cli": "^4.0.0"
   },
   "devDependencies": {
+    "node-dev": "^2.7.1",
     "standard": "^5.4.1"
   }
 }
