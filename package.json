@@ -4,8 +4,26 @@
   "description": "App del Partido de la Red para administrar afiliados.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "standard",
+    "start": "DEBUG=afiliaciones* node index.js"
   },
   "author": "@PartidoDeLaRed",
-  "license": "GPL-3.0"
+  "license": "GPL-3.0",
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "change-case": "^2.3.1",
+    "component-type": "^1.2.0",
+    "cookie-parser": "^1.4.0",
+    "cookie-session": "^1.2.0",
+    "debug": "^2.2.0",
+    "email-validator": "^1.0.3",
+    "express": "^4.13.3",
+    "mongoose": "^4.3.4",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^3.1.0"
+  },
+  "devDependencies": {
+    "standard": "^5.4.1"
+  }
 }
