@@ -2,9 +2,7 @@ var express = require('express')
 
 var app = express()
 
-app.locals.layout = 'site/layout/index'
-
-require('./views')(app)
+require('../lib/views')(app, {path: __dirname})
 
 app.use(require('./home'))
 

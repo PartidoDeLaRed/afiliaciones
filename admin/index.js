@@ -2,9 +2,11 @@ var express = require('express')
 
 var app = express()
 
-app.locals.layout = 'admin/layout/index'
+require('../lib/views')(app, {path: __dirname})
 
-require('./views')(app)
+app.get('/admin', function (req, res) {
+  res.redirect(req.user ? '/admin/peers' : '/admin/login')
+})
 
 app.use(require('./login'))
 

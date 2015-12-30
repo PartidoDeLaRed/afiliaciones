@@ -4,7 +4,7 @@ var passport = require('passport')
 var app = express.Router()
 
 app.get('/admin/login', function (req, res) {
-  res.render('admin/login')
+  res.render('login')
 })
 
 app.post('/admin/login', passport.authenticate('local'), function (req, res) {
