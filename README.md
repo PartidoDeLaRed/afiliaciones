@@ -21,6 +21,7 @@ afiliaciones
     └── defaults.json // Valores predeterminados ¡No editar!
     └── development.json // [git-ignored] Valores para development local. Cambiar a piacere.
     └── production.json // [git-ignored] Valores para producción, también se pueden usar variables de entorno.
+└── bin // Comandos para ser usados desde la terminal.
 └── public // Assets státicos, servidos en '/'.
 └── build // [git-ignored] Assets buildeados.
 ```
@@ -44,6 +45,10 @@ afiliaciones
 Los modelos están creados con [Mongoose](http://mongoosejs.com/) en la carpeta `/lib/models`. Están hechos para que también se pueda validar desde el frontend como se explica [acá](http://mongoosejs.com/docs/browser.html).
 
 Desde el server hay que usar `var Peer = require('../models').Peer`, y en el browser `var Peer = require('../models/models').Peer`
+
+## Crear Admins
+
+Desde la terminal, con el comando `node bin/create-user -e mail@mail.com -p lapassword`.
 
 ## Extras
 * Info afiliaciones
