@@ -28,7 +28,7 @@ var cast = require('./cast-string')
 var env = process.env
 var environment = env.NODE_ENV || 'development'
 
-var configFolderPath = path.join(__dirname, '..', '..', 'config')
+var configFolderPath = path.join(__dirname, '..')
 var defaultsPath = path.join(configFolderPath, 'defaults.json')
 var envPath = path.join(configFolderPath, environment + '.json')
 
