@@ -8,8 +8,8 @@
     "test": "standard",
     "start": "DEBUG=afiliciones* node index.js",
     "dev": "DEBUG=afiliciones* node-dev index.js --no-deps",
-    "css:build": "pleeease-compile -t build/css/admin.css lib/layouts/css/admin.css",
-    "css:watch": "pleeease-watch -t build/css/admin.css lib/layouts/css/admin.css",
+    "css:build": "pleeease-compile -t build/css/admin.css admin/layout/index.css & pleeease-compile -t build/css/site.css site/layout/index.css",
+    "css:watch": "pleeease-watch -t build/css/admin.css admin/layout/index.css & pleeease-watch -t build/css/site.css site/layout/index.css",
     "watch": "npm run css:watch",
     "build": "npm run css:build"
   },

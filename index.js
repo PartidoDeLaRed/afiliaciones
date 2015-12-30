@@ -1,5 +1,5 @@
-var config = require('./lib/config')
-var app = require('./lib/boot')
+var config = require('./config')
+var app = require('./lib')
 
 app.listen(config.port, function () {
   console.log(' · Afiliaciones · ')
