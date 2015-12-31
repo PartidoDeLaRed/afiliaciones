@@ -9,5 +9,6 @@ app.get('/admin', function (req, res) {
 })
 
 app.use(require('./login'))
+app.use(require('./peers'))
 
 module.exports = app

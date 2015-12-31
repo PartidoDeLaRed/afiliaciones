@@ -1,5 +1,6 @@
 ﻿*{
     font-family: 'Lato', sans-serif;
+    cursor: default;
 }
 
 header {
@@ -13,4 +14,9 @@ header .title{
     color: #EEE;
     font-size: 25px;
     text-shadow: 0 2px 1px rgba(0,0,0,.3);
+}
+
+.content{
+    margin: 0;
+    text-align: center;
 }
