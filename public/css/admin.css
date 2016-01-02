@@ -46,3 +46,136 @@
                 background-color: rgba(0,0,0,.5);
                 transition: all 100ms;
             }
+
+    .admin .peersListHeaders {
+    margin: 10px 0 0 0;
+    background: #05323A;
+    }
+
+        .admin .peersListHeaders .listHeader {
+            display: inline-block;
+            border: 1px solid rgba(0,0,0,.1);
+            padding: 10px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            color: #eee;
+            font-size: 15px;
+            background: rgba(255,255,255,.02);
+            vertical-align: top;
+        }
+
+            .admin .peersListHeaders .listHeader.state {
+                width: 5%;
+                padding: 10px 0;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .admin .peersListHeaders .listHeader.name {
+                width: 30%;
+            }
+            .admin .peersListHeaders .listHeader.doc {
+                width: 20%;
+            }
+            .admin .peersListHeaders .listHeader.email {
+                width: 35%;
+            }
+            .admin .peersListHeaders .listHeader.actions {
+               width: 10%;
+            }
+
+    .admin .peersList{
+        margin: 0 0 10px 0;
+    }
+
+        .admin .peersList .peerContainer {
+            background: rgba(255,255,255,.7);
+            border-bottom: 1px solid rgba(0,0,0,.8);
+            position: relative;
+        }
+
+            .peerContainer > div {
+                display: inline-block;
+                line-height: 25px;
+                vertical-align: top;
+                padding: 10px;
+                font-size: 18px;
+                color: #0B525E;
+            }
+
+            .admin .peersList .peerContainer .peerNombre {
+                width: 30%;
+            }
+            .admin .peersList .peerContainer .peerMatricula {
+                width: 20%;
+            }
+            .admin .peersList .peerContainer .peerEmail {
+                width: 35%;
+            }
+            .admin .peersList .peerContainer .peerEstado {
+                margin-left: 0;
+                width: 5%;
+                height: 45px;
+                background-position: center center;
+                background-repeat: no-repeat;
+                background-size: 20px;
+                position: relative;
+                left: 0;
+                top: 0;
+            }
+
+                .admin .peersList .peerContainer .peerEstado.ok {
+                    background-image: url(/images/ok64.png);
+                    background-color: #56B56F;
+                }
+                .admin .peersList .peerContainer .peerEstado.warning {
+                    background-image: url(/images/warning64.png);
+                    background-color: #FFC80C;
+                }
+                .admin .peersList .peerContainer .peerEstado.error {
+                    background-image: url(/images/error64.png);
+                    background-color: #D64D4D;
+                }
+
+            .admin .peersList .peerContainer .actionsContainer {
+                position: relative;
+                right: 0;
+                top: 0;
+                height: 45px;
+                width: 10%;
+                opacity: .6;
+                margin-right: 0;
+                padding: 0;
+            }
+
+                .admin .peersList .peerContainer:hover > .actionsContainer {
+                    opacity: 1;
+                }
+
+                .admin .peersList .peerContainer .actionsContainer > a {
+                    margin: 8px 8px 8px 0;
+                }
+
+                .admin .peersList .peerContainer .actionsContainer .button{
+                    height: 29px;
+                    width: 29px;
+                    border-radius: 15px;
+                    float: right;
+                    background-color: rgba(255,255,255,.5);
+                    background-position: center center;
+                    background-repeat: no-repeat;
+                    background-size: 15px 15px;
+                    cursor: pointer;
+                    transition: all 200ms;
+                }
+                    .admin .peersList .peerContainer .actionsContainer .button:hover {
+                        background-color: rgba(255,255,255,.8);
+                        transition: all 200ms;
+                    }
+
+                    .admin .peersList .peerContainer .actionsContainer .button.edit {
+                        background-image: url(/images/edit64.png);
+                    }
+                    .admin .peersList .peerContainer .actionsContainer .button.delete {
+                        background-image: url(/images/delete64.png);
+                    }
