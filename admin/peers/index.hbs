@@ -1,33 +1,40 @@
 <div class="admin">
-    <div class="heading">
-        <h2>Afiliaciones</h2>
-        <div class="addButton"></div>
+  <div class="heading">
+    <h2>Afiliaciones</h2>
+    <a class="addButton" href="/admin/peers/new"></a>
+  </div>
+  <div class="peersListHeaders">
+    <div class="listHeader state">
+      Estado
+    </div><div class="listHeader name">
+      Nombre Competo
+    </div><div class="listHeader doc">
+      Matricula
+    </div><div class="listHeader email">
+      Email
+    </div><div class="listHeader actions">
+      Acciones
+    </div></div>
+  <div class="peersList">
+    <div class="peerContainer">
+      <div class="peerEstado ok">
+      </div><div class="peerNombre">
+        Federico Nicolas Villedary
+      </div><div class="peerMatricula">
+        36721935
+      </div><div class="peerEmail">
+        federico.villedary@gmail.com
+      </div><div class="actionsContainer">
+        <a class="button edit" href="/peers/edit?id=0">
+        </a><a class="button delete" href="/peers/delete?id=0"></a>
+      </div>
     </div>
-    <div class="peersListHeaders">
-        <div class="listHeader state">
-            Estado
-        </div><div class="listHeader name">
-            Nombre Competo
-        </div><div class="listHeader doc">
-            Matricula
-        </div><div class="listHeader email">
-            Email
-        </div><div class="listHeader actions">
-            Acciones
-        </div></div>
-    <div class="peersList">
-        <div class="peerContainer">
-            <div class="peerEstado ok">
-            </div><div class="peerNombre">
-                Federico Nicolas Villedary
-            </div><div class="peerMatricula">
-                36721935
-            </div><div class="peerEmail">
-                federico.villedary@gmail.com
-            </div><div class="actionsContainer">
-                <a class="button edit" href="/peers/edit?id=0">
-                </a><a class="button delete" href="/peers/delete?id=0"></a>
-            </div>
-        </div>
-    </div>
+  </div>
+  <div class="lista-ejemplo">
+    {{#each peers}}
+      <p>{{nombre}}</p>
+      <p>{{apellido}}</p>
+      <p>{{email}}</p>
+    {{/each}}
+  </div>
 </div>

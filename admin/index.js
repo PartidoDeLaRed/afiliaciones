@@ -9,6 +9,12 @@ app.get('/admin', function (req, res) {
 })
 
 app.use(require('./login'))
+
+app.all('/admin*', function (req, res, next) {
+  if (req.user) return next()
+  res.redirect('/admin')
+})
+
 app.use(require('./peers'))
 
 module.exports = app

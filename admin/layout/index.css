@@ -1,0 +1,94 @@
+@import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css);
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css);
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: #0B525E;
+}
+
+body {
+  background: transparent;
+}
+
+body, input, button {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+*{
+    font-family: 'Lato', sans-serif;
+    cursor: default;
+}
+
+header {
+    background: #00868C;
+    padding: 15px;
+    width: 100%;
+    text-align: center;
+}
+
+header .title{
+    color: #EEE;
+    font-size: 25px;
+    text-shadow: 0 2px 1px rgba(0,0,0,.3);
+}
+
+.content{
+    margin: 0;
+    text-align: center;
+}
+
+.admin {
+  max-width: 1100px;
+  padding: 10px 0;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.admin .heading {
+  text-align: center;
+  margin-top: 1%;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, .2);
+}
+
+.admin .heading h2 {
+  font-size: 3em;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.7);
+  display: inline-block;
+  padding-bottom: 5px;
+  margin: 10px;
+  text-shadow: 1px 1px 3px #23203b;
+}
+
+.admin .heading .addButton {
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+  float: right;
+  background-color: rgba(255, 255, 255, .3);
+  background-image: url(/images/add64.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: 25px 25px;
+  margin: 10px;
+  cursor: pointer;
+  transition: all 200ms;
+}
+
+.admin .heading .addButton:hover {
+  background-color: rgba(255, 255, 255, .5);
+  transition: all 200ms;
+}
+
+.admin .heading .addButton:active {
+  background-color: rgba(0, 0, 0, .5);
+  transition: all 100ms;
+}
+
+@import 'admin/login/index.css';
+@import 'admin/peers/index.css';

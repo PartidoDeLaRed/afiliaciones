@@ -1,21 +1,4 @@
-﻿@import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css);
-@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css);
-* {
-  margin: 0;
-  padding: 0;
-}
 
-html {
-  background: #0B525E;
-}
-
-body {
-  background: transparent;
-}
-
-body, input, button {
-  font-family: 'Source Sans Pro', sans-serif;
-}
 
 .login {
   padding: 15px;
