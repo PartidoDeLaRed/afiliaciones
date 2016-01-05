@@ -27,8 +27,9 @@ afiliaciones
 ```
 
 ## Code Styles
-* [Javascript Standard](https://github.com/feross/standard)
-* **Tab Size:** 2 Spaces.
+* **Javascript:** [Javascript Standard](https://github.com/feross/standard)
+* **HTML:** [HTML Codeguide](http://codeguide.co/#html)
+* **CSS:** [CSS Codeguide](http://codeguide.co/#css-syntax)
 
 ## Dependencias
 
