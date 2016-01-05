@@ -16,25 +16,20 @@
       Acciones
     </div></div>
   <div class="peersList">
+    {{#each peers}}
     <div class="peerContainer">
       <div class="peerEstado ok">
       </div><div class="peerNombre">
-        Federico Nicolas Villedary
+        {{nombre}} {{apellido}}
       </div><div class="peerMatricula">
-        36721935
+        {{matricula.numero}}
       </div><div class="peerEmail">
-        federico.villedary@gmail.com
+        {{email}}
       </div><div class="actionsContainer">
-        <a class="button edit" href="/peers/edit?id=0">
-        </a><a class="button delete" href="/peers/delete?id=0"></a>
+        <a class="button delete" href="/peers/delete/".{{matricula.numero}}>
+        </a><a class="button edit" href="/peers/edit/".{{matricula.numero}}></a>
       </div>
     </div>
-  </div>
-  <div class="lista-ejemplo">
-    {{#each peers}}
-      <p>{{nombre}}</p>
-      <p>{{apellido}}</p>
-      <p>{{email}}</p>
     {{/each}}
   </div>
 </div>

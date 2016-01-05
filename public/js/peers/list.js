@@ -1,39 +1,7 @@
-﻿var Peers = [{
-    nombre: 'Federico Nicolas',
-    apellido: 'Villedary',
-    email: 'federico.villedary@gmail.com',
-    telefono: '1566883784',
-    matricula: {
-        numero: '36721935',
-        tipo: 'DNI'
-    },
-    sexo: 'M',
-    profesion: 'Empleado',
-    estadoCivil: 'soltero',
-    fechaDeNacimiento: '1992-05-01',
-    lugarDeNacimiento: 'Ciudad de Buenos Aires',
-    domicilio: {
-        calle: 'Av. Paseo Colón',
-        numero: '797',
-        piso: '9',
-        depto: 'B',
-        codPostal: 1063,
-        localidad: 'CABA',
-        provincia: 'CABA'
-    },
-    domicilioReal: {
-        calle: 'Av. Paseo Colón',
-        numero: '797',
-        piso: '9',
-        depto: 'B',
-        codPostal: 1063,
-        localidad: 'CABA',
-        provincia: 'CABA'
-    }
-}];
+﻿var Peers = [];
 
 $(document).ready(function () {
-    loadPeers();
+    //loadPeers();
     loadSearchBoxes();
 });
 
@@ -47,10 +15,10 @@ function loadPeers()
             container.append(crearElemento('div', 'peerEmail').html(item.email));
         
             var actionsContainer = crearElemento('div', 'actionsContainer');
-                actionsContainer.append(crearElemento('div', 'button delete').click(function () {
+                actionsContainer.append(crearElemento('a', 'button delete').click(function () {
                     //load delete confirmation
                 }));
-                actionsContainer.append(crearElemento('div', 'button edit').click(function () {
+                actionsContainer.append(crearElemento('a', 'button edit').click(function () {
                     //load edit page
                 }));
             container.append(actionsContainer);
@@ -61,7 +29,7 @@ function loadPeers()
 
 function loadSearchBoxes()
 {
-    $('.listHeader').each(function (index, item) {
+    $('.listHeader:not(.actions)').each(function (index, item) {
         var searchButton = crearElemento('div', 'button search');
         var searchContainer = crearElemento('div', 'searchContainer');
         var searchField = crearElemento('input', 'searchField').attr('type', 'text')
