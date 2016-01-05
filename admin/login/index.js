@@ -4,14 +4,9 @@ var passport = require('passport')
 var app = express.Router()
 
 app.get('/admin/login', function (req, res) {
+  if (req.user) return res.redirect('/admin')
   res.render('login')
 })
-
-// app.post('/admin/login', passport.authenticate('local', {
-//   successRedirect: '/admin',
-//   failureRedirect: '/admin/login',
-//   failureFlash: true
-// }))
 
 app.post('/admin/login', function (req, res, next) {
   passport.authenticate('local', function (err, user, info) {
@@ -21,7 +16,6 @@ app.post('/admin/login', function (req, res, next) {
     }
 
     if (!user) {
-      //console.log('User not found', req.body)
       return res.redirect('/admin/login')
     }
 
@@ -35,7 +29,7 @@ app.post('/admin/login', function (req, res, next) {
   })(req, res, next)
 })
 
-app.get('/logout', function (req, res) {
+app.get('/admin/logout', function (req, res) {
   req.logout()
   res.redirect('/admin')
 })
