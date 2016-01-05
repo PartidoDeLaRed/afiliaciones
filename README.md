@@ -5,8 +5,8 @@ App para administrar los afiliados del Partido de la Red.
 
 ## Comandos
 
-* `npm run start`: Abrir server para `production`.
-* `npm run dev`: Abrir server para `development`, se reinicia cuando se cambia algun archivo.
+* `npm run start`: Abrir server en `production`.
+* `npm run dev`: Abrir server en `development`, se reinicia cuando se cambia algún archivo.
 * `npm run build`: Buildear los assets en `/build`, para que puedan ser usados desde el HTML.
 * `npm run watch`: Lo mismo que `npm run build`, pero para `development`, se queda esperando por cambios y re-compila.
 
@@ -25,6 +25,10 @@ afiliaciones
 └── public // Assets státicos, servidos en '/'.
 └── build // [git-ignored] Assets buildeados.
 ```
+
+## Code Styles
+* [Javascript Standard](https://github.com/feross/standard)
+* **Tab Size:** 2 Spaces.
 
 ## Dependencias
 
