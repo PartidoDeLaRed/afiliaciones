@@ -1,7 +1,7 @@
 <div class="admin">
   <div class="heading">
     <h2>Afiliaciones</h2>
-    <div class="addButton"></div>
+    <a class="addButton" href="/admin/peers/new"></a>
   </div>
   <div class="peersListHeaders">
     <div class="listHeader state">
@@ -29,5 +29,12 @@
         </a><a class="button delete" href="/peers/delete?id=0"></a>
       </div>
     </div>
+  </div>
+  <div class="lista-ejemplo">
+    {{#each peers}}
+      <p>{{nombre}}</p>
+      <p>{{apellido}}</p>
+      <p>{{email}}</p>
+    {{/each}}
   </div>
 </div>
