@@ -11,6 +11,13 @@
 <body>
   <header>
     <div class="title">Administrador de Afiliaciones</div>
+    {{#if user}}
+      <p>{{user.email}}</p>
+      <p><a href="/admin/logout">Logout</a></p>
+    {{else}}
+      <p><a href="/admin/login">Login</a></p>
+    {{/if}}
+    <p></p>
   </header>
   <main class="content">
     {{{body}}}
