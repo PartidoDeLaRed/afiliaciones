@@ -55,4 +55,8 @@ app.post('/admin/peers', function (req, res) {
   })
 })
 
+app.put('/admin/peers', function (req, res) {
+  res.send('PUT /admin/peers')
+})
+
 module.exports = app
