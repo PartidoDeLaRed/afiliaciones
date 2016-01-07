@@ -5,10 +5,10 @@ var app = express.Router()
 
 app.get('/admin/peers', function (req, res) {
   Peer.find().exec(function (err, peers) {
-  if (err) return res.status(500).send()
-  res.render('peers', {
-    peers: peers
-  })
+    if (err) return res.status(500).send()
+    res.render('peers', {
+      peers: peers
+    })
   })
 })
 
