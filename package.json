@@ -10,10 +10,10 @@
     "dev": "DEBUG=afiliciones* node-dev index.js --no-deps",
     "css:build": "pleeease-compile -t build/css/admin.css admin/layout/index.css & pleeease-compile -t build/css/site.css site/layout/index.css",
     "css:watch": "pleeease-watch -t build/css/admin.css admin/layout/index.css & pleeease-watch -t build/css/site.css site/layout/index.css",
-    "js:build": "mkdir -p ./build/js && browserify -e admin/layout/index.js -o build/js/admin.js",
+    "js:build": "mkdirp ./build/js && browserify -e admin/layout/index.js -o build/js/admin.js",
     "js:watch": "mkdir -p ./build/js && watchify -e admin/layout/index.js -o build/js/admin.js",
     "watch": "npm run css:watch",
-    "build": "npm run css:build && npm run js:build"
+    "build": "npm run css:build & npm run js:build"
   },
   "author": "@PartidoDeLaRed",
   "license": "GPL-3.0",

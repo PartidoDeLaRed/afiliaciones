@@ -1,0 +1,60 @@
+﻿<form action="/admin/peers" method="post">
+
+  <div class="inputWrapper half big"><input type="text" name="nombre" placeholder="Nombre" required autofocus></div>
+  <div class="inputWrapper half big"><input type="text" name="apellido" placeholder="Apellido" required></div>
+
+  <div class="inputWrapper third">
+    <select name="matricula_tipo" placeholder="Tipo de Doc.">
+      <option value="DNI">DNI</option>
+      <option value="LE">LE</option>
+      <option value="LI">LI</option>
+    </select>
+  </div>
+  <div class="inputWrapper third"><input type="text" name="matricula_numero" placeholder="Nro. Doc."></div>
+  <div class="inputWrapper third"><input type="date" name="fechaNacimiento" placeholder="Fecha de Nacimiento"></div>
+
+  <div class="inputWrapper almostHalf"><input type="text" name="lugarNacimiento" placeholder="Lugar de Nacimiento"></div>
+  <div class="inputWrapper almostThird">
+    <select name="sexo" placeholder="Sexo">
+      <option value="F">Femenino</option>
+      <option value="M">Masculino</option>
+    </select>
+  </div>
+  <div class="inputWrapper almostThird">
+    <select name="estadoCivil" placeholder="Estado Civil">
+      <option value="soltero">Soltero/a</option>
+      <option value="casado">Casado/a</option>
+      <option value="divorciado">Divorciado/a</option>
+      <option value="viudo">Viudo/a</option>
+    </select>
+  </div>
+
+  <div class="inputWrapper third"><input type="email" name="email" placeholder="Email" required></div>
+  <div class="inputWrapper third"><input type="text" name="telefono" placeholder="Telefono"></div>
+  <div class="inputWrapper third"><input type="text" name="profesion" placeholder="Profesion"></div>
+
+  <div class="formGroup header">Domicilio del Documento</div>
+  <div class="formGroup content">
+    <div class="inputWrapper almostHalf"><input type="text" name="domicilioDoc_calle" placeholder="Calle"></div>
+    <div class="inputWrapper fifth"><input type="text" name="domicilioDoc_numero" placeholder="Numero"></div>
+    <div class="inputWrapper fifth"><input type="text" name="domicilioDoc_piso" placeholder="Piso"></div>
+    <div class="inputWrapper fifth"><input type="text" name="domicilioDoc_depto" placeholder="Departamento"></div>
+
+    <div class="inputWrapper fifth"><input type="text" name="domicilioDoc_codPostal" placeholder="Codigo Postal"></div>
+    <div class="inputWrapper almostHalf"><input type="text" name="domicilioDoc_localidad" placeholder="Localidad"></div>
+    <div class="inputWrapper almostHalf"><input type="text" name="domicilioDoc_provincia" placeholder="Provincia"></div>
+  </div>
+  <div class="formGroup header">Domicilio efectivo de la persona</div>
+  <div class="formGroup content">
+    <div class="inputWrapper almostHalf"><input type="text" name="domicilioReal_calle" placeholder="Calle"></div>
+    <div class="inputWrapper fifth"><input type="text" name="domicilioReal_numero" placeholder="Numero"></div>
+    <div class="inputWrapper fifth"><input type="text" name="domicilioReal_piso" placeholder="Piso"></div>
+    <div class="inputWrapper fifth"><input type="text" name="domicilioReal_depto" placeholder="Departamento"></div>
+
+    <div class="inputWrapper fifth"><input type="text" name="domicilioReal_codPostal" placeholder="Codigo Postal"></div>
+    <div class="inputWrapper almostHalf"><input type="text" name="domicilioReal_localidad" placeholder="Localidad"></div>
+    <div class="inputWrapper almostHalf"><input type="text" name="domicilioReal_provincia" placeholder="Provincia"></div>
+  </div>
+
+  <button type="submit">Agregar</button>
+</form>
