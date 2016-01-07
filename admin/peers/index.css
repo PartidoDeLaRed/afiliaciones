@@ -17,22 +17,22 @@
 }
 
 .listHeader .searchContainer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    padding: 6px 40px 6px 6px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 6px 40px 6px 6px;
 }
 
 .listHeader .searchField {
-    background: #0A363E;
-    border: 0;
-    border-bottom: 1px solid rgba(255,255,255,.5);
-    padding: 3px 6px;
-    outline: none;
-    cursor: text;
-    width: 100%;
+  background: #0A363E;
+  border: 0;
+  border-bottom: 1px solid rgba(255,255,255,.5);
+  padding: 3px 6px;
+  outline: none;
+  cursor: text;
+  width: 100%;
 }
 
 .admin .peersListHeaders .listHeader.state {
@@ -150,23 +150,23 @@
 }
 
 .button:hover {
-    background-color: rgba(255, 255, 255, .8);
-    transition: all 200ms;
+  background-color: rgba(255, 255, 255, .8);
+  transition: all 200ms;
 }
 
 .listHeader .button {
-    position: absolute;
-    right: 6px;
-    top: 6px;
-    background-color: transparent;
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  background-color: transparent;
 }
 
 .button.search {
-    background-image: url(/images/search64.png);
+  background-image: url(/images/search64.png);
 }
 
 .button.cancel {
-    background-image: url(/images/error64.png);
+  background-image: url(/images/error64.png);
 }
 
 .button.edit {
@@ -178,98 +178,98 @@
 }
 
 .newContainer{
-    max-width: 700px;
-    margin: 20px auto;
-    text-align: center;
+  max-width: 700px;
+  margin: 20px auto;
+  text-align: center;
 }
 
 .newContainer input {
-    padding: 10px;
-    margin: 0;
-    font-size: 17px;
-    background: rgba(255,255,255,.3);
-    border: 2px solid rgba(11,82,94,.2);
-    border-radius: 0;
-    width: 100%;
-    height: 56px;
-    color: #eee;
-    outline: none;
-    transition: border-color 200ms;
+  padding: 10px;
+  margin: 0;
+  font-size: 17px;
+  background: rgba(255,255,255,.3);
+  border: 2px solid rgba(11,82,94,.2);
+  border-radius: 0;
+  width: 100%;
+  height: 56px;
+  color: #eee;
+  outline: none;
+  transition: border-color 200ms;
 }
 
 .newContainer input:focus {
-    border-color: rgba(255,255,255,.4);
-    transition: border-color 200ms;
+  border-color: rgba(255,255,255,.4);
+  transition: border-color 200ms;
 }
 
 .newContainer .inputWrapper{
-    padding: 0px;
-    display: inline-block;
-    vertical-align: top;
-    width: 100%;
-    white-space: nowrap;
-    float: left;
+  padding: 0px;
+  display: inline-block;
+  vertical-align: top;
+  width: 100%;
+  white-space: nowrap;
+  float: left;
 }
 
 .newContainer .inputWrapper.big > input{
-    font-size: 30px;
-    text-align: center;
-    height: 70px;
+  font-size: 30px;
+  text-align: center;
+  height: 70px;
 }
 
-    .newContainer .inputWrapper.half {
-        width: 50%;
-    }
-    .newContainer .inputWrapper.almostHalf {
-        width: 40%;
-    }
-    .newContainer .inputWrapper.third {
-        width: 33.33333333%;
-    }
-    .newContainer .inputWrapper.almostThird {
-        width: 30%;
-    }
-    .newContainer .inputWrapper.quarter {
-        width: 25%;
-    }
-    .newContainer .inputWrapper.fifth {
-        width: 20%;
-    }
+  .newContainer .inputWrapper.half {
+    width: 50%;
+  }
+  .newContainer .inputWrapper.almostHalf {
+    width: 40%;
+  }
+  .newContainer .inputWrapper.third {
+    width: 33.33333333%;
+  }
+  .newContainer .inputWrapper.almostThird {
+    width: 30%;
+  }
+  .newContainer .inputWrapper.quarter {
+    width: 25%;
+  }
+  .newContainer .inputWrapper.fifth {
+    width: 20%;
+  }
 
 
 .newContainer select {
-    padding: 10px;
-    margin: 0;
-    font-size: 17px;
-    background: rgba(255,255,255,.3);
-    border: 2px solid rgba(11,82,94,.2);
-    border-radius: 0;
-    width: 100%;
-    height: 56px;
-    color: #eee;
-    outline: none;
-    transition: border-color 200ms;
+  padding: 10px;
+  margin: 0;
+  font-size: 17px;
+  background: rgba(255,255,255,.3);
+  border: 2px solid rgba(11,82,94,.2);
+  border-radius: 0;
+  width: 100%;
+  height: 56px;
+  color: #eee;
+  outline: none;
+  transition: border-color 200ms;
 }
 .newContainer select:focus {
-    border-color: rgba(255,255,255,.4);
-    transition: border-color 200ms;
+  border-color: rgba(255,255,255,.4);
+  transition: border-color 200ms;
 }
 
 .formGroup {
-    padding: 20px;
-    background: rgba(0,0,0,.3);
-    color: #eee;
+  padding: 20px;
+  background: rgba(0,0,0,.3);
+  color: #eee;
 }
 .formGroup.header {
-    margin: 30px 0 0 0;
-    font-size: 30px;
-    font-weight: 300;
-    width: 100%;
-    display: inline-block;
+  margin: 30px 0 0 0;
+  font-size: 30px;
+  font-weight: 300;
+  width: 100%;
+  display: inline-block;
 }
 
 .formGroup.content {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .newContainer form button {
