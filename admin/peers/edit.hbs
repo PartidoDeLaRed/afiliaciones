@@ -1,9 +1,10 @@
 <div class="admin">
   <div class="heading">
-    <h2>Nuevo Afiliado</h2>
+    <h2>Editar Afiliado</h2>
   </div>
   <div class="newContainer">
     <form action="/admin/peers" method="post">
+      <input type="hidden" name="_method" value="put" />
       {{> peers/form}}
     </form>
   </div>

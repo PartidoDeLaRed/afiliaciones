@@ -2,14 +2,13 @@ var form = require('express-form')
 var field = form.field
 
 module.exports = form(
-  field('nombre').trim().is(/^[a-z]+$/),
-  field('apellido').trim().is(/^[0-9]+$/)
- )
+  field('nombre').trim().is(/^[a-zA-Z]+$/),
+  field('apellido'),
+  field('matricula.numero')
+)
 
 /*
 {
-    nombre: req.body.nombre,
-    apellido: req.body.apellido,
     matricula: {
       tipo: req.body.matricula_tipo,
       numero: req.body.matricula_numero

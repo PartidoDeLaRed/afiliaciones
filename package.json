@@ -29,6 +29,7 @@
     "express": "^4.13.3",
     "express-form": "^0.12.4",
     "express-handlebars": "^2.0.1",
+    "handlebars": "^4.0.5",
     "jquery": "^2.1.4",
     "method-override": "^2.3.5",
     "mkdirp": "^0.5.1",
