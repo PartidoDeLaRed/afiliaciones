@@ -41,7 +41,7 @@
   </div>
   <div class="formGroup header">Domicilio efectivo de la persona</div>
   <div class="formGroup content">
-    <div class="inputWrapper almostHalf"><input type="text" name="domicilioDoc_calle" placeholder="Calle" value="{{peer.domicilioReal.calle}}" /></div>
+    <div class="inputWrapper almostHalf"><input type="text" name="domicilioReal_calle" placeholder="Calle" value="{{peer.domicilioReal.calle}}" /></div>
     <div class="inputWrapper fifth"><input type="text" name="domicilioReal_numero" placeholder="Numero" value="{{peer.domicilioReal.numero}}" /></div>
     <div class="inputWrapper fifth"><input type="text" name="domicilioReal_piso" placeholder="Piso" value="{{peer.domicilioReal.piso}}" /></div>
     <div class="inputWrapper fifth"><input type="text" name="domicilioReal_depto" placeholder="Departamento" value="{{peer.domicilioReal.depto}}" /></div>
@@ -52,7 +52,7 @@
   </div>
 
 {{#if peer.isNew}}
-  <button type="submit">Editar</button>
+  <button type="submit">Agregar</button>
 {{else}}
-<button type="submit">Agregar</button>
+<button type="submit">Editar</button>
 {{/if}}

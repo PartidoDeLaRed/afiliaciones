@@ -5,7 +5,6 @@ var peerForm = require('./form')
 var app = express.Router()
 
 app.param('id', function (req, res, next, id) {
-  
   Peer.findOne({'_id': id}).exec(function (err, peer) {
     if (err) return res.status(500).send()
     req.peer = peer;
@@ -23,7 +22,25 @@ app.get('/admin/peers', function (req, res) {
 })
 
 app.get('/admin/peers/new', function (req, res) {
-  res.render('peers/new')
+  res.render('peers/new', {
+    helpers: {
+      formSelectTipoMatricula: function () {
+        return '<option value="DNI">DNI</option>' +
+        '<option value="LE">LE</option>' +
+        '<option value="LI">LI</option>'
+      },
+      formSelectSexo: function () {
+        return '<option value="F">Femenino</option>' + 
+        '<option value="M">Masculino</option>';
+      },
+      formSelectEstadoCivil: function () {
+        return '<option value="soltero">Soltero/a</option>' +
+        '<option value="casado">Casado/a</option>' +
+        '<option value="divorciado">Divorciado/a</option>' +
+        '<option value="viudo">Viudo/a</option>'
+      }
+    }
+  })
 })
 
 app.get('/admin/peers/:id/edit', function (req, res) {
@@ -49,8 +66,14 @@ app.get('/admin/peers/:id/edit', function (req, res) {
   });
 })
 
+app.get('/admin/peers/:id/delete', function (req, res) {
+  Peer.findOne({ '_id' : req.params.id }).remove( function (err, offer) {
+    res.redirect('/admin/peers');
+  });
+})
+
 app.post('/admin/peers', peerForm, function (req, res) {
-  Peer.create(peerForm, function (err, peer) {
+  Peer.create(req.form, function (err, peer) {
     if (err) return res.status(500).send(err)
     res.redirect('/admin/peers')
   })
