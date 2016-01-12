@@ -3,9 +3,9 @@
     <h2>Editar Afiliado</h2>
   </div>
   <div class="newContainer">
-    <form action="/admin/peers" method="post">
+    <form action="/admin/peers/{{peer.id}}" method="post">
       <input type="hidden" name="_method" value="put" />
-      {{> peers/form}}
+      {{> peers/form/index }}
     </form>
   </div>
 </div>

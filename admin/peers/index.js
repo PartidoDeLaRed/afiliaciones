@@ -7,10 +7,10 @@ var app = express.Router()
 app.param('id', function (req, res, next, id) {
   Peer.findOne({'_id': id}).exec(function (err, peer) {
     if (err) return res.status(500).send()
-    req.peer = peer;
-    next();
+    req.peer = peer
+    next()
   })
-});
+})
 
 app.get('/admin/peers', function (req, res) {
   Peer.find().exec(function (err, peers) {
@@ -30,8 +30,8 @@ app.get('/admin/peers/new', function (req, res) {
         '<option value="LI">LI</option>'
       },
       formSelectSexo: function () {
-        return '<option value="F">Femenino</option>' + 
-        '<option value="M">Masculino</option>';
+        return '<option value="F">Femenino</option>' +
+        '<option value="M">Masculino</option>'
       },
       formSelectEstadoCivil: function () {
         return '<option value="soltero">Soltero/a</option>' +
@@ -45,7 +45,7 @@ app.get('/admin/peers/new', function (req, res) {
 
 app.get('/admin/peers/:id/edit', function (req, res) {
   res.render('peers/edit', {
-    peer: req.peer, 
+    peer: req.peer,
     helpers: {
       formSelectTipoMatricula: function () {
         return '<option value="DNI" ' + ((req.peer.matricula.tipo == 'DNI')?'selected':'') + '>DNI</option>' +
@@ -53,8 +53,8 @@ app.get('/admin/peers/:id/edit', function (req, res) {
         '<option value="LI" ' + ((req.peer.matricula.tipo == 'LI')?'selected':'') + '>LI</option>'
       },
       formSelectSexo: function () {
-        return '<option value="F" ' + ((req.peer.sexo === 'F')?'selected':'') + '>Femenino</option>' + 
-        '<option value="M" ' + ((req.peer.sexo === 'M')?'selected':'') + '>Masculino</option>';
+        return '<option value="F" ' + ((req.peer.sexo === 'F')?'selected':'') + '>Femenino</option>' +
+        '<option value="M" ' + ((req.peer.sexo === 'M')?'selected':'') + '>Masculino</option>'
       },
       formSelectEstadoCivil: function () {
         return '<option value="soltero" ' + ((req.peer.estadoCivil == 'soltero')?'selected':'') + '>Soltero/a</option>' +
@@ -63,16 +63,18 @@ app.get('/admin/peers/:id/edit', function (req, res) {
         '<option value="viudo" ' + ((req.peer.estadoCivil == 'viudo')?'selected':'') + '>Viudo/a</option>'
       }
     }
-  });
+  })
 })
 
 app.get('/admin/peers/:id/delete', function (req, res) {
-  Peer.findOne({ '_id' : req.params.id }).remove( function (err, offer) {
-    res.redirect('/admin/peers');
-  });
+  req.peer.remove( function (err, offer) {
+    if (err) return res.status(500).send(err)
+    res.redirect('/admin/peers')
+  })
 })
 
 app.post('/admin/peers', peerForm, function (req, res) {
+  if (!req.form.isValid) return res.status(500).send(req.form.errors)
   Peer.create(req.form, function (err, peer) {
     if (err) return res.status(500).send(err)
     res.redirect('/admin/peers')
@@ -80,6 +82,7 @@ app.post('/admin/peers', peerForm, function (req, res) {
 })
 
 app.put('/admin/peers/:id', peerForm, function (req, res) {
+  if (!req.form.isValid) return res.status(500).send(req.form.errors)
   req.peer.set(req.form).save(function () {
     res.redirect('/admin/peers')
   })

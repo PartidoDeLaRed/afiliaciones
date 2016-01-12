@@ -3,5 +3,5 @@ var app = require('./lib')
 
 app.start(config.port, function () {
   console.log(' · Afiliaciones · ')
-  console.log(` · ${config.port} · `)
+  console.log(' · ' + config.port + ' · ')
 })
