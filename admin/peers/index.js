@@ -1,8 +1,15 @@
 var express = require('express')
+var bodyParser = require('body-parser')
 var Peer = require('../../lib/models').Peer
 var peerForm = require('./form')
 
 var app = express.Router()
+
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+
+app.use(bodyParser.json());
 
 app.param('id', function (req, res, next, id) {
   Peer.findOne({'_id': id}).exec(function (err, peer) {
@@ -23,6 +30,7 @@ app.get('/admin/peers', function (req, res) {
 
 app.get('/admin/peers/new', function (req, res) {
   res.render('peers/new', {
+    peer: new Peer(),
     helpers: {
       formSelectTipoMatricula: function () {
         return '<option value="DNI">DNI</option>' +
@@ -74,16 +82,14 @@ app.get('/admin/peers/:id/delete', function (req, res) {
 })
 
 app.post('/admin/peers', peerForm, function (req, res) {
-  if (!req.form.isValid) return res.status(500).send(req.form.errors)
-  Peer.create(req.form, function (err, peer) {
+  Peer.create(req.peer, function (err, peer) {
     if (err) return res.status(500).send(err)
     res.redirect('/admin/peers')
   })
 })
 
 app.put('/admin/peers/:id', peerForm, function (req, res) {
-  if (!req.form.isValid) return res.status(500).send(req.form.errors)
-  req.peer.set(req.form).save(function () {
+  req.peer.save(function () {
     res.redirect('/admin/peers')
   })
 })

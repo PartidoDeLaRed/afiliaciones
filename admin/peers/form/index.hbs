@@ -9,9 +9,9 @@
     
   </div>
   <div class="inputWrapper third"><input type="text" name="matricula_numero" placeholder="Nro. Doc." value="{{peer.matricula.numero}}"/></div>
-  <div class="inputWrapper third"><input type="date" name="fechaNacimiento" placeholder="Fecha de Nacimiento" value="{{peer.fechaNacimiento}}"/></div>
+  <div class="inputWrapper third"><input type="date" name="fechaDeNacimiento" placeholder="Fecha de Nacimiento" value="{{peer.fechaDeNacimiento}}"/></div>
 
-  <div class="inputWrapper almostHalf"><input type="text" name="lugarNacimiento" placeholder="Lugar de Nacimiento"></div>
+  <div class="inputWrapper almostHalf"><input type="text" name="lugarDeNacimiento" placeholder="Lugar de Nacimiento" value="{{peer.lugarDeNacimiento}}"></div>
   <div class="inputWrapper almostThird">
     <select name="sexo" placeholder="Sexo">
       {{{formSelectSexo}}}
@@ -30,14 +30,14 @@
 
   <div class="formGroup header">Domicilio del Documento</div>
   <div class="formGroup content">
-    <div class="inputWrapper almostHalf"><input type="text" name="domicilioDoc_calle" placeholder="Calle" value="{{peer.domicilio.calle}}"/></div>
-    <div class="inputWrapper fifth"><input type="text" name="domicilioDoc_numero" placeholder="Numero" value="{{peer.domicilio.numero}}"/></div>
-    <div class="inputWrapper fifth"><input type="text" name="domicilioDoc_piso" placeholder="Piso" value="{{peer.domicilio.piso}}"/></div>
-    <div class="inputWrapper fifth"><input type="text" name="domicilioDoc_depto" placeholder="Departamento" value="{{peer.domicilio.depto}}"/></div>
+    <div class="inputWrapper almostHalf"><input type="text" name="domicilio_calle" placeholder="Calle" value="{{peer.domicilio.calle}}"/></div>
+    <div class="inputWrapper fifth"><input type="text" name="domicilio_numero" placeholder="Numero" value="{{peer.domicilio.numero}}"/></div>
+    <div class="inputWrapper fifth"><input type="text" name="domicilio_piso" placeholder="Piso" value="{{peer.domicilio.piso}}"/></div>
+    <div class="inputWrapper fifth"><input type="text" name="domicilio_depto" placeholder="Departamento" value="{{peer.domicilio.depto}}"/></div>
 
-    <div class="inputWrapper fifth"><input type="text" name="domicilioDoc_codPostal" placeholder="Codigo Postal" value="{{peer.domicilio.codPostal}}"/></div>
-    <div class="inputWrapper almostHalf"><input type="text" name="domicilioDoc_localidad" placeholder="Localidad" value="{{peer.domicilio.localidad}}"/></div>
-    <div class="inputWrapper almostHalf"><input type="text" name="domicilioDoc_provincia" placeholder="Provincia" value="{{peer.domicilio.provincia}}"/></div>
+    <div class="inputWrapper fifth"><input type="text" name="domicilio_codPostal" placeholder="Codigo Postal" value="{{peer.domicilio.codPostal}}"/></div>
+    <div class="inputWrapper almostHalf"><input type="text" name="domicilio_localidad" placeholder="Localidad" value="{{peer.domicilio.localidad}}"/></div>
+    <div class="inputWrapper almostHalf"><input type="text" name="domicilio_provincia" placeholder="Provincia" value="{{peer.domicilio.provincia}}"/></div>
   </div>
   <div class="formGroup header">Domicilio efectivo de la persona</div>
   <div class="formGroup content">
