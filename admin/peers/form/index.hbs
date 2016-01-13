@@ -51,8 +51,4 @@
     <div class="inputWrapper almostHalf"><input type="text" name="domicilioReal_provincia" placeholder="Provincia" value="{{peer.domicilioReal.provincia}}" /></div>
   </div>
 
-{{#if peer.isNew}}
-  <button type="submit">Agregar</button>
-{{else}}
-<button type="submit">Editar</button>
-{{/if}}
+  <button type="submit" onclick="SaveData()">{{#if peer.isNew}}Agregar{{else}}Editar{{/if}}</button>

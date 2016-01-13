@@ -84,13 +84,13 @@ app.get('/admin/peers/:id/delete', function (req, res) {
 app.post('/admin/peers', peerForm, function (req, res) {
   Peer.create(req.peer, function (err, peer) {
     if (err) return res.status(500).send(err)
-    res.redirect('/admin/peers')
+    res.send('ok');
   })
 })
 
 app.put('/admin/peers/:id', peerForm, function (req, res) {
   req.peer.save(function () {
-    res.redirect('/admin/peers')
+    res.send('ok');
   })
 })
 

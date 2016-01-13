@@ -1,8 +1,30 @@
 var $ = require('jquery')
+var toObject = require('form-to-object')
+
+$.put = function (url, data, callback, type) {
+  
+  if ($.isFunction(data)) {
+    type = type || callback,
+    callback = data,
+    data = {}
+  }
+  
+  return $.ajax({
+    url: url,
+    type: 'PUT',
+    success: callback,
+    data: data,
+    contentType: type
+  });
+}
+
 
 $(document).ready(function () {
-  // loadPeers()
-  loadSearchBoxes()
+  loadSearchBoxes();
+
+  $("button").click(function () {
+    SaveData();
+  });
 })
 
 function loadSearchBoxes() {
@@ -30,4 +52,20 @@ function loadSearchBoxes() {
     $(item).append(searchContainer)
     searchContainer.fadeOut(100)
   })
+}
+
+function SaveData()
+{
+  var form = toObject(document.querySelector('form'))
+
+  if (form._id) {
+    $.put('/admin/peers/' + form._id, form, function (res) {
+      window.location = '/admin/peers';
+    })
+  }
+  else {
+    $.post('/admin/peers/', form, function (res) {
+      window.location = '/admin/peers';
+    })
+  }
 }
