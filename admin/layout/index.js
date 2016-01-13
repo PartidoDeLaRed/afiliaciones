@@ -22,8 +22,11 @@ $.put = function (url, data, callback, type) {
 $(document).ready(function () {
   loadSearchBoxes();
 
-  $("button").click(function () {
+  $("#peerForm").on('submit', function (ev) {
+    ev.preventDefault();
+    ev.stopImmediatePropagation();
     SaveData();
+    return false;
   });
 })
 
@@ -33,7 +36,7 @@ function loadSearchBoxes() {
 
     var searchButton = $('<div class="button search" />')
     
-    var searchContainer = $('<div class="searchContainer" />')
+    var searchContainer = $('<div class="searchContainer" />').css('display', 'none');
     var searchField = $('<input type="text" class="searchField" />')
     searchContainer.append(searchField)
     searchContainer.append($('<div class="button cancel" />').click(function () {
@@ -50,7 +53,6 @@ function loadSearchBoxes() {
     
     $(item).append(searchButton)
     $(item).append(searchContainer)
-    searchContainer.fadeOut(100)
   })
 }
 
@@ -59,13 +61,21 @@ function SaveData()
   var form = toObject(document.querySelector('form'))
 
   if (form._id) {
-    $.put('/admin/peers/' + form._id, form, function (res) {
+    $.put('/admin/peers/' + form._id, form)
+    .done(function () {
       window.location = '/admin/peers';
     })
+    .fail(function (res) {
+      alert(res);
+    });
   }
   else {
-    $.post('/admin/peers/', form, function (res) {
+    $.post('/admin/peers/', form)
+    .done(function () {
       window.location = '/admin/peers';
     })
+    .fail(function (res) {
+      alert(res);
+    });
   }
 }

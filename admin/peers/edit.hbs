@@ -3,7 +3,7 @@
     <h2>Editar Afiliado</h2>
   </div>
   <div class="newContainer">
-    <form onsubmit="SaveData(); return false;">
+    <form id="peerForm">
       <input type="hidden" name="_id" value="{{peer.id}}" />
       {{> peers/form/index }}
     </form>
