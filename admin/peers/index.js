@@ -89,7 +89,8 @@ app.post('/admin/peers', peerForm, function (req, res) {
 })
 
 app.put('/admin/peers/:id', peerForm, function (req, res) {
-  req.peer.save(function () {
+  req.peer.save(function (err) {
+    if (err) return res.status(500).send(err)
     res.send('ok');
   })
 })
