@@ -21,6 +21,18 @@ $.put = function (url, data, callback, type) {
 
 $(document).ready(function () {
   loadSearchBoxes();
+  
+  $('.button.delete').click(function (e) {
+    var el = $(this).parents('.peerContainer');
+    var id = $(el).attr('data-id');
+    var nombre = $(el).find('.peerNombre').html();
+    
+    ShowDialog('Eliminación de Afiliado', '¿Realmente desea eliminar al afiliado '+nombre+'?', function () {
+      $.get('/admin/peers/'+id+'/delete')
+      .done(function () { window.location = '/admin/peers'; })
+      .fail(function (res) {  });
+    });
+  });
 
   $("#peerForm").on('submit', function (ev) {
     ev.preventDefault();
@@ -33,24 +45,25 @@ $(document).ready(function () {
 function loadSearchBoxes() {
   $('.listHeader:not(.actions, .state)').each(function (index, item) {
     $(item).children().remove();
-
+    
     var searchButton = $('<div class="button search" />')
     
     var searchContainer = $('<div class="searchContainer" />').css('display', 'none');
     var searchField = $('<input type="text" class="searchField" />')
-    searchContainer.append(searchField.keypress(function (event) {
+    searchContainer.append(searchField.keyup(function (event) {
       //Si borro todo, muestro todos
-      if (this.value === null) {
-        $('peerContainer').slideDown('100');
+      var val = this.value;
+      if (val === null) {
+        $('peerContainer').slideDown('50');
       }
       //Sino, muestro solo los que coincidan con la busqueda
       else {
-        var field = $(this).parent('.listHeader').attr('data-field');
-        $('peerContainer').each(function (index, item){
-          if ($(item).find('.peer' + field).html().toLowerCase().indexOf($(event.target).value.toLowerCase()) >= 0)
-            $(item).slideDown('100');
+        var field = $(this).parents('.listHeader').attr('data-field');
+        $('.peerContainer').each(function (index, item) {
+          if ($(item).find('.peer' + field).html().toLowerCase().indexOf(val.toLowerCase()) >= 0)
+            $(item).slideDown('50');
           else
-            $(item).slideUp('100');
+            $(item).slideUp('50');
         })
       }
     })
@@ -100,4 +113,9 @@ function showErrors(err)
     })
   });
   $('.errorList').slideDown('50');
+}
+
+function ShowDialog(title, message, cb)
+{
+  var 
 }
