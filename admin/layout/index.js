@@ -38,10 +38,27 @@ function loadSearchBoxes() {
     
     var searchContainer = $('<div class="searchContainer" />').css('display', 'none');
     var searchField = $('<input type="text" class="searchField" />')
-    searchContainer.append(searchField)
+    searchContainer.append(searchField.keypress(function (event) {
+      //Si borro todo, muestro todos
+      if (this.value === null) {
+        $('peerContainer').slideDown('100');
+      }
+      //Sino, muestro solo los que coincidan con la busqueda
+      else {
+        var field = $(this).parent('.listHeader').attr('data-field');
+        $('peerContainer').each(function (index, item){
+          if ($(item).find('.peer' + field).html().toLowerCase().indexOf($(event.target).value.toLowerCase()) >= 0)
+            $(item).slideDown('100');
+          else
+            $(item).slideUp('100');
+        })
+      }
+    })
+    );
     searchContainer.append($('<div class="button cancel" />').click(function () {
       searchButton.fadeIn(100)
       searchContainer.fadeOut(100)
+      $('peerContainer').slideDown('100');
     }))
     
     searchButton.click(function () {
@@ -56,26 +73,31 @@ function loadSearchBoxes() {
   })
 }
 
-function SaveData()
-{
-  var form = toObject(document.querySelector('form'))
+function SaveData() {
+  $('.errorList').slideUp('50', function () {
+    $('.errorList').html('')
+    
+    var form = toObject(document.querySelector('form'))
+    
+    if (form._id) {
+      $.put('/admin/peers/' + form._id, form)
+    .done(function () { window.location = '/admin/peers'; })
+    .fail(function (res) { showErrors($.parseJSON(res.responseText)); });
+    }
+    else {
+      $.post('/admin/peers/', form)
+    .done(function () { window.location = '/admin/peers'; })
+    .fail(function (res) { showErrors($.parseJSON(res.responseText)); });
+    }
+  });
+}
 
-  if (form._id) {
-    $.put('/admin/peers/' + form._id, form)
-    .done(function () {
-      window.location = '/admin/peers';
+function showErrors(err)
+{
+  $(err.errors).each(function (index, error) {
+    $(Object.keys(error)).each(function (index, item) {
+      $('.errorList').append($('<div class="errorItem" />').html(error[item].message));
     })
-    .fail(function (res) {
-      alert(res);
-    });
-  }
-  else {
-    $.post('/admin/peers/', form)
-    .done(function () {
-      window.location = '/admin/peers';
-    })
-    .fail(function (res) {
-      alert(res);
-    });
-  }
+  });
+  $('.errorList').slideDown('50');
 }
