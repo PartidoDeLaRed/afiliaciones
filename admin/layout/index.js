@@ -22,12 +22,15 @@ $.put = function (url, data, callback, type) {
 $(document).ready(function () {
   loadSearchBoxes();
   
-  $('.button.delete').click(function (e) {
+  $('.button.delete').click(function (ev) {
+    ev.preventDefault();
+    ev.stopImmediatePropagation();
+    
     var el = $(this).parents('.peerContainer');
     var id = $(el).attr('data-id');
     var nombre = $(el).find('.peerNombre').html();
     
-    ShowDialog('Eliminación de Afiliado', '¿Realmente desea eliminar al afiliado '+nombre+'?', function () {
+    ShowDialog('Eliminación de Afiliado', '¿Realmente desea eliminar al afiliado <b>'+nombre+'</b>?', function () {
       $.get('/admin/peers/'+id+'/delete')
       .done(function () { window.location = '/admin/peers'; })
       .fail(function (res) {  });
@@ -117,5 +120,23 @@ function showErrors(err)
 
 function ShowDialog(title, message, cb)
 {
-  var 
+  var wrapper = $('<div class="wrapper fullSize"/>').css('display','none');
+  var container = $('<div class="dialogContainer centered"/>');
+  var titleContainer = $('<div class="dialogTitle"/>').html(title);
+  var messageContainer = $('<div class="dialogMessage"/>').html(message);
+  var buttonsContainer = $('<div class="dialogFooter"/>');
+  var buttonAccept = $('<div class="dialogButton accept"/>').html('Aceptar').click(function () {
+    cb();
+    wrapper.fadeOut('200ms', function () {
+      wrapper.remove();
+    });
+  });
+  var buttonCancel = $('<div class="dialogButton cancel"/>').html('Cancelar').click(function () {
+    wrapper.fadeOut('200ms', function () {
+      wrapper.remove();
+    });
+  });
+
+  $('body').append(wrapper.append(container.append(titleContainer).append(messageContainer).append(buttonsContainer.append(buttonAccept).append(buttonCancel))));
+  wrapper.fadeIn('200ms');
 }
