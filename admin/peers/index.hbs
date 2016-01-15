@@ -16,20 +16,24 @@
       Acciones
     </div></div>
   <div class="peersList">
-    {{#each peers}}
-    <div class="peerContainer" data-id="{{id}}">
-      <div class="peerEstado ok">
-      </div><div class="peerNombre">
-        {{nombre}} {{apellido}}
-      </div><div class="peerMatricula">
-        {{matricula.numero}}
-      </div><div class="peerEmail">
-        {{email}}
-      </div><div class="actionsContainer">
-        <a class="button delete" href="#">
-        </a><a class="button edit" href="/admin/peers/{{id}}/edit"></a>
+    {{#if peers.length > 0}}
+      {{#each peers}}
+      <div class="peerContainer" data-id="{{id}}">
+        <div class="peerEstado ok">
+        </div><div class="peerNombre">
+          {{nombre}} {{apellido}}
+        </div><div class="peerMatricula">
+          {{matricula.numero}}
+        </div><div class="peerEmail">
+          {{email}}
+        </div><div class="actionsContainer">
+          <a class="button delete" href="#">
+          </a><a class="button edit" href="/admin/peers/{{id}}/edit"></a>
+        </div>
       </div>
-    </div>
-    {{/each}}
+      {{/each}}
+    {{else}}
+      <div class="noItems">No hay afiliados</div>
+    {{/if}}
   </div>
 </div>

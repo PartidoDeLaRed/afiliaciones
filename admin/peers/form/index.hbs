@@ -1,32 +1,30 @@
 ﻿<div class="inputWrapper half big"><input type="text" name="nombre" placeholder="Nombre" required autofocus value="{{peer.nombre}}"/></div>
   <div class="inputWrapper half big"><input type="text" name="apellido" placeholder="Apellido" required value="{{peer.apellido}}"/></div>
 
-  <div class="inputWrapper third">
+  <div class="inputWrapper quarter">
     <select name="matricula_tipo" placeholder="Tipo de Doc.">
       {{{formSelectTipoMatricula}}}
     </select>
-
-    
   </div>
-  <div class="inputWrapper third"><input type="text" name="matricula_numero" placeholder="Nro. Doc." value="{{peer.matricula.numero}}"/></div>
-  <div class="inputWrapper third"><input type="date" name="fechaDeNacimiento" placeholder="Fecha de Nacimiento" value="{{peer.fechaDeNacimiento}}"/></div>
-
-  <div class="inputWrapper almostHalf"><input type="text" name="lugarDeNacimiento" placeholder="Lugar de Nacimiento" value="{{peer.lugarDeNacimiento}}"></div>
-  <div class="inputWrapper almostThird">
+  <div class="inputWrapper quarter"><input type="text" name="matricula_numero" placeholder="Nro. Doc." value="{{peer.matricula.numero}}"/></div>
+  <div class="inputWrapper quarter">
     <select name="sexo" placeholder="Sexo">
       {{{formSelectSexo}}}
-      
+
     </select>
   </div>
-  <div class="inputWrapper almostThird">
+  <div class="inputWrapper quarter">
     <select name="estadoCivil" placeholder="Estado Civil">
       {{{formSelectEstadoCivil}}}
     </select>
   </div>
 
-  <div class="inputWrapper third"><input type="email" name="email" placeholder="Email" required value="{{peer.email}}"/></div>
-  <div class="inputWrapper third"><input type="text" name="telefono" placeholder="Telefono" value="{{peer.telefono}}"/></div>
-  <div class="inputWrapper third"><input type="text" name="profesion" placeholder="Profesion" value="{{peer.profesion}}"/></div>
+  <div class="inputWrapper quarter"><input type="date" name="fechaDeNacimiento" placeholder="Fecha de Nacimiento" value="{{peer.fechaDeNacimiento}}"/></div>
+  <div class="inputWrapper half"><input type="text" name="lugarDeNacimiento" placeholder="Lugar de Nacimiento" value="{{peer.lugarDeNacimiento}}"></div>
+  <div class="inputWrapper quarter"><input type="text" name="telefono" placeholder="Telefono" value="{{peer.telefono}}" /></div>
+
+  <div class="inputWrapper half"><input type="email" name="email" placeholder="Email" required value="{{peer.email}}"/></div>
+  <div class="inputWrapper half"><input type="text" name="profesion" placeholder="Profesion" value="{{peer.profesion}}"/></div>
 
   <div class="formGroup header">Domicilio del Documento</div>
   <div class="formGroup content">
@@ -39,8 +37,22 @@
     <div class="inputWrapper almostHalf"><input type="text" name="domicilio_localidad" placeholder="Localidad" value="{{peer.domicilio.localidad}}"/></div>
     <div class="inputWrapper almostHalf"><input type="text" name="domicilio_provincia" placeholder="Provincia" value="{{peer.domicilio.provincia}}"/></div>
   </div>
-  <div class="formGroup header">Domicilio efectivo de la persona</div>
-  <div class="formGroup content">
+  <div class="formGroup header">Domicilio efectivo de la persona
+    <label><input type="checkbox" id="mismoDomicilioDocumento" name="mismoDomicilioDocumento" {{#if peer.mismoDomicilioDocumento}} checked{{/if}} value="check" />Mismo que el del documento</label>
+  </div>
+  {{#if peer.mismoDomicilioDocumento}}
+  <div id="sectionDomicilioReal" class="formGroup content" style="display: none;">
+    <div class="inputWrapper almostHalf"><input type="text" name="domicilioReal_calle" placeholder="Calle" value="{{peer.domicilio.calle}}" /></div>
+    <div class="inputWrapper fifth"><input type="text" name="domicilioReal_numero" placeholder="Numero" value="{{peer.domicilio.numero}}" /></div>
+    <div class="inputWrapper fifth"><input type="text" name="domicilioReal_piso" placeholder="Piso" value="{{peer.domicilio.piso}}" /></div>
+    <div class="inputWrapper fifth"><input type="text" name="domicilioReal_depto" placeholder="Departamento" value="{{peer.domicilio.depto}}" /></div>
+
+    <div class="inputWrapper fifth"><input type="text" name="domicilioReal_codPostal" placeholder="Codigo Postal" value="{{peer.domicilio.codPostal}}" /></div>
+    <div class="inputWrapper almostHalf"><input type="text" name="domicilioReal_localidad" placeholder="Localidad" value="{{peer.domicilio.localidad}}" /></div>
+    <div class="inputWrapper almostHalf"><input type="text" name="domicilioReal_provincia" placeholder="Provincia" value="{{peer.domicilio.provincia}}" /></div>
+  </div>
+  {{else}}
+  <div id="sectionDomicilioReal" class="formGroup content">
     <div class="inputWrapper almostHalf"><input type="text" name="domicilioReal_calle" placeholder="Calle" value="{{peer.domicilioReal.calle}}" /></div>
     <div class="inputWrapper fifth"><input type="text" name="domicilioReal_numero" placeholder="Numero" value="{{peer.domicilioReal.numero}}" /></div>
     <div class="inputWrapper fifth"><input type="text" name="domicilioReal_piso" placeholder="Piso" value="{{peer.domicilioReal.piso}}" /></div>
@@ -50,8 +62,9 @@
     <div class="inputWrapper almostHalf"><input type="text" name="domicilioReal_localidad" placeholder="Localidad" value="{{peer.domicilioReal.localidad}}" /></div>
     <div class="inputWrapper almostHalf"><input type="text" name="domicilioReal_provincia" placeholder="Provincia" value="{{peer.domicilioReal.provincia}}" /></div>
   </div>
+  {{/if}}
 
-  <div class="inputWrapper"><input type="checkbox" name="tieneFirmas" {{#if peer.tieneFirmas}}checked{{/if}} value="check" />Tiene las firmas en las fichas de afiliación</div>
+  <div class="inputWrapper checkbox"><label><input type="checkbox" name="tieneFirmas" {{#if peer.tieneFirmas}}checked{{/if}} value="check" />Tiene las firmas en las fichas de afiliación</label></div>
 
   <div class="errorList">
 

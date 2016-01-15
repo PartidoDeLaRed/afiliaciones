@@ -17,23 +17,28 @@ module.exports = function (req, res, next) {
     telefono: req.body.telefono,
     profesion: req.body.profesion,
     tieneFirmas: req.body.tieneFirmas === 'check' ? true : false,
+    mismoDomicilioDocumento: req.body.mismoDomicilioDocumento === 'check' ? true : false,
     domicilio: {
       calle: req.body.domicilio_calle,
       numero: req.body.domicilio_numero,
       piso: req.body.domicilio_piso,
       depto: req.body.domicilio_depto,
+      codPostal: req.body.domicilio_codPostal,
       localidad: req.body.domicilio_localidad,
       provincia: req.body.domicilio_provincia
-    },
-    domicilioReal: {
+    }
+  };
+  if (req.body.mismoDomicilioDocumento !== 'check') {
+    data.domicilioReal = {
       calle: req.body.domicilioReal_calle,
       numero: req.body.domicilioReal_numero,
       piso: req.body.domicilioReal_piso,
       depto: req.body.domicilioReal_depto,
+      codPostal: req.body.domicilioReal_codPostal,
       localidad: req.body.domicilioReal_localidad,
       provincia: req.body.domicilioReal_provincia
-    }
-  };
+    };
+  }
 
   if (!req.peer)
     req.peer = new Peer(data);

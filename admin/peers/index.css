@@ -236,7 +236,26 @@
     width: 20%;
   }
 
+  .newContainer .inputWrapper.checkbox {
+    padding: 20px;
+    float: none;
+    text-align: left;
+  }
+  .newContainer label {
+    color: #fff;
+    font-size: 22px;
+    padding: 0;
+    font-weight: 400;
+  }
 
+input[type=checkbox] {
+    position: relative !important;
+    width: 30px;
+    height: 30px;
+    vertical-align: bottom;
+    margin-right: 10px;
+}
+  
 .newContainer select {
   padding: 10px;
   margin: 0;
@@ -261,12 +280,22 @@
   color: #eee;
 }
 .formGroup.header {
-  margin: 30px 0 0 0;
+  margin: 30px 0 0;
   font-size: 30px;
   font-weight: 300;
   width: 100%;
   display: inline-block;
+  text-align: left;
+  padding: 10px 20px 0 20px;
 }
+
+  .formGroup.header input[type=checkbox] {
+    width: 25px;
+    height: 25px;
+  }
+  .formGroup.header label {
+    font-size: 20px;
+  }
 
 .formGroup.content {
   overflow: hidden;

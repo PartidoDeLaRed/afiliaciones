@@ -43,6 +43,14 @@ $(document).ready(function () {
     SaveData();
     return false;
   });
+
+  $("#mismoDomicilioDocumento").on('change', function (ev) {
+    if (this.checked)
+      $('#sectionDomicilioReal').slideUp('100');
+    else
+      $('#sectionDomicilioReal').slideDown('100');
+  });
+
 })
 
 function loadSearchBoxes() {
