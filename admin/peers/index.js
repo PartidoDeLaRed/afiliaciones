@@ -51,6 +51,11 @@ app.get('/admin/peers/new', function (req, res) {
   })
 })
 
+app.get('/admin/peers/:id', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify(req.peer));
+})
+
 app.get('/admin/peers/:id/edit', function (req, res) {
   res.render('peers/edit', {
     peer: req.peer,

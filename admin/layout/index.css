@@ -118,11 +118,26 @@ header .title{
   box-shadow: 0 2px 30px rgba(0,0,0,.2);
 }
 
+  .dialogContainer .inputWrapper {
+    display: block;
+    float: none;
+    position: relative;
+  }
+  .dialogContainer .mapImage {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 270px;
+    height: 270px;
+    border: 1px solid #ccc;
+  }
+
 .dialogTitle {
   padding: 10px;
   background: rgb(7, 38, 44);
   color: #fff;
   font-size: 15px;
+  text-align: center;
 }
 
 .dialogMessage {
@@ -130,6 +145,7 @@ header .title{
   background: #eee;
   color: #222;
   font-size: 15px;
+  position: relative;
 }
 
 .dialogFooter {
@@ -162,6 +178,22 @@ header .title{
 
 .dialogButton:hover {
   background-color: #97A7AB;
+}
+
+.infoLabel{
+  font-weight: 600;
+  width: 115px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.infoContent{
+  font-weight: 400;
+  display: inline-block;
+  position: relative;
+  right: 0;
+  white-space: normal;
+  overflow: hidden;
 }
 
 @import 'admin/login/index.css';
