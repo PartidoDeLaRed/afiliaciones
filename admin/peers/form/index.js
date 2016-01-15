@@ -16,6 +16,7 @@ module.exports = function (req, res, next) {
     fechaDeNacimiento: req.body.fechaDeNacimiento,
     telefono: req.body.telefono,
     profesion: req.body.profesion,
+    tieneFirmas: req.body.tieneFirmas === 'check' ? true : false,
     domicilio: {
       calle: req.body.domicilio_calle,
       numero: req.body.domicilio_numero,
