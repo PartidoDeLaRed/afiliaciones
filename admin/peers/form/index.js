@@ -17,6 +17,7 @@ module.exports = function (req, res, next) {
     telefono: req.body.telefono,
     profesion: req.body.profesion,
     tieneFirmas: req.body.tieneFirmas === 'check' ? true : false,
+    noAfiliadoOtroPartido: req.body.noAfiliadoOtroPartido === 'check' ? true : false,
     mismoDomicilioDocumento: req.body.mismoDomicilioDocumento === 'check' ? true : false,
     domicilio: {
       calle: req.body.domicilio_calle,
@@ -26,7 +27,8 @@ module.exports = function (req, res, next) {
       codPostal: req.body.domicilio_codPostal,
       localidad: req.body.domicilio_localidad,
       provincia: req.body.domicilio_provincia
-    }
+    },
+    borrado: false
   };
   if (req.body.mismoDomicilioDocumento !== 'check') {
     data.domicilioReal = {

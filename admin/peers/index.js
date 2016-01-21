@@ -20,7 +20,7 @@ app.param('id', function (req, res, next, id) {
 })
 
 app.get('/admin/peers', function (req, res) {
-  Peer.find().exec(function (err, peers) {
+  Peer.find({'borrado': false}).exec(function (err, peers) {
     if (err) return res.status(500).send()
     res.render('peers', {
       peers: peers
@@ -80,10 +80,15 @@ app.get('/admin/peers/:id/edit', function (req, res) {
 })
 
 app.get('/admin/peers/:id/delete', function (req, res) {
-  req.peer.remove( function (err, offer) {
+  req.peer.borrado = true;
+  req.peer.save(function (err) {
     if (err) return res.status(500).send(err)
     res.redirect('/admin/peers')
   })
+  //req.peer.remove( function (err, offer) {
+  //  if (err) return res.status(500).send(err)
+  //  res.redirect('/admin/peers')
+  //})
 })
 
 app.post('/admin/peers', peerForm, function (req, res) {
