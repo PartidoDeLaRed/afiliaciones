@@ -1,6 +1,6 @@
 <div class="admin">
   <div class="heading">
-    <h2>Afiliaciones ({{peers.length}})</h2>
+    <h2>Afiliaciones {{#if peers}}({{peers.length}}){{/if}}</h2>
     <a class="addButton" href="/admin/peers/new"></a>
   </div>
   <div class="peersListHeaders">
@@ -20,6 +20,7 @@
       {{#each peers}}
       <div class="peerContainer" data-id="{{id}}">
         <div class="peerEstado ok">
+          
         </div><div class="peerNombre">
           {{nombre}} {{apellido}}
         </div><div class="peerMatricula">
