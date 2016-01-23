@@ -20,32 +20,32 @@ app.param('id', function (req, res, next, id) {
   })
 })
 
-app.get('/admin/peers/:id', function (req, res) {
+app.get('/peers/:id', function (req, res) {
   res.json(req.peer)
 })
 
-app.get('/api/admin/peers', function (req, res) {
+app.get('/peers', function (req, res) {
   Peer.find({deletedAt: null}).exec(function (err, peers) {
     if (err) return res.status(500).send()
     res.json(peers)
   })
 })
 
-app.post('/admin/peers', peerForm, function (req, res) {
+app.post('/peers', peerForm, function (req, res) {
   Peer.create(req.peer, function (err, peer) {
     if (err) return res.status(500).send(err)
     res.status(200).send()
   })
 })
 
-app.put('/admin/peers/:id', peerForm, function (req, res) {
+app.put('/peers/:id', peerForm, function (req, res) {
   req.peer.save(function (err) {
     if (err) return res.status(500).send(err)
     res.status(200).send()
   })
 })
 
-app.delete('/admin/peers/:id', function (req, res) {
+app.delete('/peers/:id', function (req, res) {
   req.peer.delete(function (err) {
     if (err) return res.status(500).send(err)
     res.status(200).send()

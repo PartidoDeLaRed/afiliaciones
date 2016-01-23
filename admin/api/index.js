@@ -2,6 +2,6 @@ var express = require('express')
 
 var app = express.Router()
 
-app.use(require('./peers'))
+app.use('/api/admin', require('./peers'))
 
 module.exports = app
