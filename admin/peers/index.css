@@ -48,11 +48,11 @@
 }
 
 .admin .peersListHeaders .listHeader.doc {
-  width: 20%;
+  width: 15%;
 }
 
 .admin .peersListHeaders .listHeader.email {
-  width: 35%;
+  width: 28%;
 }
 
 .admin .peersListHeaders .listHeader.actions {
@@ -140,7 +140,7 @@
 }
 
 .admin .peersList .peerContainer .actionsContainer > a {
-  margin: 8px 8px 8px 0;
+  margin: 6px 6px 6px 0;
 }
 
 .button {
