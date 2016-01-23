@@ -1,5 +1,6 @@
 var $ = require('jquery')
 var toObject = require('form-to-object')
+var template = require('./peers/index.hbs');
 
 $.put = function (url, data, callback, type) {
 
@@ -16,20 +17,30 @@ $.put = function (url, data, callback, type) {
     data: data,
     contentType: type
   });
-}
 
+}
 
 $(document).ready(function () {
   loadSearchBoxes();
-
+  var Peers = null;
+  $.get('api/admin/peers/' + form._id, form)
+    .done(function (res) {
+      Peers = $.parseJSON(res.responseText);
+      template(Peers);
+    })
+    .fail(function (res) {
+      showErrors($.parseJSON(res.responseText));
+    });
+  
+  
   $('.button.info').click(function (ev) {
     ev.preventDefault();
     ev.stopImmediatePropagation();
-
+    
     var el = $(this).parents('.peerContainer');
     var id = $(el).attr('data-id');
     var nombre = $(el).find('.peerNombre').html();
-
+    
     $.get('/admin/peers/' + id)
     .done(function (res) {
       var peer = res;
@@ -37,29 +48,29 @@ $(document).ready(function () {
     })
     .fail(function (res) { });
   });
-
+  
   $('.button.delete').click(function (ev) {
     ev.preventDefault();
     ev.stopImmediatePropagation();
-
+    
     var el = $(this).parents('.peerContainer');
     var id = $(el).attr('data-id');
     var nombre = $(el).find('.peerNombre').html();
-
-    ShowDialog('Eliminación de Afiliado', '¿Realmente desea eliminar al afiliado <b>'+nombre+'</b>?', function () {
-      $.get('/admin/peers/'+id+'/delete')
+    
+    ShowDialog('Eliminación de Afiliado', '¿Realmente desea eliminar al afiliado <b>' + nombre + '</b>?', function () {
+      $.get('/admin/peers/' + id + '/delete')
       .done(function () { window.location = '/admin/peers'; })
-      .fail(function (res) {  });
+      .fail(function (res) { });
     });
   });
-
+  
   $("#peerForm").on('submit', function (ev) {
     ev.preventDefault();
     ev.stopImmediatePropagation();
     SaveData();
     return false;
   });
-
+  
   $("#mismoDomicilioDocumento").on('change', function (ev) {
     if (this.checked)
       $('#sectionDomicilioReal').slideUp('100');
@@ -120,7 +131,7 @@ function SaveData() {
     var form = toObject(document.querySelector('form'))
 
     if (form._id) {
-      $.put('/admin/peers/' + form._id, form)
+    $.put('/admin/peers/' + form._id, form)
     .done(function () { window.location = '/admin/peers'; })
     .fail(function (res) { showErrors($.parseJSON(res.responseText)); });
     }
