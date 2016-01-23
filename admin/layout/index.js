@@ -4,7 +4,6 @@ var listTemplate = require('../peers/index.hbs');
 var newTemplate = require('../peers/new.hbs');
 var editTemplate = require('../peers/edit.hbs');
 var page = require('page');
-window.$ = $
 
 $.put = function (url, data, callback, type) {
 
@@ -25,13 +24,13 @@ $.put = function (url, data, callback, type) {
 }
 
 $.delete = function (url, data, callback, type) {
-  
+
   if ($.isFunction(data)) {
     type = type || callback,
     callback = data,
     data = {}
   }
-  
+
   return $.ajax({
     url: url,
     type: 'DELETE',
@@ -51,25 +50,25 @@ page('/admin/peers', function () {
     peers = res.map(function (peer) { peer.id = peer.id; return peer; });
 
       $('.content').html('').append(listTemplate({peers: peers}));
-    
+
       $('.button.info').click(function (ev) {
         ev.preventDefault();
         ev.stopImmediatePropagation();
-      
+
         var el = $(this).parents('.peerContainer');
         var id = $(el).attr('data-id');
         // var nombre = $(el).find('.peerNombre').html();
         ShowInfo(peers.filter(function (peer) { return peer.id == id })[0]);
       });
-    
+
       $('.button.delete').click(function (ev) {
         ev.preventDefault();
         ev.stopImmediatePropagation();
-      
+
         var el = $(this).parents('.peerContainer');
         var id = $(el).attr('data-id');
         var nombre = $(el).find('.peerNombre').html();
-      
+
         ShowDialog('Eliminación de Afiliado', '¿Realmente desea eliminar al afiliado <b>' + nombre + '</b>?', function () {
           $.delete('/admin/peers/' + id)
         .done(function () { window.location = '/admin/peers'; })
@@ -80,14 +79,14 @@ page('/admin/peers', function () {
      .fail(function (res) {
     showErrors($.parseJSON(res.responseText));
   });
-  
+
   $("#peerForm").on('submit', function (ev) {
     ev.preventDefault();
     ev.stopImmediatePropagation();
     SaveData();
     return false;
   });
-  
+
   $("#mismoDomicilioDocumento").on('change', function (ev) {
     if (this.checked)
       $('#sectionDomicilioReal').slideUp('100');
