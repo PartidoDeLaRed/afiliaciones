@@ -31,16 +31,16 @@ $(document).ready(function () {
     .fail(function (res) {
       showErrors($.parseJSON(res.responseText));
     });
-  
-  
+
+
   $('.button.info').click(function (ev) {
     ev.preventDefault();
     ev.stopImmediatePropagation();
-    
+
     var el = $(this).parents('.peerContainer');
     var id = $(el).attr('data-id');
     var nombre = $(el).find('.peerNombre').html();
-    
+
     $.get('/admin/peers/' + id)
     .done(function (res) {
       var peer = res;
@@ -48,29 +48,29 @@ $(document).ready(function () {
     })
     .fail(function (res) { });
   });
-  
+
   $('.button.delete').click(function (ev) {
     ev.preventDefault();
     ev.stopImmediatePropagation();
-    
+
     var el = $(this).parents('.peerContainer');
     var id = $(el).attr('data-id');
     var nombre = $(el).find('.peerNombre').html();
-    
+
     ShowDialog('Eliminación de Afiliado', '¿Realmente desea eliminar al afiliado <b>' + nombre + '</b>?', function () {
       $.get('/admin/peers/' + id + '/delete')
       .done(function () { window.location = '/admin/peers'; })
       .fail(function (res) { });
     });
   });
-  
+
   $("#peerForm").on('submit', function (ev) {
     ev.preventDefault();
     ev.stopImmediatePropagation();
     SaveData();
     return false;
   });
-  
+
   $("#mismoDomicilioDocumento").on('change', function (ev) {
     if (this.checked)
       $('#sectionDomicilioReal').slideUp('100');
