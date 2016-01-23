@@ -2,13 +2,13 @@ var $ = require('jquery')
 var toObject = require('form-to-object')
 
 $.put = function (url, data, callback, type) {
-  
+
   if ($.isFunction(data)) {
     type = type || callback,
     callback = data,
     data = {}
   }
-  
+
   return $.ajax({
     url: url,
     type: 'PUT',
@@ -21,15 +21,15 @@ $.put = function (url, data, callback, type) {
 
 $(document).ready(function () {
   loadSearchBoxes();
-  
+
   $('.button.info').click(function (ev) {
     ev.preventDefault();
     ev.stopImmediatePropagation();
-    
+
     var el = $(this).parents('.peerContainer');
     var id = $(el).attr('data-id');
     var nombre = $(el).find('.peerNombre').html();
-    
+
     $.get('/admin/peers/' + id)
     .done(function (res) {
       var peer = res;
@@ -37,15 +37,15 @@ $(document).ready(function () {
     })
     .fail(function (res) { });
   });
-  
+
   $('.button.delete').click(function (ev) {
     ev.preventDefault();
     ev.stopImmediatePropagation();
-    
+
     var el = $(this).parents('.peerContainer');
     var id = $(el).attr('data-id');
     var nombre = $(el).find('.peerNombre').html();
-    
+
     ShowDialog('Eliminación de Afiliado', '¿Realmente desea eliminar al afiliado <b>'+nombre+'</b>?', function () {
       $.get('/admin/peers/'+id+'/delete')
       .done(function () { window.location = '/admin/peers'; })
@@ -72,9 +72,9 @@ $(document).ready(function () {
 function loadSearchBoxes() {
   $('.listHeader:not(.actions, .state)').each(function (index, item) {
     $(item).children().remove();
-    
+
     var searchButton = $('<div class="button search" />')
-    
+
     var searchContainer = $('<div class="searchContainer" />').css('display', 'none');
     var searchField = $('<input type="text" class="searchField" />')
     searchContainer.append(searchField.keyup(function (event) {
@@ -100,14 +100,14 @@ function loadSearchBoxes() {
       searchContainer.fadeOut(100)
       $('peerContainer').slideDown('100');
     }))
-    
+
     searchButton.click(function () {
       searchButton.fadeOut(100)
       searchContainer.fadeIn(100)
       searchField.value = ''
       searchField.focus()
     })
-    
+
     $(item).append(searchButton)
     $(item).append(searchContainer)
   })
@@ -116,9 +116,9 @@ function loadSearchBoxes() {
 function SaveData() {
   $('.errorList').slideUp('50', function () {
     $('.errorList').html('')
-    
+
     var form = toObject(document.querySelector('form'))
-    
+
     if (form._id) {
       $.put('/admin/peers/' + form._id, form)
     .done(function () { window.location = '/admin/peers'; })
@@ -170,10 +170,10 @@ function ShowInfo(peer)
   var wrapper = $('<div class="wrapper fullSize"/>').css('display', 'none');
   var container = $('<div class="dialogContainer centered" style="width: 768px; margin-top: 100px;"/>');
   var titleContainer = $('<div class="dialogTitle"/>').html('Información de ' + peer.nombre + ' ' + peer.apellido);
-  
+
   //Todos los datos
   var messageContainer = $('<div class="dialogMessage" style="padding: 10px;"/>');
-  
+
   var nombreApellido = $('<div class="inputWrapper half" style="font-size: 30px"/>').html(peer.nombre + ' ' + peer.apellido);
   var matricula = $('<div class="inputWrapper half"/>')         .html('<div class="infoLabel">Matrícula</div><div class="infoContent">' + peer.matricula.tipo + ': ' + peer.matricula.numero + '</div>');
   var sexo = $('<div class="inputWrapper half"/>')              .html('<div class="infoLabel">Sexo</div><div class="infoContent">' + (peer.sexo == 'F' ? 'Femenino' : 'Masculino') + '</div>');
@@ -183,7 +183,7 @@ function ShowInfo(peer)
   var email = $('<div class="inputWrapper half"/>')             .html('<div class="infoLabel">Email</div><div class="infoContent">' + peer.email + '</div>');
   var telefono = $('<div class="inputWrapper half"/>')          .html('<div class="infoLabel">Teléfono</div><div class="infoContent">' + peer.telefono + '</div>');
   var profesion = $('<div class="inputWrapper half"/>').html('<div class="infoLabel">Profesión</div><div class="infoContent">' + peer.profesion + '</div>');
-  
+
   var address = peer.domicilio.calle + ' ' + peer.domicilio.numero + ', ' + peer.domicilio.localidad + ', ' + peer.domicilio.provincia;
   var domicilio = $('<div class="inputWrapper half"/>')         .html('<div class="infoLabel">Domicilio</div><div class="infoContent">' + address + '</div>');
   var map = $('<div class="mapImage" style="background-image:url(https://maps.googleapis.com/maps/api/staticmap?center=' + encodeURIComponent(address + ', Argentina') +
@@ -198,7 +198,7 @@ function ShowInfo(peer)
       wrapper.remove();
     });
   });
-  
+
   $('body').append(wrapper.append(container.append(titleContainer).append(messageContainer).append(buttonsContainer.append(buttonCancel))));
   wrapper.fadeIn('100ms');
 }
