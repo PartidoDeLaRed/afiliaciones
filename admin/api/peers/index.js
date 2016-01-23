@@ -12,8 +12,9 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json())
 
 app.param('id', function (req, res, next, id) {
-  Peer.findOne({'_id': id}).exec(function (err, peer) {
-    if (err) return res.status(400).send()
+  Peer.findOne({'_id': id, deletedAt: null}).exec(function (err, peer) {
+    if (err) return res.status(500).send()
+    if (!peer) return res.status(400).send()
     req.peer = peer
     next()
   })
@@ -39,6 +40,13 @@ app.post('/admin/peers', peerForm, function (req, res) {
 
 app.put('/admin/peers/:id', peerForm, function (req, res) {
   req.peer.save(function (err) {
+    if (err) return res.status(500).send(err)
+    res.status(200).send()
+  })
+})
+
+app.delete('/admin/peers/:id', function (req, res) {
+  req.peer.delete(function (err) {
     if (err) return res.status(500).send(err)
     res.status(200).send()
   })
