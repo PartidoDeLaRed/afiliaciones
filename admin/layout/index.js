@@ -1,5 +1,6 @@
 var $ = require('jquery')
 var toObject = require('form-to-object')
+var template = require('../peers/index.hbs');
 
 window.$ = $
 
@@ -23,15 +24,15 @@ $.put = function (url, data, callback, type) {
 
 $(document).ready(function () {
   loadSearchBoxes();
-  // var Peers = null;
-  // $.get('api/admin/peers/' + form._id, form)
-  //   .done(function (res) {
-  //     Peers = $.parseJSON(res.responseText);
-  //     template(Peers);
-  //   })
-  //   .fail(function (res) {
-  //     showErrors($.parseJSON(res.responseText));
-  //   });
+   var Peers = null;
+   $.get('/api/admin/peers')
+     .done(function (res) {
+       Peers = res.responseText;
+       template(Peers);
+     })
+     .fail(function (res) {
+       showErrors($.parseJSON(res.responseText));
+     });
 
 
   $('.button.info').click(function (ev) {
