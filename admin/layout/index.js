@@ -1,7 +1,9 @@
 var $ = require('jquery')
 var toObject = require('form-to-object')
-var template = require('../peers/index.hbs');
-
+var listTemplate = require('../peers/index.hbs');
+var newTemplate = require('../peers/new.hbs');
+var editTemplate = require('../peers/edit.hbs');
+var page = require('page');
 window.$ = $
 
 $.put = function (url, data, callback, type) {
@@ -22,65 +24,126 @@ $.put = function (url, data, callback, type) {
 
 }
 
-$(document).ready(function () {
+$.delete = function (url, data, callback, type) {
+  
+  if ($.isFunction(data)) {
+    type = type || callback,
+    callback = data,
+    data = {}
+  }
+  
+  return $.ajax({
+    url: url,
+    type: 'DELETE',
+    success: callback,
+    data: data,
+    contentType: type
+  });
+
+}
+
+var peers = null;
+
+page('/admin/peers', function () {
   loadSearchBoxes();
-   var Peers = null;
-   $.get('/api/admin/peers')
+  $.get('/api/admin/peers')
      .done(function (res) {
-       Peers = res.responseText;
-       template(Peers);
-     })
+    peers = res.map(function (peer) { peer.id = peer.id; return peer; });
+
+      $('.content').html('').append(listTemplate({peers: peers}));
+    
+      $('.button.info').click(function (ev) {
+        ev.preventDefault();
+        ev.stopImmediatePropagation();
+      
+        var el = $(this).parents('.peerContainer');
+        var id = $(el).attr('data-id');
+        // var nombre = $(el).find('.peerNombre').html();
+        ShowInfo(peers.filter(function (peer) { return peer.id == id })[0]);
+      });
+    
+      $('.button.delete').click(function (ev) {
+        ev.preventDefault();
+        ev.stopImmediatePropagation();
+      
+        var el = $(this).parents('.peerContainer');
+        var id = $(el).attr('data-id');
+        var nombre = $(el).find('.peerNombre').html();
+      
+        ShowDialog('Eliminación de Afiliado', '¿Realmente desea eliminar al afiliado <b>' + nombre + '</b>?', function () {
+          $.delete('/admin/peers/' + id)
+        .done(function () { window.location = '/admin/peers'; })
+        .fail(function (res) { });
+        });
+      });
+  })
      .fail(function (res) {
-       showErrors($.parseJSON(res.responseText));
-     });
-
-
-  $('.button.info').click(function (ev) {
-    ev.preventDefault();
-    ev.stopImmediatePropagation();
-
-    var el = $(this).parents('.peerContainer');
-    var id = $(el).attr('data-id');
-    // var nombre = $(el).find('.peerNombre').html();
-
-    $.get('/admin/peers/' + id)
-    .done(function (res) {
-      var peer = res;
-      ShowInfo(peer);
-    })
-    .fail(function (res) { });
+    showErrors($.parseJSON(res.responseText));
   });
-
-  $('.button.delete').click(function (ev) {
-    ev.preventDefault();
-    ev.stopImmediatePropagation();
-
-    var el = $(this).parents('.peerContainer');
-    var id = $(el).attr('data-id');
-    var nombre = $(el).find('.peerNombre').html();
-
-    ShowDialog('Eliminación de Afiliado', '¿Realmente desea eliminar al afiliado <b>' + nombre + '</b>?', function () {
-      $.get('/admin/peers/' + id + '/delete')
-      .done(function () { window.location = '/admin/peers'; })
-      .fail(function (res) { });
-    });
-  });
-
+  
   $("#peerForm").on('submit', function (ev) {
     ev.preventDefault();
     ev.stopImmediatePropagation();
     SaveData();
     return false;
   });
-
+  
   $("#mismoDomicilioDocumento").on('change', function (ev) {
     if (this.checked)
       $('#sectionDomicilioReal').slideUp('100');
     else
       $('#sectionDomicilioReal').slideDown('100');
   });
+});
 
-})
+page('/admin/peers/new', function () {
+  $('.content').html('').append(newTemplate({
+    peer: {},
+    helpers: {
+      formSelectTipoMatricula: function () {
+        return '<option value="DNI">DNI</option>' +
+        '<option value="LE">LE</option>' +
+        '<option value="LI">LI</option>'
+      },
+      formSelectSexo: function () {
+        return '<option value="F">Femenino</option>' +
+        '<option value="M">Masculino</option>'
+      },
+      formSelectEstadoCivil: function () {
+        return '<option value="soltero">Soltero/a</option>' +
+        '<option value="casado">Casado/a</option>' +
+        '<option value="divorciado">Divorciado/a</option>' +
+        '<option value="viudo">Viudo/a</option>'
+      }
+    }
+  }));
+});
+page('/admin/peers/:id/edit', function (ctx, next) {
+  $.get('/api/admin/peers/'+ ctx.params.id)
+     .done(function (res) {
+      $('.content').html('').append(editTemplate({
+      peer: res,
+      helpers: {
+        formSelectTipoMatricula: function () {
+          return '<option value="DNI" ' + ((res.matricula.tipo == 'DNI')?'selected':'') + '>DNI</option>' +
+        '<option value="LE" ' + ((res.matricula.tipo == 'LE')?'selected':'') + '>LE</option>' +
+        '<option value="LI" ' + ((res.matricula.tipo == 'LI')?'selected':'') + '>LI</option>'
+        },
+        formSelectSexo: function () {
+          return '<option value="F" ' + ((res.sexo === 'F')?'selected':'') + '>Femenino</option>' +
+        '<option value="M" ' + ((res.sexo === 'M')?'selected':'') + '>Masculino</option>'
+        },
+        formSelectEstadoCivil: function () {
+          return '<option value="soltero" ' + ((res.estadoCivil == 'soltero')?'selected':'') + '>Soltero/a</option>' +
+        '<option value="casado" ' + ((res.estadoCivil == 'casado')?'selected':'') + '>Casado/a</option>' +
+        '<option value="divorciado" ' + ((res.estadoCivil == 'divorciado')?'selected':'') + '>Divorciado/a</option>' +
+        '<option value="viudo" ' + ((res.estadoCivil == 'viudo')?'selected':'') + '>Viudo/a</option>'
+        }
+      }
+    }));
+    })
+});
+page();
 
 function loadSearchBoxes() {
   $('.listHeader:not(.actions, .state)').each(function (index, item) {
@@ -132,8 +195,8 @@ function SaveData() {
 
     var form = toObject(document.querySelector('form'))
 
-    if (form._id) {
-    $.put('/admin/peers/' + form._id, form)
+    if (form.id) {
+    $.put('/admin/peers/' + form.id, form)
     .done(function () { window.location = '/admin/peers'; })
     .fail(function (res) { showErrors($.parseJSON(res.responseText)); });
     }
