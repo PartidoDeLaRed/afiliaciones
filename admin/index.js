@@ -15,6 +15,7 @@ app.all('/admin*', function (req, res, next) {
   res.redirect('/admin')
 })
 
+app.use(require('./api'))
 app.use(require('./peers'))
 
 module.exports = app
