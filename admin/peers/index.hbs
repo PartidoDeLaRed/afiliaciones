@@ -19,8 +19,9 @@
     {{#if peers}}
       {{#each peers}}
       <div class="peerContainer" data-id="{{id}}">
-        <div class="peerEstado ok">
-          
+        <div class="peerEstado datosCompletos {{#if tieneFirmas}}ok{{/if}}">
+        </div><div class="peerEstado tieneFirmas {{#if tieneFirmas}}ok{{/if}}">
+        </div><div class="peerEstado noAfiliado {{#if noAfiliadoOtroPartido}}ok{{/if}}">
         </div><div class="peerNombre">
           {{nombre}} {{apellido}}
         </div><div class="peerMatricula">
