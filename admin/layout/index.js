@@ -1,6 +1,7 @@
 var $ = require('jquery')
 var toObject = require('form-to-object')
-var template = require('./peers/index.hbs');
+
+window.$ = $
 
 $.put = function (url, data, callback, type) {
 
@@ -22,15 +23,15 @@ $.put = function (url, data, callback, type) {
 
 $(document).ready(function () {
   loadSearchBoxes();
-  var Peers = null;
-  $.get('api/admin/peers/' + form._id, form)
-    .done(function (res) {
-      Peers = $.parseJSON(res.responseText);
-      template(Peers);
-    })
-    .fail(function (res) {
-      showErrors($.parseJSON(res.responseText));
-    });
+  // var Peers = null;
+  // $.get('api/admin/peers/' + form._id, form)
+  //   .done(function (res) {
+  //     Peers = $.parseJSON(res.responseText);
+  //     template(Peers);
+  //   })
+  //   .fail(function (res) {
+  //     showErrors($.parseJSON(res.responseText));
+  //   });
 
 
   $('.button.info').click(function (ev) {
@@ -39,7 +40,7 @@ $(document).ready(function () {
 
     var el = $(this).parents('.peerContainer');
     var id = $(el).attr('data-id');
-    var nombre = $(el).find('.peerNombre').html();
+    // var nombre = $(el).find('.peerNombre').html();
 
     $.get('/admin/peers/' + id)
     .done(function (res) {
@@ -184,11 +185,11 @@ function ShowInfo(peer)
 
   //Todos los datos
   var messageContainer = $('<div class="dialogMessage" style="padding: 10px;"/>');
-
+  debugger
   var nombreApellido = $('<div class="inputWrapper half" style="font-size: 30px"/>').html(peer.nombre + ' ' + peer.apellido);
   var matricula = $('<div class="inputWrapper half"/>')         .html('<div class="infoLabel">Matrícula</div><div class="infoContent">' + peer.matricula.tipo + ': ' + peer.matricula.numero + '</div>');
   var sexo = $('<div class="inputWrapper half"/>')              .html('<div class="infoLabel">Sexo</div><div class="infoContent">' + (peer.sexo == 'F' ? 'Femenino' : 'Masculino') + '</div>');
-  var estadoCivil = $('<div class="inputWrapper half"/>')       .html('<div class="infoLabel">Estaddo Civíl</div><div class="infoContent">' + peer.estadoCivil + '</div>');
+  var estadoCivil = $('<div class="inputWrapper half"/>')       .html('<div class="infoLabel">Estado Civil</div><div class="infoContent">' + peer.estadoCivil + '</div>');
   var fechaDeNacimiento = $('<div class="inputWrapper half"/>') .html('<div class="infoLabel">Fecha de Nac.</div><div class="infoContent">' + peer.fechaDeNacimiento + '</div>');
   var lugarDeNacimiento = $('<div class="inputWrapper half"/>') .html('<div class="infoLabel">Lugar de Nac.</div><div class="infoContent">' + peer.lugarDeNacimiento + '</div>');
   var email = $('<div class="inputWrapper half"/>')             .html('<div class="infoLabel">Email</div><div class="infoContent">' + peer.email + '</div>');
