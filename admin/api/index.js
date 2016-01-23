@@ -19,7 +19,7 @@ app.param('id', function (req, res, next, id) {
 })
 
 app.get('/api/admin/peers', function (req, res) {
-  Peer.find({deletedAt: false}).exec(function (err, peers) {
+  Peer.find({deletedAt: null}).exec(function (err, peers) {
     if (err) return res.status(500).send()
     res.json(peers)
   })
