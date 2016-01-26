@@ -1,7 +1,16 @@
 <div class="admin">
   <div class="heading">
-    <h2>Afiliaciones {{#if peers}}({{peers.length}}){{/if}}</h2>
+    <h2 id="afiliacionesTitle">Afiliaciones {{#if peers}}({{peers.length}}){{/if}}</h2>
     <a class="addButton" href="/admin/peers/new"></a>
+    <select id="listType" class="mainSelect">
+      <option value="todos">Todos los afiliados</option>
+      <option value="todoOk">Afiliados con todo OK</option>
+      <optgroup label="Afiliados Con Errores"> 
+        <option value="faltanDatos">Que les faltan datos</option>
+        <option value="faltanFirmas">Que les faltan firmas en las fichas</option>
+        <option value="afiliadoOtroPartido">Que están afiliados a otro partido</option>
+      </optgroup>
+    </select>
   </div>
   <div class="peersListHeaders">
     <div class="listHeader state datos">
@@ -9,9 +18,11 @@
     </div><div class="listHeader state firmas">
       Firmas
     </div><div class="listHeader state noAfiliado">
-      Afil.
+      No Afil.
+    </div><div class="listHeader name" data-field="Apellido">
+      Apellido
     </div><div class="listHeader name" data-field="Nombre">
-      Nombre Competo
+      Nombre
     </div><div class="listHeader doc" data-field="Matricula">
       Matricula
     </div><div class="listHeader email" data-field="Email">
@@ -22,12 +33,14 @@
   <div class="peersList">
     {{#if peers}}
       {{#each peers}}
-      <div class="peerContainer" data-id="{{id}}">
-        <div class="peerEstado datosCompletos {{#if tieneFirmas}}ok{{/if}}">
-        </div><div class="peerEstado tieneFirmas {{#if tieneFirmas}}ok{{/if}}">
-        </div><div class="peerEstado noAfiliado {{#if noAfiliadoOtroPartido}}ok{{/if}}">
+      <div class="peerContainer visible" data-id="{{id}}">
+        <div class="peerEstado datosCompletos {{#if datosCompletos}}ok{{else}}no{{/if}}">
+        </div><div class="peerEstado tieneFirmas {{#if tieneFirmas}}ok{{else}}no{{/if}}">
+        </div><div class="peerEstado noAfiliado {{#if noAfiliadoOtroPartido}}ok{{else}}no{{/if}}">
+        </div><div class="peerApellido">
+          {{apellido}}
         </div><div class="peerNombre">
-          {{nombre}} {{apellido}}
+          {{nombre}}
         </div><div class="peerMatricula">
           {{matricula.numero}}
         </div><div class="peerEmail">

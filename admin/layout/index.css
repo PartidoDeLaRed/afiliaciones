@@ -78,6 +78,18 @@ header .title{
   text-shadow: 1px 1px 3px #23203b;
 }
 
+.admin .heading .mainSelect{
+  display: inline-block;
+  float: right;
+  height: 50px;
+  padding: 14px;
+  font-size: 16px;
+  margin: 11px;
+  border-radius: 6px;
+  opacity: .8;
+  outline: none;
+}
+
 .admin .heading .addButton {
   height: 50px;
   width: 50px;

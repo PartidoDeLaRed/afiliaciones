@@ -44,7 +44,7 @@
 }
 
 .admin .peersListHeaders .listHeader.name {
-  width: 30%;
+  width: 15%;
 }
 
 .admin .peersListHeaders .listHeader.doc {
@@ -70,6 +70,13 @@
   color: rgba(255,255,255,.3);
 }
 
+.visible{
+  display: block;
+}
+.hidden{
+  display:none;
+}
+
 .admin .peersList .peerContainer {
   background: rgba(255, 255, 255, .7);
   border-bottom: 1px solid rgba(0, 0, 0, .8);
@@ -85,8 +92,8 @@
   color: #0B525E;
 }
 
-.admin .peersList .peerContainer .peerNombre {
-  width: 30%;
+.admin .peersList .peerContainer .peerNombre, .admin .peersList .peerContainer .peerApellido {
+  width: 15%;
 }
 
 .admin .peersList .peerContainer .peerMatricula {
@@ -109,20 +116,29 @@
   top: 0;
 }
 
-.admin .peersList .peerContainer .peerEstado.ok {
-  background-image: url(/images/ok64.png);
-  background-color: #56B56F;
+.admin .peersList .peerContainer .peerEstado {
+  background-position:center center;
+  background-size: 20px 20px;
+  background-repeat: no-repeat;
 }
-
-.admin .peersList .peerContainer .peerEstado.warning {
-  background-image: url(/images/warning64.png);
-  background-color: #FFC80C;
-}
-
-.admin .peersList .peerContainer .peerEstado.error {
-  background-image: url(/images/error64.png);
-  background-color: #D64D4D;
-}
+  .admin .peersList .peerContainer .peerEstado.datosCompletos.ok {
+    background-image:url(/images/datosCompletosOK.png);
+  }
+  .admin .peersList .peerContainer .peerEstado.datosCompletos.no {
+    background-image:url(/images/datosCompletosNO.png);
+  }
+  .admin .peersList .peerContainer .peerEstado.tieneFirmas.ok {
+    background-image:url(/images/tieneFirmasOK.png);
+  }
+  .admin .peersList .peerContainer .peerEstado.tieneFirmas.no {
+    background-image:url(/images/tieneFirmasNO.png);
+  }
+  .admin .peersList .peerContainer .peerEstado.noAfiliado.ok {
+    background-image:url(/images/noAfiliadoOK.png);
+  }
+  .admin .peersList .peerContainer .peerEstado.noAfiliado.no {
+    background-image:url(/images/noAfiliadoNO.png);
+  }
 
 .admin .peersList .peerContainer .actionsContainer {
   position: relative;

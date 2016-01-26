@@ -44,37 +44,91 @@ $.del = function (url, data, callback, type) {
 var peers = null;
 
 page('/admin/peers', function () {
-  loadSearchBoxes();
   $.get('/api/admin/peers')
      .done(function (res) {
-    peers = res.map(function (peer) { peer.id = peer.id; return peer; });
-
-      $('.content').html('').append(listTemplate({peers: peers}));
-
-      $('.button.info').click(function (ev) {
-        ev.preventDefault();
-        ev.stopImmediatePropagation();
-
-        var el = $(this).parents('.peerContainer');
-        var id = $(el).attr('data-id');
-        // var nombre = $(el).find('.peerNombre').html();
-        ShowInfo(peers.filter(function (peer) { return peer.id == id })[0]);
-      });
-
-      $('.button.delete').click(function (ev) {
-        ev.preventDefault();
-        ev.stopImmediatePropagation();
-
-        var el = $(this).parents('.peerContainer');
-        var id = $(el).attr('data-id');
-        var nombre = $(el).find('.peerNombre').html();
-
-        ShowDialog('Eliminación de Afiliado', '¿Realmente desea eliminar al afiliado <b>' + nombre + '</b>?', function () {
-          $.del('/api/admin/peers/' + id)
+    peers = res.map(function (p) {
+      p.id = p.id;
+      p.datosCompletos = (
+        p.nombre !== '' && 
+        p.apellido !== '' && 
+        p.email !== '' && 
+        p.matricula.numero !== '' && 
+        p.matricula.tipo !== '' && 
+        p.sexo !== '' && 
+        p.estadoCivil !== '' && 
+        p.lugarDeNacimiento !== '' && 
+        p.fechaDeNacimiento !== null && 
+        p.profesion !== '' && 
+        p.domicilio.calle !== '' && 
+        p.domicilio.numero !== '' && 
+        p.domicilio.piso !== '' && 
+        p.domicilio.codPostal !== '' && 
+        p.domicilio.localidad !== '' && 
+        p.domicilio.provincia !== '' &&
+        (p.mismoDomicilioDocumento !== true ? 
+          (p.domicilioReal.calle && 
+          p.domicilioReal.numero && 
+          p.domicilioReal.piso && 
+          p.domicilioReal.depto && 
+          p.domicilioReal.codPostal && 
+          p.domicilioReal.localidad && 
+          p.domicilioReal.provincia) : true));
+      return p;
+    });
+    
+    $('.content').html('').append(listTemplate({ peers: peers.sort(function (a, b) { return (b.apellido != a.apellido ? (b.apellido <= a.apellido ? 1 : -1) : (b.nombre <= a.nombre ? 1 : -1)) }) }));
+    loadSearchBoxes();
+    
+    $('.button.info').click(function (ev) {
+      ev.preventDefault();
+      ev.stopImmediatePropagation();
+      
+      var el = $(this).parents('.peerContainer');
+      var id = $(el).attr('data-id');
+      // var nombre = $(el).find('.peerNombre').html();
+      ShowInfo(peers.filter(function (peer) { return peer.id == id })[0]);
+    });
+    
+    $('.button.delete').click(function (ev) {
+      ev.preventDefault();
+      ev.stopImmediatePropagation();
+      
+      var el = $(this).parents('.peerContainer');
+      var id = $(el).attr('data-id');
+      var nombre = $(el).find('.peerNombre').html();
+      
+      ShowDialog('Eliminación de Afiliado', '¿Realmente desea eliminar al afiliado <b>' + nombre + '</b>?', function () {
+        $.del('/api/admin/peers/' + id)
         .done(function () { window.location = '/admin/peers'; })
         .fail(function (res) { });
-        });
       });
+    });
+
+    $('#listType').change(function () {
+      var val = document.getElementById('listType').value;
+      switch (val) {
+        case 'todos': $('.peerContainer').addClass('visible').removeClass('hidden'); break;
+        case 'todoOk':
+          $('.peerContainer').each(function (index, item) {
+            $(item).children('.ok').length == 3 ? $(item).addClass('visible').removeClass('hidden') : $(item).addClass('hidden').removeClass('visible');
+          });
+          break;
+        case 'faltanDatos':
+          $('.peerEstado.datosCompletos.no').parent('.peerContainer').addClass('visible').removeClass('hidden');
+          $('.peerEstado.datosCompletos.ok').parent('.peerContainer').addClass('hidden').removeClass('visible');
+          break;
+        case 'faltanFirmas': 
+          $('.peerEstado.tieneFirmas.no').parent('.peerContainer').addClass('visible').removeClass('hidden');
+          $('.peerEstado.tieneFirmas.ok').parent('.peerContainer').addClass('hidden').removeClass('visible');
+          break;
+        case 'afiliadoOtroPartido': 
+          $('.peerEstado.noAfiliado.no').parent('.peerContainer').addClass('visible').removeClass('hidden');
+          $('.peerEstado.noAfiliado.ok').parent('.peerContainer').addClass('hidden').removeClass('visible');
+          break;
+        default : $('.peerContainer').addClass('visible').removeClass('hidden'); break;
+      }
+      $('#afiliacionesTitle').html('Afiliaciones (' + $('.peerContainer.visible').length + ')');
+    });
   })
      .fail(function (res) {
     showErrors($.parseJSON(res.responseText));
@@ -117,6 +171,7 @@ page('/admin/peers/new', function () {
 page('/admin/peers/:id/edit', function (ctx, next) {
   $.get('/api/admin/peers/'+ ctx.params.id)
      .done(function (res) {
+      res.fechaDeNacimiento = res.fechaDeNacimiento.split('/').join('-');
       $('.content').html('').append(editTemplate({
       obj: {
         peer: res,
@@ -169,16 +224,16 @@ function loadSearchBoxes() {
       //Si borro todo, muestro todos
       var val = this.value;
       if (val === null) {
-        $('peerContainer').slideDown('50');
+        $('.peerContainer').css('display', 'block');
       }
       //Sino, muestro solo los que coincidan con la busqueda
       else {
         var field = $(this).parents('.listHeader').attr('data-field');
         $('.peerContainer').each(function (index, item) {
           if ($(item).find('.peer' + field).html().toLowerCase().indexOf(val.toLowerCase()) >= 0)
-            $(item).slideDown('50');
+            $(item).css('display', 'block');
           else
-            $(item).slideUp('50');
+            $(item).css('display', 'none');
         })
       }
     })
@@ -186,7 +241,7 @@ function loadSearchBoxes() {
     searchContainer.append($('<div class="button cancel" />').click(function () {
       searchButton.fadeIn(100)
       searchContainer.fadeOut(100)
-      $('peerContainer').slideDown('100');
+      $('.peerContainer').css('display', 'block');
     }))
 
     searchButton.click(function () {
