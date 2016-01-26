@@ -44,58 +44,64 @@ $.del = function (url, data, callback, type) {
 var peers = null;
 
 page('/admin/peers', function () {
-  $.get('/api/admin/peers')
-     .done(function (res) {
+  $.get('/api/admin/peers').done(function (res) {
     peers = res.map(function (p) {
       p.id = p.id;
-      p.datosCompletos = (
-        p.nombre !== '' && 
-        p.apellido !== '' && 
-        p.email !== '' && 
-        p.matricula.numero !== '' && 
-        p.matricula.tipo !== '' && 
-        p.sexo !== '' && 
-        p.estadoCivil !== '' && 
-        p.lugarDeNacimiento !== '' && 
-        p.fechaDeNacimiento !== null && 
-        p.profesion !== '' && 
-        p.domicilio.calle !== '' && 
-        p.domicilio.numero !== '' && 
-        p.domicilio.codPostal !== '' && 
-        p.domicilio.localidad !== '' && 
-        p.domicilio.provincia !== '' &&
-        (p.mismoDomicilioDocumento !== true ? 
-          (p.domicilioReal.calle && 
-          p.domicilioReal.numero && 
-          p.domicilioReal.piso && 
-          p.domicilioReal.depto && 
-          p.domicilioReal.codPostal && 
-          p.domicilioReal.localidad && 
-          p.domicilioReal.provincia) : true));
-      return p;
-    });
-    
+
+      try {
+        p.datosCompletos = (
+          p.nombre &&
+          p.apellido &&
+          p.email &&
+          p.matricula.numero &&
+          p.matricula.tipo &&
+          p.sexo &&
+          p.estadoCivil &&
+          p.lugarDeNacimiento &&
+          p.fechaDeNacimiento &&
+          p.profesion &&
+          p.domicilio.calle &&
+          p.domicilio.numero &&
+          p.domicilio.codPostal &&
+          p.domicilio.localidad &&
+          p.domicilio.provincia &&
+          (p.mismoDomicilioDocumento !== true ?
+            (p.domicilioReal.calle &&
+            p.domicilioReal.numero &&
+            p.domicilioReal.piso &&
+            p.domicilioReal.depto &&
+            p.domicilioReal.codPostal &&
+            p.domicilioReal.localidad &&
+            p.domicilioReal.provincia) : true)
+        )
+      } catch (e) {
+        p.datosCompletos = false
+      }
+
+      return p
+    })
+
     $('.content').html('').append(listTemplate({ peers: peers.sort(function (a, b) { return (b.apellido != a.apellido ? (b.apellido <= a.apellido ? 1 : -1) : (b.nombre <= a.nombre ? 1 : -1)) }) }));
     loadSearchBoxes();
-    
+
     $('.button.info').click(function (ev) {
       ev.preventDefault();
       ev.stopImmediatePropagation();
-      
+
       var el = $(this).parents('.peerContainer');
       var id = $(el).attr('data-id');
       // var nombre = $(el).find('.peerNombre').html();
       ShowInfo(peers.filter(function (peer) { return peer.id == id })[0]);
     });
-    
+
     $('.button.delete').click(function (ev) {
       ev.preventDefault();
       ev.stopImmediatePropagation();
-      
+
       var el = $(this).parents('.peerContainer');
       var id = $(el).attr('data-id');
       var nombre = $(el).find('.peerNombre').html();
-      
+
       ShowDialog('Eliminación de Afiliado', '¿Realmente desea eliminar al afiliado <b>' + nombre + '</b>?', function () {
         $.del('/api/admin/peers/' + id)
         .done(function () { window.location = '/admin/peers'; })
@@ -116,11 +122,11 @@ page('/admin/peers', function () {
           $('.peerEstado.datosCompletos.no').parent('.peerContainer').addClass('visible').removeClass('hidden');
           $('.peerEstado.datosCompletos.ok').parent('.peerContainer').addClass('hidden').removeClass('visible');
           break;
-        case 'faltanFirmas': 
+        case 'faltanFirmas':
           $('.peerEstado.tieneFirmas.no').parent('.peerContainer').addClass('visible').removeClass('hidden');
           $('.peerEstado.tieneFirmas.ok').parent('.peerContainer').addClass('hidden').removeClass('visible');
           break;
-        case 'afiliadoOtroPartido': 
+        case 'afiliadoOtroPartido':
           $('.peerEstado.noAfiliado.no').parent('.peerContainer').addClass('visible').removeClass('hidden');
           $('.peerEstado.noAfiliado.ok').parent('.peerContainer').addClass('hidden').removeClass('visible');
           break;
@@ -158,7 +164,7 @@ page('/admin/peers/new', function () {
       }
     }
   }));
-  
+
   $("#peerForm").on('submit', function (ev) {
     ev.preventDefault();
     ev.stopImmediatePropagation();
@@ -200,7 +206,7 @@ page('/admin/peers/:id/edit', function (ctx, next) {
       SaveData();
       return false;
     });
-    
+
     $("#mismoDomicilioDocumento").on('change', function (ev) {
       if (this.checked)
         $('#sectionDomicilioReal').slideUp('100');
