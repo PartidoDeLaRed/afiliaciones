@@ -2,6 +2,7 @@ var express = require('express')
 var bodyParser = require('body-parser')
 var Peer = require('../../../lib/models').Peer
 var peerForm = require('./form')
+var pictures = require('./pictures')
 
 var app = express.Router()
 
@@ -26,7 +27,7 @@ app.get('/peers/:id', function (req, res) {
 
 app.get('/peers', function (req, res) {
   Peer.find({deletedAt: null}).exec(function (err, peers) {
-    if (err) return res.status(500).send()
+    if (err) return res.status(500).send(err)
     res.json(peers)
   })
 })
@@ -49,6 +50,20 @@ app.delete('/peers/:id', function (req, res) {
   req.peer.delete(function (err) {
     if (err) return res.status(500).send(err)
     res.status(200).send()
+  })
+})
+
+app.get('/peers/:id/pictures', function (req, res) {
+  pictures.getUrls(req.peer, function (err, data) {
+    if (err) return res.status(500).send(err)
+    res.json(data)
+  })
+})
+
+app.post('/peers/:id/pictures', function (req, res) {
+  pictures.getUploadUrl(req.query.filename, req.peer, function (err, data) {
+    if (err) return res.status(500).send(err)
+    res.json(data)
   })
 })
 
