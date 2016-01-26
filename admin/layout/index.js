@@ -61,7 +61,6 @@ page('/admin/peers', function () {
         p.profesion !== '' && 
         p.domicilio.calle !== '' && 
         p.domicilio.numero !== '' && 
-        p.domicilio.piso !== '' && 
         p.domicilio.codPostal !== '' && 
         p.domicilio.localidad !== '' && 
         p.domicilio.provincia !== '' &&
