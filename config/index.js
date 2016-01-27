@@ -1,3 +1,3 @@
-var config = require('./lib/load')
-
-module.exports = config
+module.exports = require('democracyos-config')({
+  path: __dirname
+})
