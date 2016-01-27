@@ -1,9 +1,12 @@
 var $ = require('jquery')
 var toObject = require('form-to-object')
-var listTemplate = require('../peers/index.hbs');
-var newTemplate = require('../peers/new.hbs');
-var editTemplate = require('../peers/edit.hbs');
-var page = require('page');
+var page = require('page')
+var listTemplate = require('../peers/index.hbs')
+var newTemplate = require('../peers/new.hbs')
+var editTemplate = require('../peers/edit.hbs')
+var pictures = require('../peers/pictures/pictures')
+
+window.pictures = pictures
 
 $.put = function (url, data, callback, type) {
 

@@ -60,7 +60,7 @@ app.get('/peers/:id/pictures', function (req, res) {
   })
 })
 
-app.post('/peers/:id/pictures', function (req, res) {
+app.get('/peers/:id/pictures/upload-url', function (req, res) {
   pictures.getUploadUrl(req.query.filename, req.peer, function (err, data) {
     if (err) return res.status(500).send(err)
     res.json(data)
