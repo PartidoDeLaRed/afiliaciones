@@ -1,7 +1,10 @@
 var $ = require('jquery')
+var URL = require('url-parse')
+require('fileapi')
+var FileAPI = window.FileAPI
 
 function baseUrl (id, suffix) {
-  var url = '/peers/:id/pictures'
+  var url = '/api/admin/peers/:id/pictures'
   if (id) url = url.replace(':id', id)
   if (suffix) url += '/' + suffix
   return url
@@ -13,9 +16,26 @@ module.exports = {
       return $.Deferred().reject(new Error('Invalid File.'))
     }
 
-    return $.when($.ajax({
+    return $.ajax({
       type: 'get',
-      url: baseUrl(peerId, 'upload-url')
-    }))
+      url: baseUrl(peerId, 'upload-url'),
+      data: {
+        filename: file.name
+      }
+    })
+  },
+
+  upload: function (file, uploadUrl) {
+    var url = URL(uploadUrl, true)
+
+    return $.ajax({
+      url: uploadUrl,
+      type: 'PUT',
+      headers: {'Content-Type': url.query['Content-Type']},
+      processData: false,
+      data: file
+    })
   }
 }
+
+window.pictures = module.exports

@@ -6,8 +6,6 @@ var newTemplate = require('../peers/new.hbs')
 var editTemplate = require('../peers/edit.hbs')
 var pictures = require('../peers/pictures/pictures')
 
-window.pictures = pictures
-
 $.put = function (url, data, callback, type) {
 
   if ($.isFunction(data)) {
@@ -23,7 +21,6 @@ $.put = function (url, data, callback, type) {
     data: data,
     contentType: type
   });
-
 }
 
 $.del = function (url, data, callback, type) {
@@ -41,10 +38,26 @@ $.del = function (url, data, callback, type) {
     data: data,
     contentType: type
   });
-
 }
 
 var peers = null;
+
+function findPeer (ctx, next) {
+  $.get('/api/admin/peers/'+ ctx.params.id)
+    .done(function (res) {
+      ctx.peer = res
+      next()
+    })
+}
+
+var _content
+function loadContent (ctx, next) {
+  if (!_content) _content = $('.content')
+  _content.html('') // Limpiar el content
+  _content.off() // Desatachear todos los eventos de la vista anterior
+  ctx.content = _content
+  next()
+}
 
 page('/admin/peers', function () {
   $.get('/api/admin/peers').done(function (res) {
@@ -176,49 +189,79 @@ page('/admin/peers/new', function () {
   });
 });
 
-page('/admin/peers/:id/edit', function (ctx, next) {
-  $.get('/api/admin/peers/'+ ctx.params.id)
-     .done(function (res) {
-      res.fechaDeNacimiento = res.fechaDeNacimiento.split('/').join('-');
-      $('.content').html('').append(editTemplate({
-      obj: {
-        peer: res,
-        helpers: {
-          formSelectTipoMatricula: function () {
-            return '<option value="DNI" ' + ((res.matricula.tipo == 'DNI')?'selected':'') + '>DNI</option>' +
-        '<option value="LE" ' + ((res.matricula.tipo == 'LE')?'selected':'') + '>LE</option>' +
-        '<option value="LI" ' + ((res.matricula.tipo == 'LI')?'selected':'') + '>LI</option>'
-          },
-          formSelectSexo: function () {
-            return '<option value="F" ' + ((res.sexo === 'F')?'selected':'') + '>Femenino</option>' +
-        '<option value="M" ' + ((res.sexo === 'M')?'selected':'') + '>Masculino</option>'
-          },
-          formSelectEstadoCivil: function () {
-            return '<option value="soltero" ' + ((res.estadoCivil == 'soltero')?'selected':'') + '>Soltero/a</option>' +
-        '<option value="casado" ' + ((res.estadoCivil == 'casado')?'selected':'') + '>Casado/a</option>' +
-        '<option value="divorciado" ' + ((res.estadoCivil == 'divorciado')?'selected':'') + '>Divorciado/a</option>' +
-        '<option value="viudo" ' + ((res.estadoCivil == 'viudo')?'selected':'') + '>Viudo/a</option>'
-          }
+page('/admin/peers/:id/edit', findPeer, loadContent, function (ctx, next) {
+  var peer = ctx.peer
+  var content = ctx.content
+
+  if (peer.fechaDeNacimiento) {
+    peer.fechaDeNacimiento = peer.fechaDeNacimiento.split('/').join('-')
+  }
+
+  content.append(editTemplate({
+    obj: {
+      peer: peer,
+      helpers: {
+        formSelectTipoMatricula: function () {
+          return '<option value="DNI" ' + ((peer.matricula.tipo == 'DNI')?'selected':'') + '>DNI</option>' +
+      '<option value="LE" ' + ((peer.matricula.tipo == 'LE')?'selected':'') + '>LE</option>' +
+      '<option value="LI" ' + ((peer.matricula.tipo == 'LI')?'selected':'') + '>LI</option>'
+        },
+        formSelectSexo: function () {
+          return '<option value="F" ' + ((peer.sexo === 'F')?'selected':'') + '>Femenino</option>' +
+      '<option value="M" ' + ((peer.sexo === 'M')?'selected':'') + '>Masculino</option>'
+        },
+        formSelectEstadoCivil: function () {
+          return '<option value="soltero" ' + ((peer.estadoCivil == 'soltero')?'selected':'') + '>Soltero/a</option>' +
+      '<option value="casado" ' + ((peer.estadoCivil == 'casado')?'selected':'') + '>Casado/a</option>' +
+      '<option value="divorciado" ' + ((peer.estadoCivil == 'divorciado')?'selected':'') + '>Divorciado/a</option>' +
+      '<option value="viudo" ' + ((peer.estadoCivil == 'viudo')?'selected':'') + '>Viudo/a</option>'
         }
       }
-    }));
+    }
+  }))
 
-    $("#peerForm").on('submit', function (ev) {
-      ev.preventDefault();
-      ev.stopImmediatePropagation();
-      SaveData();
-      return false;
-    });
-
-    $("#mismoDomicilioDocumento").on('change', function (ev) {
-      if (this.checked)
-        $('#sectionDomicilioReal').slideUp('100');
-      else
-        $('#sectionDomicilioReal').slideDown('100');
-    });
+  content.on('submit', '#peerForm', function (ev) {
+    ev.preventDefault()
+    ev.stopImmediatePropagation()
+    SaveData()
+    return false
   })
-});
-page();
+
+  content.on('change', '#mismoDomicilioDocumento', function (evt) {
+    var input = evt.currentTarget
+    var action = input.checked ? 'slideUp' : 'slideDown'
+    $('#sectionDomicilioReal')[action]('100')
+  })
+
+  content.on('change', '[data-peer-picture]', function (evt) {
+    var input = evt.currentTarget
+    var file = input.files[0]
+    if (!file) return
+    if (file.size > 10000000) {
+      return window.alert('La foto es muy pesada, el tamaño máximo es 10MB.')
+    }
+
+    pictures.getUploadUrl(peer.id, file)
+      .done(function (res) {
+        console.log('UploadUrl: ', res)
+        pictures.upload(file, res.uploadUrl)
+          .progress(function (data) {
+            console.log('progess: ', data)
+          })
+          .done(function (res) {
+            console.log('done: ', res)
+          })
+          .fail(function (err) {
+            console.log('fail: ', err)
+          })
+      })
+      .fail(function (err) {
+        console.error(err)
+      })
+  })
+})
+
+page()
 
 function loadSearchBoxes() {
   $('.listHeader:not(.actions, .state)').each(function (index, item) {
