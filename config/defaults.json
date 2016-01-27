@@ -2,7 +2,7 @@
   "port": 3000,
   "mongoUrl": "mongodb://localhost/pdr-afiliaciones",
   "secret": "",
-  "s3": {
+  "aws": {
     "bucket": "",
     "region": "",
     "accessKeyId": "",

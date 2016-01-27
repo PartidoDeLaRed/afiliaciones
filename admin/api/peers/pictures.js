@@ -7,9 +7,9 @@ var config = require('../../../config')
 console.log(config)
 
 aws.config.update({
-  region: config.s3.region,
-  accessKeyId: config.s3.accessKeyId,
-  secretAccessKey: config.s3.secretAccessKey,
+  region: config.aws.region,
+  accessKeyId: config.aws.accessKeyId,
+  secretAccessKey: config.aws.secretAccessKey,
   sslEnabled: true,
   logger: process.stdout
 })
@@ -27,7 +27,7 @@ function getUploadUrl (originalFile, peer, cb) {
   var file = [folderFor(peer), filename].join('/')
 
   var params = {
-    Bucket: config.s3.bucket,
+    Bucket: config.aws.bucket,
     Key: file,
     Expires: 60 * 15,
     ContentType: ContentType,
@@ -50,7 +50,7 @@ function getUrls (peer, cb) {
   var prefix = folderFor(peer) + '/'
 
   var params = {
-    Bucket: config.s3.bucket,
+    Bucket: config.aws.bucket,
     Delimiter: '/',
     Prefix: prefix
   }
@@ -66,7 +66,7 @@ function getUrls (peer, cb) {
       if (!file) return
 
       var fetch = s3.getSignedUrl.bind(s3, 'getObject', {
-        Bucket: config.s3.bucket,
+        Bucket: config.aws.bucket,
         Key: file,
         Expires: 120
       })
