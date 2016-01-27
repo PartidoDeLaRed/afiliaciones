@@ -1,7 +1,5 @@
 var $ = require('jquery')
 var URL = require('url-parse')
-require('fileapi')
-var FileAPI = window.FileAPI
 
 function baseUrl (id, suffix) {
   var url = '/api/admin/peers/:id/pictures'
