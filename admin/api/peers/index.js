@@ -35,14 +35,14 @@ app.get('/peers', function (req, res) {
 app.post('/peers', peerForm, function (req, res) {
   Peer.create(req.peer, function (err, peer) {
     if (err) return res.status(500).send(err)
-    res.status(200).send(peer)
+    res.status(200).json(peer)
   })
 })
 
 app.put('/peers/:id', peerForm, function (req, res) {
   req.peer.save(function (err) {
     if (err) return res.status(500).send(err)
-    res.status(200).send(peer)
+    res.status(200).json(req.peer)
   })
 })
 
@@ -57,6 +57,14 @@ app.get('/peers/:id/pictures', function (req, res) {
   pictures.getUrls(req.peer, function (err, data) {
     if (err) return res.status(500).send(err)
     res.json(data)
+  })
+})
+
+app.put('/peers/:id/pictures', function (req, res) {
+  req.peer.imagenesDocumento = req.body;
+  req.peer.save(function (err) {
+    if (err) return res.status(500).send(err)
+    res.status(200).json(req.peer)
   })
 })
 

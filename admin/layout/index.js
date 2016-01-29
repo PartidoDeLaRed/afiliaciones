@@ -308,55 +308,65 @@ function SaveData() {
 
     if (form.id) {
       $.put('/api/admin/peers/' + form.id, form)
-      .done(function (res) { UploadImages(res); window.location = '/admin/peers'; })
+      .done(function (res) { UploadImages(res, function () { window.location = '/admin/peers'; }); })
       .fail(function (res) { showErrors($.parseJSON(res.responseText)); });
     }
     else {
       $.post('/api/admin/peers/', form)
-      .done(function (res) { UploadImages(res); window.location = '/admin/peers'; })
+      .done(function (res) { UploadImages(res, function () { window.location = '/admin/peers'; }); })
       .fail(function (res) { showErrors($.parseJSON(res.responseText)); });
     }
   });
 }
 
-function UploadImages(peer)
-{
+function UploadImages(peer, cb) {
   var save = false;
+  var imagenes = [];
   $('.imagenDocumento').each(function (index, item) {
-    var input = item
-    var file = input.files[0]
-    if (file) {
-      if (file.size <= 10000000) {
-        pictures.getUploadUrl(peer.id, file)
-        .done(function (res) {
-            console.log('UploadUrl: ', res)
-            pictures.upload(file, res.uploadUrl)
-            .progress(function (data) {
-              console.log('progess: ', data)
-            })
-            .done(function (res) {
-            console.log('done: ', res)
-            save = true;
-              if (input.name == 'picture-1') peer.imagenesDocumento.frente = res.uploadUrl; 
-              else if (input.name == 'picture-2') peer.imagenesDocumento.dorso = res.uploadUrl;
-              else if (input.name == 'picture-3') peer.imagenesDocumento.cambioDomicilio = res.uploadUrl;
-            })
-            .fail(function (err) {
-              console.log('fail: ', err)
-            })
-          })
-        .fail(function (err) {
-            console.error(err)
-          })
-        }
-      else {
-        $.put('/api/admin/peers/' + peer.id, peer)
-        .done(function (res) { window.location = '/admin/peers'; })
-        .fail(function (res) { showErrors($.parseJSON(res.responseText)); });
-      }
-    }
-  })
+    var file = item.files[0]
+    if (file)
+      if (file.size <= 10000000)
+        imagenes.push(item);
+  });
+  var i = 0;
+  imagenes.forEach(function (item) {
+    var file = item.files[0]
+    pictures.getUploadUrl(peer.id, file)
+    .done(function (resDir) {
+      console.log('UploadUrl: ', resDir)
+      pictures.upload(file, resDir.uploadUrl)
+      .progress(function (data) {
+        console.log('progess: ', data)
+      })
+      .done(function (res) {
+        i++;
+        console.log('done: ', res)
+        save = true;
+        if (!peer.imagenesDocumento)
+          peer.imagenesDocumento = {};
+        if (item.name == 'picture-1') peer.imagenesDocumento.frente = resDir.file;
+        else if (item.name == 'picture-2') peer.imagenesDocumento.dorso = resDir.file;
+        else if (item.name == 'picture-3') peer.imagenesDocumento.cambioDomicilio = resDir.file;
 
+        if (i == imagenes.length)
+          $.put('/api/admin/peers/' + peer.id + '/pictures', peer.imagenesDocumento)
+          .done(function (res) {
+            window.location = '/admin/peers';
+          })
+          .fail(function (res) {
+            showErrors($.parseJSON(res.responseText));
+          });
+      })
+      .fail(function (err) {
+        i++;
+        console.log('fail: ', err)
+      })
+    })
+    .fail(function (err) {
+      console.error(err)
+    })
+  })
+  
   if (save) {
 
   }
