@@ -120,7 +120,10 @@ page('/admin/peers', function () {
 
       ShowDialog('Eliminación de Afiliado', '¿Realmente desea eliminar al afiliado <b>' + nombre + '</b>?', function () {
         $.del('/api/admin/peers/' + id)
-        .done(function () { window.location = '/admin/peers'; })
+        .done(function () {
+          $(el).slideUp('300', function () { $(this).remove(); })
+          $('#afiliacionesTitle').html('Afiliaciones (' + $('.peerContainer.visible').length + ')')
+        })
         .fail(function (res) { });
       });
     });
@@ -181,12 +184,7 @@ page('/admin/peers/new', function () {
     }
   }));
 
-  $("#peerForm").on('submit', function (ev) {
-    ev.preventDefault();
-    ev.stopImmediatePropagation();
-    SaveData();
-    return false;
-  });
+  loadEvents();
 });
 
 page('/admin/peers/:id/edit', findPeer, loadContent, function (ctx, next) {
@@ -220,48 +218,43 @@ page('/admin/peers/:id/edit', findPeer, loadContent, function (ctx, next) {
     }
   }))
 
-  content.on('submit', '#peerForm', function (ev) {
+  loadEvents();
+})
+
+page()
+
+function loadEvents()
+{
+  $('#peerForm').on('submit', function (ev) {
     ev.preventDefault()
     ev.stopImmediatePropagation()
     SaveData()
     return false
   })
-
-  content.on('change', '#mismoDomicilioDocumento', function (evt) {
+  
+  $('#mismoDomicilioDocumento').on('change', function (evt) {
     var input = evt.currentTarget
     var action = input.checked ? 'slideUp' : 'slideDown'
     $('#sectionDomicilioReal')[action]('100')
   })
-
-  content.on('change', '[data-peer-picture]', function (evt) {
+  
+  $('.imagenDocumento').on('change', function (evt) {
     var input = evt.currentTarget
     var file = input.files[0]
     if (!file) return
     if (file.size > 10000000) {
-      return window.alert('La foto es muy pesada, el tamaño máximo es 10MB.')
+      return window.alert('La foto es muy pesada, el tamaño máximo es 10MB.');
+      input.value = "";
     }
-
-    pictures.getUploadUrl(peer.id, file)
-      .done(function (res) {
-        console.log('UploadUrl: ', res)
-        pictures.upload(file, res.uploadUrl)
-          .progress(function (data) {
-            console.log('progess: ', data)
-          })
-          .done(function (res) {
-            console.log('done: ', res)
-          })
-          .fail(function (err) {
-            console.log('fail: ', err)
-          })
-      })
-      .fail(function (err) {
-        console.error(err)
-      })
-  })
-})
-
-page()
+    else {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $('#' + input.name + '-preview').css('background-image', 'url(' + e.target.result + ')');
+      }
+      reader.readAsDataURL(file);
+    }
+  });
+}
 
 function loadSearchBoxes() {
   $('.listHeader:not(.actions, .state)').each(function (index, item) {
@@ -314,16 +307,59 @@ function SaveData() {
     var form = toObject(document.querySelector('form'))
 
     if (form.id) {
-    $.put('/api/admin/peers/' + form.id, form)
-    .done(function () { window.location = '/admin/peers'; })
-    .fail(function (res) { showErrors($.parseJSON(res.responseText)); });
+      $.put('/api/admin/peers/' + form.id, form)
+      .done(function (res) { UploadImages(res); window.location = '/admin/peers'; })
+      .fail(function (res) { showErrors($.parseJSON(res.responseText)); });
     }
     else {
       $.post('/api/admin/peers/', form)
-    .done(function () { window.location = '/admin/peers'; })
-    .fail(function (res) { showErrors($.parseJSON(res.responseText)); });
+      .done(function (res) { UploadImages(res); window.location = '/admin/peers'; })
+      .fail(function (res) { showErrors($.parseJSON(res.responseText)); });
     }
   });
+}
+
+function UploadImages(peer)
+{
+  var save = false;
+  $('.imagenDocumento').each(function (index, item) {
+    var input = item
+    var file = input.files[0]
+    if (file) {
+      if (file.size <= 10000000) {
+        pictures.getUploadUrl(peer.id, file)
+        .done(function (res) {
+            console.log('UploadUrl: ', res)
+            pictures.upload(file, res.uploadUrl)
+            .progress(function (data) {
+              console.log('progess: ', data)
+            })
+            .done(function (res) {
+            console.log('done: ', res)
+            save = true;
+              if (input.name == 'picture-1') peer.imagenesDocumento.frente = res.uploadUrl; 
+              else if (input.name == 'picture-2') peer.imagenesDocumento.dorso = res.uploadUrl;
+              else if (input.name == 'picture-3') peer.imagenesDocumento.cambioDomicilio = res.uploadUrl;
+            })
+            .fail(function (err) {
+              console.log('fail: ', err)
+            })
+          })
+        .fail(function (err) {
+            console.error(err)
+          })
+        }
+      else {
+        $.put('/api/admin/peers/' + peer.id, peer)
+        .done(function (res) { window.location = '/admin/peers'; })
+        .fail(function (res) { showErrors($.parseJSON(res.responseText)); });
+      }
+    }
+  })
+
+  if (save) {
+
+  }
 }
 
 function showErrors(err)
@@ -344,9 +380,9 @@ function ShowDialog(title, message, cb)
   var messageContainer = $('<div class="dialogMessage"/>').html(message);
   var buttonsContainer = $('<div class="dialogFooter"/>');
   var buttonAccept = $('<div class="dialogButton accept"/>').html('Aceptar').click(function () {
-    cb();
     wrapper.fadeOut('200ms', function () {
       wrapper.remove();
+      cb();
     });
   });
   var buttonCancel = $('<div class="dialogButton cancel"/>').html('Cancelar').click(function () {

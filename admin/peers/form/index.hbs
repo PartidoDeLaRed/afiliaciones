@@ -65,6 +65,31 @@
   </div>
   {{/if}}
 
+  <div class="formGroup header">Imágenes del documento</div>
+  <div id="sectionImagenesDocumento" class="formGroup content">
+    <div class="inputWrapper third">
+      <div class="imagePreview" id="picture-1-preview"></div>
+      <label class="imageSelector">
+        <input type="file" name="picture-1" class="imagenDocumento" accept="image/*"/>
+        <span class="buttonSelectImage">Frente o primera hoja</span>
+      </label>
+    </div>
+    <div class="inputWrapper third">
+      <div class="imagePreview" id="picture-2-preview"></div>
+      <label class="imageSelector">
+        <input type="file" name="picture-2" class="imagenDocumento" accept="image/*">
+        <span class="buttonSelectImage">Dorso o segunda hoja</span>
+      </label>
+    </div>
+    <div class="inputWrapper third">
+      <div class="imagePreview" id="picture-3-preview"></div>
+      <label class="imageSelector">
+        <input type="file" name="picture-3" class="imagenDocumento" accept="image/*">
+        <span class="buttonSelectImage">Cambio de domicilio</span>
+      </label>
+    </div>
+  </div>
+
   <div class="inputWrapper checkbox"><label><input type="checkbox" name="tieneFirmas" {{#if obj.peer.tieneFirmas}}checked{{/if}} value="check" />Tiene las firmas en las fichas de afiliación</label></div>
   <div class="inputWrapper checkbox"><label><input type="checkbox" name="noAfiliadoOtroPartido" {{#if obj.peer.noAfiliadoOtroPartido}} checked{{/if}} value="check" />No está afiliado a otro partido</label></div>
 

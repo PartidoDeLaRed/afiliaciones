@@ -35,14 +35,14 @@ app.get('/peers', function (req, res) {
 app.post('/peers', peerForm, function (req, res) {
   Peer.create(req.peer, function (err, peer) {
     if (err) return res.status(500).send(err)
-    res.status(200).send()
+    res.status(200).send(peer)
   })
 })
 
 app.put('/peers/:id', peerForm, function (req, res) {
   req.peer.save(function (err) {
     if (err) return res.status(500).send(err)
-    res.status(200).send()
+    res.status(200).send(peer)
   })
 })
 
