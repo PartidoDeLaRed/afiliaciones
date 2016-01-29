@@ -4,8 +4,6 @@ var crypto = require('crypto')
 var mime = require('mime-types')
 var config = require('../../../config')
 
-console.log(config)
-
 aws.config.update({
   region: config.aws.region,
   accessKeyId: config.aws.accessKeyId,
