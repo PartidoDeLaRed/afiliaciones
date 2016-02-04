@@ -231,32 +231,31 @@ function loadEvents()
     SaveData()
     return false
   })
-  
+
   $('#mismoDomicilioDocumento').on('change', function (evt) {
     var input = evt.currentTarget
     var action = input.checked ? 'slideUp' : 'slideDown'
     $('#sectionDomicilioReal')[action]('100')
   })
-  
+
   $('.imagenDocumento').on('change', function (evt) {
     var input = evt.currentTarget
     var file = input.files[0]
     if (!file) return
     if (file.size > 10000000) {
-      return window.alert('La foto es muy pesada, el tamaño máximo es 10MB.');
-      input.value = "";
-    }
-    else {
-      var reader = new FileReader();
+      input.value = ''
+      return window.alert('La foto es muy pesada, el tamaño máximo es 10MB.')
+    } else {
+      var reader = new window.FileReader()
       reader.onload = function (e) {
-        $('#' + input.name + '-preview').css('background-image', 'url(' + e.target.result + ')');
+        $('#' + input.name + '-preview').css('background-image', 'url(' + e.target.result + ')')
       }
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(file)
     }
-  });
+  })
 }
 
-function loadSearchBoxes() {
+function loadSearchBoxes () {
   $('.listHeader:not(.actions, .state)').each(function (index, item) {
     $(item).children().remove();
 
@@ -366,7 +365,7 @@ function UploadImages(peer, cb) {
       console.error(err)
     })
   })
-  
+
   if (save) {
 
   }

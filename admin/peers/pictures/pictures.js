@@ -35,5 +35,3 @@ module.exports = {
     })
   }
 }
-
-window.pictures = module.exports
