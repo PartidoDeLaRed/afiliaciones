@@ -28,7 +28,7 @@ module.exports = function (req, res, next) {
       provincia: req.body.domicilio_provincia
     }
   }
-  
+
   if (req.body.mismoDomicilioDocumento !== 'check') {
     data.domicilioReal = {
       calle: req.body.domicilioReal_calle,

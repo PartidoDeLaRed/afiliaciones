@@ -6,44 +6,12 @@ var newTemplate = require('../peers/new.hbs')
 var editTemplate = require('../peers/edit.hbs')
 var pictures = require('../peers/pictures/pictures')
 
-$.put = function (url, data, callback, type) {
+require('./lib/extend-jquery')
 
-  if ($.isFunction(data)) {
-    type = type || callback,
-    callback = data,
-    data = {}
-  }
-
-  return $.ajax({
-    url: url,
-    type: 'PUT',
-    success: callback,
-    data: data,
-    contentType: type
-  });
-}
-
-$.del = function (url, data, callback, type) {
-
-  if ($.isFunction(data)) {
-    type = type || callback,
-    callback = data,
-    data = {}
-  }
-
-  return $.ajax({
-    url: url,
-    type: 'DELETE',
-    success: callback,
-    data: data,
-    contentType: type
-  });
-}
-
-var peers = null;
+var peers = null
 
 function findPeer (ctx, next) {
-  $.get('/api/admin/peers/'+ ctx.params.id)
+  $.get('/api/admin/peers/' + ctx.params.id)
     .done(function (res) {
       ctx.peer = res
       next()
