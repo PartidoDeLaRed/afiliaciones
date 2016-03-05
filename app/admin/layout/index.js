@@ -8,6 +8,8 @@ var pictures = require('../peers/pictures/pictures')
 
 require('./lib/extend-jquery')
 
+console.log('sarasa')
+
 var peers = null
 
 function findPeer (ctx, next) {

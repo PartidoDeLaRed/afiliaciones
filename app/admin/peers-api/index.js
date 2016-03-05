@@ -1,6 +1,6 @@
 var express = require('express')
 var bodyParser = require('body-parser')
-var Peer = require('../../../lib/models').Peer
+var Peer = require('../../shared/models').Peer
 var peerForm = require('./form')
 var pictures = require('./pictures')
 

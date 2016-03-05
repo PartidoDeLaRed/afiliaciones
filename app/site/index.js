@@ -2,7 +2,7 @@ var express = require('express')
 
 var app = express()
 
-require('../lib/views')(app, {path: __dirname})
+require('../shared/setup-views')(app, {path: __dirname})
 
 app.use(require('./home'))
 

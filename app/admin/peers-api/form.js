@@ -1,12 +1,11 @@
-var Peer = require('../../../lib/models').Peer
+var Peer = require('../../shared/models').Peer
 
 module.exports = function (req, res, next) {
-  
   var data = {
-    nombre : req.body.nombre,
+    nombre: req.body.nombre,
     apellido: req.body.apellido,
     email: req.body.email,
-    matricula : {
+    matricula: {
       numero: req.body.matricula_numero,
       tipo: req.body.matricula_tipo
     },
@@ -16,9 +15,9 @@ module.exports = function (req, res, next) {
     fechaDeNacimiento: req.body.fechaDeNacimiento,
     telefono: req.body.telefono,
     profesion: req.body.profesion,
-    tieneFirmas: req.body.tieneFirmas === 'check' ? true : false,
-    noAfiliadoOtroPartido: req.body.noAfiliadoOtroPartido === 'check' ? true : false,
-    mismoDomicilioDocumento: req.body.mismoDomicilioDocumento === 'check' ? true : false,
+    tieneFirmas: req.body.tieneFirmas === 'check',
+    noAfiliadoOtroPartido: req.body.noAfiliadoOtroPartido === 'check',
+    mismoDomicilioDocumento: req.body.mismoDomicilioDocumento === 'check',
     domicilio: {
       calle: req.body.domicilio_calle,
       numero: req.body.domicilio_numero,
@@ -27,9 +26,9 @@ module.exports = function (req, res, next) {
       codPostal: req.body.domicilio_codPostal,
       localidad: req.body.domicilio_localidad,
       provincia: req.body.domicilio_provincia
-    },
-    borrado: false
-  };
+    }
+  }
+
   if (req.body.mismoDomicilioDocumento !== 'check') {
     data.domicilioReal = {
       calle: req.body.domicilioReal_calle,
@@ -39,12 +38,14 @@ module.exports = function (req, res, next) {
       codPostal: req.body.domicilioReal_codPostal,
       localidad: req.body.domicilioReal_localidad,
       provincia: req.body.domicilioReal_provincia
-    };
+    }
   }
 
-  if (!req.peer)
-    req.peer = new Peer(data);
-  else
-    req.peer.set(data);
-  next();
+  if (!req.peer) {
+    req.peer = new Peer(data)
+  } else {
+    req.peer.set(data)
+  }
+
+  next()
 }

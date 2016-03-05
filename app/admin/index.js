@@ -2,7 +2,7 @@ var express = require('express')
 
 var app = express()
 
-require('../lib/views')(app, {path: __dirname})
+require('../shared/setup-views')(app, {path: __dirname})
 
 app.get('/admin', function (req, res) {
   res.redirect(req.user ? '/admin/peers' : '/admin/login')
@@ -15,7 +15,7 @@ app.all('/admin*', function (req, res, next) {
   res.redirect('/admin')
 })
 
-app.use(require('./api'))
-app.use(require('./peers'))
+app.use('/api/admin', require('./peers-api'))
+app.use('/admin', require('./peers'))
 
 module.exports = app

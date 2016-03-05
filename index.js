@@ -1,7 +1,6 @@
-var config = require('./config')
-var app = require('./lib')
+var app = require('./app')
 
-app.start(config.port, function () {
+app.start(function (port) {
   console.log(' · Afiliaciones · ')
-  console.log(' · ' + config.port + ' · ')
+  console.log(' · ' + port + ' · ')
 })
