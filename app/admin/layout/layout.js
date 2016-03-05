@@ -1,14 +1,17 @@
 var $ = require('jquery')
 var toObject = require('form-to-object')
 var page = require('page')
-var listTemplate = require('../peers/index.hbs')
 var newTemplate = require('../peers/new.hbs')
 var editTemplate = require('../peers/edit.hbs')
 var pictures = require('../peers-pictures/peers-pictures')
 
 require('./lib/extend-jquery')
 
-var peers = null
+require('../peers/peers')
+
+page()
+
+return
 
 function findPeer (ctx, next) {
   $.get('/admin/api/peers/' + ctx.params.id)
@@ -17,116 +20,6 @@ function findPeer (ctx, next) {
       next()
     })
 }
-
-var _content
-function loadContent (ctx, next) {
-  if (!_content) _content = $('.content')
-  _content.html('') // Limpiar el content
-  _content.off() // Desatachear todos los eventos de la vista anterior
-  ctx.content = _content
-  next()
-}
-
-page('/admin/peers', function () {
-  $.get('/admin/api/peers').done(function (res) {
-    peers = res.map(function (p) {
-      p.id = p.id;
-
-      try {
-        p.datosCompletos = (
-          p.nombre &&
-          p.apellido &&
-          p.email &&
-          p.matricula.numero &&
-          p.matricula.tipo &&
-          p.sexo &&
-          p.estadoCivil &&
-          p.lugarDeNacimiento &&
-          p.fechaDeNacimiento &&
-          p.profesion &&
-          p.domicilio.calle &&
-          p.domicilio.numero &&
-          p.domicilio.codPostal &&
-          p.domicilio.localidad &&
-          p.domicilio.provincia &&
-          (p.mismoDomicilioDocumento !== true ?
-            (p.domicilioReal.calle &&
-            p.domicilioReal.numero &&
-            p.domicilioReal.piso &&
-            p.domicilioReal.depto &&
-            p.domicilioReal.codPostal &&
-            p.domicilioReal.localidad &&
-            p.domicilioReal.provincia) : true)
-        )
-      } catch (e) {
-        p.datosCompletos = false
-      }
-
-      return p
-    })
-
-    $('.content').html('').append(listTemplate({ peers: peers.sort(function (a, b) { return (b.apellido != a.apellido ? (b.apellido <= a.apellido ? 1 : -1) : (b.nombre <= a.nombre ? 1 : -1)) }) }));
-    loadSearchBoxes();
-
-    $('.button.info').click(function (ev) {
-      ev.preventDefault();
-      ev.stopImmediatePropagation();
-
-      var el = $(this).parents('.peerContainer');
-      var id = $(el).attr('data-id');
-      // var nombre = $(el).find('.peerNombre').html();
-      ShowInfo(peers.filter(function (peer) { return peer.id == id })[0]);
-    });
-
-    $('.button.delete').click(function (ev) {
-      ev.preventDefault();
-      ev.stopImmediatePropagation();
-
-      var el = $(this).parents('.peerContainer');
-      var id = $(el).attr('data-id');
-      var nombre = $(el).find('.peerNombre').html();
-
-      ShowDialog('Eliminación de Afiliado', '¿Realmente desea eliminar al afiliado <b>' + nombre + '</b>?', function () {
-        $.del('/admin/api/peers/' + id)
-        .done(function () {
-          $(el).slideUp('300', function () { $(this).remove(); })
-          $('#afiliacionesTitle').html('Afiliaciones (' + $('.peerContainer.visible').length + ')')
-        })
-        .fail(function (res) { });
-      });
-    });
-
-    $('#listType').change(function () {
-      var val = document.getElementById('listType').value;
-      switch (val) {
-        case 'todos': $('.peerContainer').addClass('visible').removeClass('hidden'); break;
-        case 'todoOk':
-          $('.peerContainer').each(function (index, item) {
-            $(item).children('.ok').length == 3 ? $(item).addClass('visible').removeClass('hidden') : $(item).addClass('hidden').removeClass('visible');
-          });
-          break;
-        case 'faltanDatos':
-          $('.peerEstado.datosCompletos.no').parent('.peerContainer').addClass('visible').removeClass('hidden');
-          $('.peerEstado.datosCompletos.ok').parent('.peerContainer').addClass('hidden').removeClass('visible');
-          break;
-        case 'faltanFirmas':
-          $('.peerEstado.tieneFirmas.no').parent('.peerContainer').addClass('visible').removeClass('hidden');
-          $('.peerEstado.tieneFirmas.ok').parent('.peerContainer').addClass('hidden').removeClass('visible');
-          break;
-        case 'afiliadoOtroPartido':
-          $('.peerEstado.noAfiliado.no').parent('.peerContainer').addClass('visible').removeClass('hidden');
-          $('.peerEstado.noAfiliado.ok').parent('.peerContainer').addClass('hidden').removeClass('visible');
-          break;
-        default : $('.peerContainer').addClass('visible').removeClass('hidden'); break;
-      }
-      $('#afiliacionesTitle').html('Afiliaciones (' + $('.peerContainer.visible').length + ')');
-    });
-  })
-     .fail(function (res) {
-    showErrors($.parseJSON(res.responseText));
-  });
-
-});
 
 page('/admin/peers/new', function () {
   $('.content').html('').append(newTemplate({
@@ -208,8 +101,7 @@ page('/admin/peers/:id/edit', findPeer, loadContent, function (ctx, next) {
 
 page()
 
-function loadEvents()
-{
+function loadEvents() {
   $('#peerForm').on('submit', function (ev) {
     ev.preventDefault()
     ev.stopImmediatePropagation()
@@ -276,50 +168,6 @@ function loadEvents()
   
   $('#btnCancelEdit').on('click', function (evt) {
     window.location = "/admin/peers";
-  })
-}
-
-function loadSearchBoxes () {
-  $('.listHeader:not(.actions, .state)').each(function (index, item) {
-    $(item).children().remove();
-
-    var searchButton = $('<div class="button search" />')
-
-    var searchContainer = $('<div class="searchContainer" />').css('display', 'none');
-    var searchField = $('<input type="text" class="searchField" />')
-    searchContainer.append(searchField.keyup(function (event) {
-      //Si borro todo, muestro todos
-      var val = this.value;
-      if (val === null) {
-        $('.peerContainer').css('display', 'block');
-      }
-      //Sino, muestro solo los que coincidan con la busqueda
-      else {
-        var field = $(this).parents('.listHeader').attr('data-field');
-        $('.peerContainer').each(function (index, item) {
-          if ($(item).find('.peer' + field).html().toLowerCase().indexOf(val.toLowerCase()) >= 0)
-            $(item).css('display', 'block');
-          else
-            $(item).css('display', 'none');
-        })
-      }
-    })
-    );
-    searchContainer.append($('<div class="button cancel" />').click(function () {
-      searchButton.fadeIn(100)
-      searchContainer.fadeOut(100)
-      $('.peerContainer').css('display', 'block');
-    }))
-
-    searchButton.click(function () {
-      searchButton.fadeOut(100)
-      searchContainer.fadeIn(100)
-      searchField.value = ''
-      searchField.focus()
-    })
-
-    $(item).append(searchButton)
-    $(item).append(searchContainer)
   })
 }
 
