@@ -36,7 +36,7 @@ app.get('/logout', function (req, res) {
 
 app.all('/*', function (req, res, next) {
   if (req.user) return next()
-  res.redirect(req.baseUrl)
+  res.redirect(req.baseUrl + '/login')
 })
 
 module.exports = app

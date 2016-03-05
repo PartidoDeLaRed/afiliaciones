@@ -380,7 +380,6 @@ function ShowInfo(peer)
 
   //Todos los datos
   var messageContainer = $('<div class="dialogMessage" style="padding: 10px;"/>');
-  debugger
   var nombreApellido = $('<div class="inputWrapper half" style="font-size: 30px"/>').html(peer.nombre + ' ' + peer.apellido);
   var matricula = $('<div class="inputWrapper half"/>')         .html('<div class="infoLabel">Matrícula</div><div class="infoContent">' + peer.matricula.tipo + ': ' + peer.matricula.numero + '</div>');
   var sexo = $('<div class="inputWrapper half"/>')              .html('<div class="infoLabel">Sexo</div><div class="infoContent">' + (peer.sexo == 'F' ? 'Femenino' : 'Masculino') + '</div>');
