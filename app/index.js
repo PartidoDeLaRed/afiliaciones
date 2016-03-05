@@ -12,13 +12,17 @@ require('./shared/auth')(app)
 app.use(express.static(path.join(__dirname, '..', 'public')))
 app.use(express.static(path.join(__dirname, '..', 'build')))
 
-// Views
+// Load Sub-apps
 app.use(require('./site'))
 app.use(require('./admin'))
 
-app.start = function (cb) {
+/**
+ * Start the server
+ * @param  {Function} callback
+ */
+app.start = function (callback) {
   models.ready().then(function () {
-    app.listen(config.port, cb.bind(app, config.port))
+    app.listen(config.port, callback.bind(app, config.port))
   })
 }
 

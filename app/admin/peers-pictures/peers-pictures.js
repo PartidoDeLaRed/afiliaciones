@@ -2,7 +2,7 @@ var $ = require('jquery')
 var URL = require('url-parse')
 
 function baseUrl (id, suffix) {
-  var url = '/api/admin/peers/:id/pictures'
+  var url = '/admin/api/peers/:id/pictures'
   if (id) url = url.replace(':id', id)
   if (suffix) url += '/' + suffix
   return url

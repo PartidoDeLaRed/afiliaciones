@@ -11,7 +11,7 @@ require('./lib/extend-jquery')
 var peers = null
 
 function findPeer (ctx, next) {
-  $.get('/api/admin/peers/' + ctx.params.id)
+  $.get('/admin/api/peers/' + ctx.params.id)
     .done(function (res) {
       ctx.peer = res
       next()
@@ -28,7 +28,7 @@ function loadContent (ctx, next) {
 }
 
 page('/admin/peers', function () {
-  $.get('/api/admin/peers').done(function (res) {
+  $.get('/admin/api/peers').done(function (res) {
     peers = res.map(function (p) {
       p.id = p.id;
 
@@ -87,7 +87,7 @@ page('/admin/peers', function () {
       var nombre = $(el).find('.peerNombre').html();
 
       ShowDialog('Eliminación de Afiliado', '¿Realmente desea eliminar al afiliado <b>' + nombre + '</b>?', function () {
-        $.del('/api/admin/peers/' + id)
+        $.del('/admin/api/peers/' + id)
         .done(function () {
           $(el).slideUp('300', function () { $(this).remove(); })
           $('#afiliacionesTitle').html('Afiliaciones (' + $('.peerContainer.visible').length + ')')
@@ -274,12 +274,12 @@ function SaveData() {
     var form = toObject(document.querySelector('form'))
 
     if (form.id) {
-      $.put('/api/admin/peers/' + form.id, form)
+      $.put('/admin/api/peers/' + form.id, form)
       .done(function (res) { UploadImages(res, function () { window.location = '/admin/peers'; }); })
       .fail(function (res) { showErrors($.parseJSON(res.responseText)); });
     }
     else {
-      $.post('/api/admin/peers/', form)
+      $.post('/admin/api/peers/', form)
       .done(function (res) { UploadImages(res, function () { window.location = '/admin/peers'; }); })
       .fail(function (res) { showErrors($.parseJSON(res.responseText)); });
     }
@@ -316,7 +316,7 @@ function UploadImages(peer, cb) {
         else if (item.name == 'picture-3') peer.imagenesDocumento.cambioDomicilio = resDir.file;
 
         if (i == imagenes.length)
-          $.put('/api/admin/peers/' + peer.id + '/pictures', peer.imagenesDocumento)
+          $.put('/admin/api/peers/' + peer.id + '/pictures', peer.imagenesDocumento)
           .done(function (res) {
             window.location = '/admin/peers';
           })
