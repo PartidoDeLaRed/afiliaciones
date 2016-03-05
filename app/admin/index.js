@@ -1,4 +1,5 @@
 var express = require('express')
+var renderLayout = require('./layout')
 
 var app = express()
 
@@ -10,12 +11,13 @@ app.get('/admin', function (req, res) {
 
 app.use(require('./login'))
 
-app.all('/admin*', function (req, res, next) {
+app.all('/admin/*', function (req, res, next) {
   if (req.user) return next()
   res.redirect('/admin')
 })
 
 app.use('/api/admin', require('./peers-api'))
-app.use('/admin', require('./peers'))
+
+app.use('/admin/*', renderLayout)
 
 module.exports = app

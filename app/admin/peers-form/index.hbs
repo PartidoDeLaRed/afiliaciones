@@ -1,0 +1,100 @@
+﻿<input type="hidden" name="id" placeholder="" value="{{obj.peer.id}}" />
+<div class="inputWrapper half big"><input type="text" name="nombre" placeholder="Nombre" required autofocus value="{{obj.peer.nombre}}"/></div>
+  <div class="inputWrapper half big"><input type="text" name="apellido" placeholder="Apellido" required value="{{obj.peer.apellido}}"/></div>
+
+  <div class="inputWrapper quarter">
+    <select name="matricula_tipo" placeholder="Tipo de Doc.">
+      {{{obj.helpers.formSelectTipoMatricula}}}
+    </select>
+  </div>
+  <div class="inputWrapper quarter"><input type="text" name="matricula_numero" placeholder="Nro. Doc." value="{{obj.peer.matricula.numero}}"/></div>
+  <div class="inputWrapper quarter">
+    <select name="sexo" placeholder="Sexo">
+      {{{obj.helpers.formSelectSexo}}}
+
+    </select>
+  </div>
+  <div class="inputWrapper quarter">
+    <select name="estadoCivil" placeholder="Estado Civil">
+      {{{obj.helpers.formSelectEstadoCivil}}}
+    </select>
+  </div>
+
+  <div class="inputWrapper quarter"><input type="date" name="fechaDeNacimiento" placeholder="Fecha de Nacimiento" value="{{obj.peer.fechaDeNacimiento}}"/></div>
+  <div class="inputWrapper half"><input type="text" name="lugarDeNacimiento" placeholder="Lugar de Nacimiento" value="{{obj.peer.lugarDeNacimiento}}"></div>
+  <div class="inputWrapper quarter"><input type="text" name="telefono" placeholder="Telefono" value="{{obj.peer.telefono}}" /></div>
+
+  <div class="inputWrapper half"><input type="email" name="email" placeholder="Email" required value="{{obj.peer.email}}"/></div>
+  <div class="inputWrapper half"><input type="text" name="profesion" placeholder="Profesion" value="{{obj.peer.profesion}}"/></div>
+
+  <div class="formGroup header">Domicilio del Documento</div>
+  <div class="formGroup content">
+    <div class="inputWrapper almostHalf"><input type="text" name="domicilio_calle" placeholder="Calle" value="{{obj.peer.domicilio.calle}}"/></div>
+    <div class="inputWrapper fifth"><input type="text" name="domicilio_numero" placeholder="Numero" value="{{obj.peer.domicilio.numero}}"/></div>
+    <div class="inputWrapper fifth"><input type="text" name="domicilio_piso" placeholder="Piso" value="{{obj.peer.domicilio.piso}}"/></div>
+    <div class="inputWrapper fifth"><input type="text" name="domicilio_depto" placeholder="Departamento" value="{{obj.peer.domicilio.depto}}"/></div>
+
+    <div class="inputWrapper fifth"><input type="text" name="domicilio_codPostal" placeholder="Codigo Postal" value="{{obj.peer.domicilio.codPostal}}"/></div>
+    <div class="inputWrapper almostHalf"><input type="text" name="domicilio_localidad" placeholder="Localidad" value="{{obj.peer.domicilio.localidad}}"/></div>
+    <div class="inputWrapper almostHalf"><input type="text" name="domicilio_provincia" placeholder="Provincia" value="{{obj.peer.domicilio.provincia}}"/></div>
+  </div>
+  <div class="formGroup header">Domicilio efectivo de la persona
+    <label><input type="checkbox" id="mismoDomicilioDocumento" name="mismoDomicilioDocumento" {{#if obj.peer.mismoDomicilioDocumento}} checked{{/if}} value="check" />Mismo que el del documento</label>
+  </div>
+  {{#if obj.peer.mismoDomicilioDocumento}}
+  <div id="sectionDomicilioReal" class="formGroup content" style="display: none;">
+    <div class="inputWrapper almostHalf"><input type="text" name="domicilioReal_calle" placeholder="Calle" value="{{obj.peer.domicilio.calle}}" /></div>
+    <div class="inputWrapper fifth"><input type="text" name="domicilioReal_numero" placeholder="Numero" value="{{obj.peer.domicilio.numero}}" /></div>
+    <div class="inputWrapper fifth"><input type="text" name="domicilioReal_piso" placeholder="Piso" value="{{obj.peer.domicilio.piso}}" /></div>
+    <div class="inputWrapper fifth"><input type="text" name="domicilioReal_depto" placeholder="Departamento" value="{{obj.peer.domicilio.depto}}" /></div>
+
+    <div class="inputWrapper fifth"><input type="text" name="domicilioReal_codPostal" placeholder="Codigo Postal" value="{{obj.peer.domicilio.codPostal}}" /></div>
+    <div class="inputWrapper almostHalf"><input type="text" name="domicilioReal_localidad" placeholder="Localidad" value="{{obj.peer.domicilio.localidad}}" /></div>
+    <div class="inputWrapper almostHalf"><input type="text" name="domicilioReal_provincia" placeholder="Provincia" value="{{obj.peer.domicilio.provincia}}" /></div>
+  </div>
+  {{else}}
+  <div id="sectionDomicilioReal" class="formGroup content">
+    <div class="inputWrapper almostHalf"><input type="text" name="domicilioReal_calle" placeholder="Calle" value="{{obj.peer.domicilioReal.calle}}" /></div>
+    <div class="inputWrapper fifth"><input type="text" name="domicilioReal_numero" placeholder="Numero" value="{{obj.peer.domicilioReal.numero}}" /></div>
+    <div class="inputWrapper fifth"><input type="text" name="domicilioReal_piso" placeholder="Piso" value="{{obj.peer.domicilioReal.piso}}" /></div>
+    <div class="inputWrapper fifth"><input type="text" name="domicilioReal_depto" placeholder="Departamento" value="{{obj.peer.domicilioReal.depto}}" /></div>
+
+    <div class="inputWrapper fifth"><input type="text" name="domicilioReal_codPostal" placeholder="Codigo Postal" value="{{obj.peer.domicilioReal.codPostal}}" /></div>
+    <div class="inputWrapper almostHalf"><input type="text" name="domicilioReal_localidad" placeholder="Localidad" value="{{obj.peer.domicilioReal.localidad}}" /></div>
+    <div class="inputWrapper almostHalf"><input type="text" name="domicilioReal_provincia" placeholder="Provincia" value="{{obj.peer.domicilioReal.provincia}}" /></div>
+  </div>
+  {{/if}}
+
+  <div class="formGroup header">Imágenes del documento</div>
+  <div id="sectionImagenesDocumento" class="formGroup content">
+    <div class="inputWrapper third">
+      <div class="imagePreview" id="picture-1-preview"></div>
+      <label class="imageSelector">
+        <input type="file" name="picture-1" class="imagenDocumento" accept="image/*"/>
+        <span class="buttonSelectImage">Frente o primera hoja</span>
+      </label>
+    </div>
+    <div class="inputWrapper third">
+      <div class="imagePreview" id="picture-2-preview"></div>
+      <label class="imageSelector">
+        <input type="file" name="picture-2" class="imagenDocumento" accept="image/*">
+        <span class="buttonSelectImage">Dorso o segunda hoja</span>
+      </label>
+    </div>
+    <div class="inputWrapper third">
+      <div class="imagePreview" id="picture-3-preview"></div>
+      <label class="imageSelector">
+        <input type="file" name="picture-3" class="imagenDocumento" accept="image/*">
+        <span class="buttonSelectImage">Cambio de domicilio</span>
+      </label>
+    </div>
+  </div>
+
+  <div class="inputWrapper checkbox"><label><input type="checkbox" name="tieneFirmas" {{#if obj.peer.tieneFirmas}}checked{{/if}} value="check" />Tiene las firmas en las fichas de afiliación</label></div>
+  <div class="inputWrapper checkbox"><label><input type="checkbox" name="noAfiliadoOtroPartido" {{#if obj.peer.noAfiliadoOtroPartido}} checked{{/if}} value="check" />No está afiliado a otro partido</label></div>
+
+  <div class="errorList">
+
+  </div>
+
+  <button type="submit">{{#if obj.peer.isNew}}Agregar{{else}}Editar{{/if}}</button>

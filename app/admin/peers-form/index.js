@@ -1,6 +1,10 @@
 var Peer = require('../../shared/models').Peer
 
-module.exports = function (req, res, next) {
+module.exports = {
+  parse: parse
+}
+
+function parse (req, res, next) {
   var data = {
     nombre: req.body.nombre,
     apellido: req.body.apellido,

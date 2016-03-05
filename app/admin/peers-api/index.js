@@ -1,8 +1,8 @@
 var express = require('express')
 var bodyParser = require('body-parser')
 var Peer = require('../../shared/models').Peer
-var peerForm = require('./form')
-var pictures = require('./pictures')
+var peersForm = require('../peers-form')
+var peersPictures = require('../peers-pictures')
 
 var app = express.Router()
 
@@ -32,14 +32,14 @@ app.get('/peers', function (req, res) {
   })
 })
 
-app.post('/peers', peerForm, function (req, res) {
+app.post('/peers', peersForm.parse, function (req, res) {
   Peer.create(req.peer, function (err, peer) {
     if (err) return res.status(500).send(err)
     res.status(200).json(peer)
   })
 })
 
-app.put('/peers/:id', peerForm, function (req, res) {
+app.put('/peers/:id', peersForm.parse, function (req, res) {
   req.peer.save(function (err) {
     if (err) return res.status(500).send(err)
     res.status(200).json(req.peer)
@@ -54,14 +54,14 @@ app.delete('/peers/:id', function (req, res) {
 })
 
 app.get('/peers/:id/pictures', function (req, res) {
-  pictures.getUrls(req.peer, function (err, data) {
+  peersPictures.getUrls(req.peer, function (err, data) {
     if (err) return res.status(500).send(err)
     res.json(data)
   })
 })
 
 app.put('/peers/:id/pictures', function (req, res) {
-  req.peer.imagenesDocumento = req.body;
+  req.peer.imagenesDocumento = req.body
   req.peer.save(function (err) {
     if (err) return res.status(500).send(err)
     res.status(200).json(req.peer)
@@ -69,7 +69,7 @@ app.put('/peers/:id/pictures', function (req, res) {
 })
 
 app.get('/peers/:id/pictures/upload-url', function (req, res) {
-  pictures.getUploadUrl(req.query.filename, req.peer, function (err, data) {
+  peersPictures.getUploadUrl(req.query.filename, req.peer, function (err, data) {
     if (err) return res.status(500).send(err)
     res.json(data)
   })
