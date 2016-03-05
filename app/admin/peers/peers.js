@@ -1,7 +1,8 @@
 var $ = require('jquery')
 var page = require('page')
 var content = require('../layout/content')
-var template = require('../peers/index.hbs')
+var template = require('./index.hbs')
+var infoTemplate = require('./info.hbs')
 
 page('/admin/peers', content.load, findPeers, function (ctx) {
   var peers = ctx.peers
@@ -13,19 +14,19 @@ page('/admin/peers', content.load, findPeers, function (ctx) {
   ctx.content.append(view)
   loadSearchBoxes(ctx.content)
 
-  // $('.button.info').click(function (ev) {
-  //   ev.preventDefault()
-  //   ev.stopImmediatePropagation()
+  $('.button.info').click(function (evt) {
+    evt.preventDefault()
+    evt.stopImmediatePropagation()
 
-  //   var el = $(this).parents('.peerContainer')
-  //   var id = $(el).attr('data-id')
-  //   // var nombre = $(el).find('.peerNombre').html()
-  //   ShowInfo(peers.filter(function (peer) { return peer.id == id })[0])
-  // })
+    var el = $(this).parents('.peerContainer')
+    var id = $(el).attr('data-id')
+    // var nombre = $(el).find('.peerNombre').html()
+    ShowInfo(peers.find(function (peer) { return peer.id === id }))
+  })
 
-  // $('.button.delete').click(function (ev) {
-  //   ev.preventDefault()
-  //   ev.stopImmediatePropagation()
+  // $('.button.delete').click(function (evt) {
+  //   evt.preventDefault()
+  //   evt.stopImmediatePropagation()
 
   //   var el = $(this).parents('.peerContainer')
   //   var id = $(el).attr('data-id')
@@ -166,4 +167,35 @@ function loadSearchBoxes (content) {
     itemEl.append(searchButton)
     itemEl.append(searchContainer)
   })
+}
+
+function ShowInfo (peer) {
+  var domicilio = peer.domicilio.calle +
+               ' ' + peer.domicilio.numero +
+               ', ' + peer.domicilio.localidad +
+               ', ' + peer.domicilio.provincia
+
+  var mapaUrl = 'https://maps.googleapis.com/maps/api/staticmap?center=' +
+                encodeURIComponent(domicilio + ', Argentina') +
+                '&markers=color:0x13BDE8%7Clabel:P%7C' +
+                encodeURIComponent(domicilio + ', Argentina') +
+                '&zoom=16&size=270x270&maptype=roadmap'
+
+  var data = {
+    peer: peer,
+    nombreCompleto: [peer.nombre, peer.apellido].join(' '),
+    sexo: peer.sexo === 'F' ? 'Femenino' : 'Masculino',
+    domicilio: domicilio,
+    mapaUrl: mapaUrl
+  }
+
+  var view = $(infoTemplate(data))
+
+  view.on('click', '[data-close]', function () {
+    view.fadeOut(200, function () { view.remove() })
+  })
+
+  $('body').append(view)
+
+  view.fadeIn(200)
 }

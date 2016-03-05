@@ -1,0 +1,63 @@
+<div class="wrapper fullSize">
+  <div class="dialogContainer centered" style="width: 768px; margin-top: 100px;">
+    <div class="dialogTitle">Información de {{nombreCompleto}}</div>
+
+    <div class="dialogMessage" style="padding: 10px;">
+      <div class="inputWrapper half" style="font-size: 30px">
+        {{nombreCompleto}}
+      </div>
+
+      <div class="inputWrapper half">
+        <div class="infoLabel">Matrícula</div>
+        <div class="infoContent">{{peer.matricula.tipo}}: {{peer.matricula.numero}}</div>
+      </div>
+
+      <div class="inputWrapper half">
+        <div class="infoLabel">Sexo</div>
+        <div class="infoContent">{{sexo}}</div>
+      </div>
+
+      <div class="inputWrapper half">
+        <div class="infoLabel">Estado Civil</div>
+        <div class="infoContent">{{peer.estadoCivil}}</div>
+      </div>
+
+
+      <div class="inputWrapper half">
+        <div class="infoLabel">Fecha de Nac.</div>
+        <div class="infoContent">{{peer.fechaDeNacimiento}}</div>
+      </div>
+
+      <div class="inputWrapper half">
+        <div class="infoLabel">Lugar de Nac.</div>
+        <div class="infoContent">{{peer.lugarDeNacimiento}}</div>
+      </div>
+
+      <div class="inputWrapper half">
+        <div class="infoLabel">Email</div>
+        <div class="infoContent">{{peer.email}}</div>
+      </div>
+
+      <div class="inputWrapper half">
+        <div class="infoLabel">Teléfono</div>
+        <div class="infoContent">{{peer.telefono}}</div>
+      </div>
+
+      <div class="inputWrapper half">
+        <div class="infoLabel">Profesión</div>
+        <div class="infoContent">{{peer.profesion}}</div>
+      </div>
+
+      <div class="inputWrapper half">
+        <div class="infoLabel">Domicilio</div>
+        <div class="infoContent">{{domicilio}}</div>
+      </div>
+
+      <div class="mapImage" style="background-image:url('{{mapaUrl}}');"/>
+    </div>
+
+    <div class="dialogFooter">
+      <div class="dialogButton accept" data-close>Cerrar</div>
+    </div>
+  </div>
+</div>
