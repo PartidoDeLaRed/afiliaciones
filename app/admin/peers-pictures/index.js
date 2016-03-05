@@ -2,7 +2,7 @@ var aws = require('aws-sdk')
 var Batch = require('batch')
 var crypto = require('crypto')
 var mime = require('mime-types')
-var config = require('../../../config')
+var config = require('../../config')
 
 aws.config.update({
   region: config.aws.region,

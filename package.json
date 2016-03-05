@@ -8,12 +8,18 @@
     "test": "standard",
     "start": "node index.js",
     "dev": "DEBUG=afiliciones* node-dev index.js --no-deps",
-    "css:build": "pleeease-compile -t build/css/admin.css admin/layout/index.css & pleeease-compile -t build/css/site.css site/layout/index.css",
-    "css:watch": "pleeease-watch -t build/css/admin.css admin/layout/index.css & pleeease-watch -t build/css/site.css site/layout/index.css",
-    "js:build": "mkdirp ./build/js && browserify -t [ hbsfy -t ] -e admin/layout/index.js -o build/js/admin.js",
-    "js:watch": "mkdir -p ./build/js && watchify -t [ hbsfy -t ] -e admin/layout/index.js -o build/js/admin.js",
-    "watch": "npm run css:watch & npm run js:watch",
-    "build": "npm run css:build & npm run js:build"
+    "build:css:admin": "pleeease-compile -t build/css/admin.css app/admin/layout/index.css",
+    "build:css:site": "pleeease-compile -t build/css/site.css app/site/layout/index.css",
+    "build:css": "npm-run-all --parallel build:css:admin build:css:site",
+    "watch:css:admin": "pleeease-watch -t build/css/admin.css app/admin/layout/index.css",
+    "watch:css:site": "pleeease-watch -t build/css/site.css app/site/layout/index.css",
+    "watch:css": "npm-run-all --parallel watch:css:admin watch:css:site",
+    "build:js:admin": "mkdirp ./build/js && browserify -t [ hbsfy -t ] -e app/admin/layout/layout.js -o build/js/admin.js",
+    "build:js": "npm-run-all --parallel build:js:admin",
+    "watch:js:admin": "mkdir -p ./build/js && watchify -t [ hbsfy -t ] -e app/admin/layout/layout.js -o build/js/admin.js",
+    "watch:js": "npm-run-all --parallel watch:js:admin",
+    "watch": "npm-run-all --parallel watch:js watch:css",
+    "build": "npm-run-all --parallel build:js build:css"
   },
   "author": "@PartidoDeLaRed",
   "license": "GPL-3.0",
@@ -52,6 +58,7 @@
   },
   "devDependencies": {
     "node-dev": "^2.7.1",
+    "npm-run-all": "^1.5.1",
     "standard": "^5.4.1"
   }
 }

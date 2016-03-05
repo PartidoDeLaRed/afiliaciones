@@ -1,7 +1,7 @@
 var handlebars = require('express-handlebars')
 var config = require('../../config')
 
-module.exports = function views (app, options) {
+module.exports = function setupViews (app, options) {
   if (!options) options = {}
 
   app.engine('.hbs', handlebars({

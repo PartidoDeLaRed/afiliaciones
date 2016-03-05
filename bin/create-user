@@ -1,5 +1,5 @@
 var options = require('commander')
-var models = require('../lib/models')
+var models = require('../app/shared/models')
 
 var User = models.User
 
