@@ -282,6 +282,14 @@ input[type=checkbox] {
   margin-right: 10px;
 }
 
+input[type=radio] {
+  position: relative !important;
+  width: 30px;
+  height: 30px;
+  vertical-align: bottom;
+  margin-right: 10px;
+}
+
 .imagePreview {
   height: 140px;
   background-position: center;

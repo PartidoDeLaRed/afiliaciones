@@ -47,6 +47,16 @@ module.exports = mongoose.Schema({
     trim: true,
     maxlength: 512
   },
+  nombreMadre: {
+    type: String,
+    trim: true,
+    maxlength: 512
+  },
+  nombrePadre: {
+    type: String,
+    trim: true,
+    maxlength: 512
+  },
   estadoCivil: {
     type: String,
     enum: ['-', 'soltero', 'casado', 'divorciado', 'viudo']
@@ -74,6 +84,13 @@ module.exports = mongoose.Schema({
     type: String,
     trim: true,
     maxlength: 2048
+  },
+  formaContacto: {
+    type: String,
+    trim: true
+  },
+  deseaAyudar: {
+    type: Boolean
   },
   tieneFirmas: {
     type: Boolean
@@ -164,6 +181,7 @@ module.exports = mongoose.Schema({
     dorso: String,
     cambioDomicilio: String
   },
+  createdBy: { type: Number },
   createdAt: { type: Date, default: Date.now },
   deletedAt: { type: Date }
 })

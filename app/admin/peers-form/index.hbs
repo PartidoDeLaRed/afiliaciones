@@ -27,6 +27,9 @@
   <div class="inputWrapper half"><input type="email" name="email" placeholder="Email" required value="{{obj.peer.email}}"/></div>
   <div class="inputWrapper half"><input type="text" name="profesion" placeholder="Profesion" value="{{obj.peer.profesion}}"/></div>
 
+  <div class="inputWrapper half"><input type="text" name="nombreMadre" placeholder="Nombre de la Madre" required value="{{obj.peer.nombreMadre}}"/></div>
+  <div class="inputWrapper half"><input type="text" name="nombrePadre" placeholder="Nombre del Padre" required value="{{obj.peer.nombrePadre}}"/></div>
+
   <div class="formGroup header">Domicilio del Documento</div>
   <div class="formGroup content">
     <div class="inputWrapper almostHalf"><input type="text" name="domicilio_calle" placeholder="Calle" value="{{obj.peer.domicilio.calle}}"/></div>
@@ -92,6 +95,19 @@
 
   <div class="inputWrapper checkbox"><label><input type="checkbox" name="tieneFirmas" {{#if obj.peer.tieneFirmas}}checked{{/if}} value="check" />Tiene las firmas en las fichas de afiliación</label></div>
   <div class="inputWrapper checkbox"><label><input type="checkbox" name="noAfiliadoOtroPartido" {{#if obj.peer.noAfiliadoOtroPartido}} checked{{/if}} value="check" />No está afiliado a otro partido</label></div>
+
+  <div class="formGroup header">¿Cómo deséa ser contactado?</div>
+  <div class="formGroup content">
+    <div class="inputWrapper third"><label><input type="radio" name="formaContacto" value="Email"/>Email</label></div>
+    <div class="inputWrapper third"><label><input type="radio" name="formaContacto" value="Telefono"/>Teléfono</label></div>
+    <div class="inputWrapper third"><label><input type="radio" name="formaContacto" value="Domicilio"/>Domicilio</label></div>
+  </div>
+
+  <div class="formGroup header">¿Deséa ayudar a afiliar?</div>
+  <div class="formGroup content">
+    <div class="inputWrapper fifth"><label><input type="radio" name="deseaAyudar" value="Si" checked="{{obj.peer.deseaAyudar}}" />Si</label></div>
+    <div class="inputWrapper fifth"><label><input type="radio" name="deseaAyudar" value="No" checked="{{!obj.peer.deseaAyudar}}"/>No</label></div>
+  </div>
 
   <div class="errorList">
 

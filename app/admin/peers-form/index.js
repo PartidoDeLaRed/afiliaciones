@@ -19,8 +19,12 @@ function parse (req, res, next) {
     fechaDeNacimiento: req.body.fechaDeNacimiento,
     telefono: req.body.telefono,
     profesion: req.body.profesion,
+    nombreMadre: req.body.nombreMadre,
+    nombrePadre: req.body.nombrePadre,
     tieneFirmas: req.body.tieneFirmas === 'check',
     noAfiliadoOtroPartido: req.body.noAfiliadoOtroPartido === 'check',
+    formaContacto: req.body.formaContacto ,
+    deseaAyudar: req.body.deseaAyudar === 'Si',
     mismoDomicilioDocumento: req.body.mismoDomicilioDocumento === 'check',
     domicilio: {
       calle: req.body.domicilio_calle,
