@@ -12,35 +12,36 @@ page('/admin/peers', content.load, findPeers, function (ctx) {
   }))
 
   ctx.content.append(view)
-  loadSearchBoxes(ctx.content)
 
-  $('.button.info').click(function (evt) {
+  // Info Modal
+  ctx.content.on('click', '.button.info', function (evt) {
     evt.preventDefault()
     evt.stopImmediatePropagation()
 
     var el = $(this).parents('.peerContainer')
     var id = $(el).attr('data-id')
-    // var nombre = $(el).find('.peerNombre').html()
-    ShowInfo(peers.find(function (peer) { return peer.id === id }))
+
+    showInfo(peers.find(function (peer) { return peer.id === id }))
   })
 
   // $('.button.delete').click(function (evt) {
-  //   evt.preventDefault()
-  //   evt.stopImmediatePropagation()
+  $('.button.delete').click(function (evt) {
+    evt.preventDefault()
+    evt.stopImmediatePropagation()
 
-  //   var el = $(this).parents('.peerContainer')
-  //   var id = $(el).attr('data-id')
-  //   var nombre = $(el).find('.peerNombre').html()
+    var el = $(this).parents('.peerContainer')
+    var id = $(el).attr('data-id')
+    var nombre = $(el).find('.peerNombre').html()
 
-  //   ShowDialog('Eliminación de Afiliado', '¿Realmente desea eliminar al afiliado <b>' + nombre + '</b>?', function () {
-  //     $.del('/admin/api/peers/' + id)
-  //     .done(function () {
-  //       $(el).slideUp('300', function () { $(this).remove() })
-  //       $('#afiliacionesTitle').html('Afiliaciones (' + $('.peerContainer.visible').length + ')')
-  //     })
-  //     .fail(function (res) { })
-  //   })
-  // })
+    ShowDialog('Eliminación de Afiliado', '¿Realmente desea eliminar al afiliado <b>' + nombre + '</b>?', function () {
+      $.del('/admin/api/peers/' + id)
+      .done(function () {
+        $(el).slideUp('300', function () { $(this).remove() })
+        $('#afiliacionesTitle').html('Afiliaciones (' + $('.peerContainer.visible').length + ')')
+      })
+      .fail(function (res) { })
+    })
+  })
 
   // $('#listType').change(function () {
   //   var val = document.getElementById('listType').value
@@ -67,6 +68,8 @@ page('/admin/peers', content.load, findPeers, function (ctx) {
   //   }
   //   $('#afiliacionesTitle').html('Afiliaciones (' + $('.peerContainer.visible').length + ')')
   // })
+
+  loadSearchBoxes(ctx.content)
 })
 
 page.exit('/admin/peers', content.unload)
@@ -169,24 +172,15 @@ function loadSearchBoxes (content) {
   })
 }
 
-function ShowInfo (peer) {
-  var domicilio = peer.domicilio.calle +
-               ' ' + peer.domicilio.numero +
-               ', ' + peer.domicilio.localidad +
-               ', ' + peer.domicilio.provincia
-
-  var mapaUrl = 'https://maps.googleapis.com/maps/api/staticmap?center=' +
-                encodeURIComponent(domicilio + ', Argentina') +
-                '&markers=color:0x13BDE8%7Clabel:P%7C' +
-                encodeURIComponent(domicilio + ', Argentina') +
-                '&zoom=16&size=270x270&maptype=roadmap'
+function showInfo (peer) {
+  var domicilio = getPrettyAddress(peer.domicilio)
 
   var data = {
     peer: peer,
     nombreCompleto: [peer.nombre, peer.apellido].join(' '),
     sexo: peer.sexo === 'F' ? 'Femenino' : 'Masculino',
     domicilio: domicilio,
-    mapaUrl: mapaUrl
+    mapa: getGoogleMapsImage(domicilio + ', Argentina')
   }
 
   var view = $(infoTemplate(data))
@@ -195,7 +189,21 @@ function ShowInfo (peer) {
     view.fadeOut(200, function () { view.remove() })
   })
 
-  $('body').append(view)
+  $(document.body).append(view)
 
   view.fadeIn(200)
+}
+
+function getGoogleMapsImage (address) {
+  address = encodeURIComponent(address)
+  return 'https://maps.googleapis.com/maps/api/staticmap?center=' +
+    address + '&markers=color:0x13BDE8%7Clabel:P%7C' +
+    address + '&zoom=16&size=270x270&maptype=roadmap'
+}
+
+function getPrettyAddress (address) {
+  return address.calle +
+    ' ' + address.numero +
+    ', ' + address.localidad +
+    ', ' + address.provincia
 }

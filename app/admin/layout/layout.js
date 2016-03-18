@@ -253,8 +253,7 @@ function showErrors(err)
   $('.errorList').slideDown('50');
 }
 
-function ShowDialog(title, message, cb)
-{
+function ShowDialog(title, message, cb) {
   var wrapper = $('<div class="wrapper fullSize"/>').css('display','none');
   var container = $('<div class="dialogContainer centered"/>');
   var titleContainer = $('<div class="dialogTitle"/>').html(title);
