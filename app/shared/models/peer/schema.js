@@ -181,7 +181,8 @@ module.exports = mongoose.Schema({
     dorso: String,
     cambioDomicilio: String
   },
-  createdBy: { type: Number },
+  createdBy: { type: String },
+  lastEditedBy: { type: String },
   createdAt: { type: Date, default: Date.now },
   deletedAt: { type: Date }
 })
