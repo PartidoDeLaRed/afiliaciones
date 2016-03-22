@@ -147,7 +147,10 @@ page('/admin/peers/new', function () {
           '<option value="casado">Casado/a</option>' +
           '<option value="divorciado">Divorciado/a</option>' +
           '<option value="viudo">Viudo/a</option>'
-        }
+        },
+        formaContactoEmail: function(){ return 'checked' },
+        formaContactoTelefono: function () { return '' },
+        formaContactoDomicilio: function () { return '' }
       }
     }
   }));
@@ -181,7 +184,12 @@ page('/admin/peers/:id/edit', findPeer, loadContent, function (ctx, next) {
       '<option value="casado" ' + ((peer.estadoCivil == 'casado')?'selected':'') + '>Casado/a</option>' +
       '<option value="divorciado" ' + ((peer.estadoCivil == 'divorciado')?'selected':'') + '>Divorciado/a</option>' +
       '<option value="viudo" ' + ((peer.estadoCivil == 'viudo')?'selected':'') + '>Viudo/a</option>'
-        }
+        },
+        formaContactoEmail: function () { return peer.formaContacto == "Email" ? 'checked' : '' },
+        formaContactoTelefono: function () { return peer.formaContacto == "Telefono" ? 'checked' : '' },
+        formaContactoDomicilio: function () { return peer.formaContacto == "Domicilio" ? 'checked' : '' },
+        deseaAyudarSi: function () { return peer.deseaAyudar ? 'checked' : '' },
+        deseaAyudarNo: function () { return !peer.deseaAyudar ? 'checked' : '' }
       }
     }
   }))

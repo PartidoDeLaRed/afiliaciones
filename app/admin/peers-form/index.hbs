@@ -98,15 +98,15 @@
 
   <div class="formGroup header">¿Cómo deséa ser contactado?</div>
   <div class="formGroup content">
-    <div class="inputWrapper third"><label><input type="radio" name="formaContacto" value="Email"/>Email</label></div>
-    <div class="inputWrapper third"><label><input type="radio" name="formaContacto" value="Telefono"/>Teléfono</label></div>
-    <div class="inputWrapper third"><label><input type="radio" name="formaContacto" value="Domicilio"/>Domicilio</label></div>
+    <div class="inputWrapper third"><label><input type="radio" name="formaContacto" value="Email" {{obj.helpers.formaContactoEmail}}/>Email</label></div>
+    <div class="inputWrapper third"><label><input type="radio" name="formaContacto" value="Telefono" {{obj.helpers.formaContactoTelefono}}/>Teléfono</label></div>
+    <div class="inputWrapper third"><label><input type="radio" name="formaContacto" value="Domicilio" {{obj.helpers.formaContactoDomicilio}}/>Domicilio</label></div>
   </div>
 
   <div class="formGroup header">¿Deséa ayudar a afiliar?</div>
   <div class="formGroup content">
-    <div class="inputWrapper fifth"><label><input type="radio" name="deseaAyudar" value="Si" checked="{{obj.peer.deseaAyudar}}" />Si</label></div>
-    <div class="inputWrapper fifth"><label><input type="radio" name="deseaAyudar" value="No" checked="{{!obj.peer.deseaAyudar}}"/>No</label></div>
+    <div class="inputWrapper fifth"><label><input type="radio" name="deseaAyudar" value="Si" {{obj.helpers.deseaAyudarSi}} />Si</label></div>
+    <div class="inputWrapper fifth"><label><input type="radio" name="deseaAyudar" value="No" {{obj.helpers.deseaAyudarNo}}/>No</label></div>
   </div>
 
   <div class="errorList">

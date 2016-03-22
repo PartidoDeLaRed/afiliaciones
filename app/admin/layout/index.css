@@ -1,211 +1,183 @@
-@import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css);
-@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css);
-
-* {
-  margin: 0;
-  padding: 0;
+@import"https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css";
+@import"https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css";
+*,.content {
+	margin:0
 }
-
-input[type=text]{
-    cursor: text;
+.content,header {
+	text-align:center
 }
-
+input[type=text] {
+	cursor:text
+}
 html {
-  background: #0B525E;
+	background:#f6f6f6
 }
-
 body {
-  background: transparent;
+	background:0 0
 }
-
-body, input, button {
-  font-family: 'Source Sans Pro', sans-serif;
+body,button,input {
+	font-family:Source Sans Pro,sans-serif
 }
-
-*{
-    font-family: 'Lato', sans-serif;
-    cursor: default;
+* {
+	padding:0;
+	box-sizing:border-box;
+	font-family:Lato,sans-serif;
+	cursor:default
 }
-
-.fullSize{
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  position: fixed;
-  top: 0;
-  left: 0;
+.fullSize {
+	width:100%;
+	height:100%;
+	margin:0;
+	position:fixed;
+	top:0;
+	left:0
 }
-
 header {
-    background: #00868C;
-    padding: 15px;
-    width: 100%;
-    text-align: center;
+	background:#46a4c9;
+	padding:15px;
+	width:100%
 }
-
-header .title{
-    color: #EEE;
-    font-size: 25px;
-    text-shadow: 0 2px 1px rgba(0,0,0,.3);
+header .title {
+	color:#EEE;
+	font-size:25px;
+	text-shadow:0 2px 1px rgba(0,0,0,.3)
 }
-
-.content{
-    margin: 0;
-    text-align: center;
-}
-
 .admin {
-  max-width: 1100px;
-  padding: 10px 0;
-  margin: 0 auto;
-  text-align: left;
+	max-width:1100px;
+	padding:10px 0;
+	margin:0 auto;
+	text-align:left
 }
-
 .admin .heading {
-  text-align: center;
-  margin-top: 1%;
-  text-align: left;
-  border-bottom: 1px solid rgba(255, 255, 255, .2);
+	margin-top:1%;
+	text-align:left;
+	border-bottom:1px solid #46a4c9
 }
-
 .admin .heading h2 {
-  font-size: 3em;
-  font-weight: 300;
-  color: rgba(255, 255, 255, 0.7);
-  display: inline-block;
-  padding-bottom: 5px;
-  margin: 10px;
-  text-shadow: 1px 1px 3px #23203b;
+	font-size:3em;
+	font-weight:300;
+	color:#46a4c9;
+	display:inline-block;
+	padding-bottom:5px;
+	margin:10px
 }
-
-.admin .heading .mainSelect{
-  display: inline-block;
-  float: right;
-  height: 50px;
-  padding: 14px;
-  font-size: 16px;
-  margin: 11px;
-  border-radius: 6px;
-  opacity: .8;
-  outline: none;
+.admin .heading .mainSelect {
+	display:inline-block;
+	float:right;
+	height:50px;
+	padding:14px;
+	font-size:16px;
+	margin:11px;
+	border-radius:6px;
+	opacity:.8;
+	-ms-filter:url('progid:DXImageTransform.Microsoft.Alpha(Opacity=80)');
+	outline:0
 }
-
 .admin .heading .addButton {
-  height: 50px;
-  width: 50px;
-  border-radius: 25px;
-  float: right;
-  background-color: rgba(255, 255, 255, .3);
-  background-image: url(/images/add64.png);
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: 25px 25px;
-  margin: 10px;
-  cursor: pointer;
-  transition: all 200ms;
+	height:50px;
+	width:50px;
+	border-radius:25px;
+	float:right;
+	background-color:rgba(255,255,255,.3);
+	background-image:url(/images/add64.png);
+	background-position:center center;
+	background-repeat:no-repeat;
+	background-size:25px 25px;
+	margin:10px;
+	cursor:pointer;
+	-webkit-transition:all .2s;
+	transition:all .2s
 }
-
 .admin .heading .addButton:hover {
-  background-color: rgba(255, 255, 255, .5);
-  transition: all 200ms;
+	background-color:rgba(255,255,255,.5);
+	-webkit-transition:all .2s;
+	transition:all .2s
 }
-
 .admin .heading .addButton:active {
-  background-color: rgba(0, 0, 0, .5);
-  transition: all 100ms;
+	background-color:rgba(0,0,0,.5);
+	-webkit-transition:all .1s;
+	transition:all .1s
 }
-
-.wrapper{
-  background-color: rgba(0,0,0,.3);
+.wrapper {
+	background-color:rgba(0,0,0,.3)
 }
-
-.dialogContainer{
-  background-color: rgba(255,255,255,.9);
-  border: 1px solid rgb(7, 38, 44);
-  width: 500px;
-  height: auto;
-  margin: 300px auto 0;
-  overflow: hidden;
-  border-radius: 3px;
-  box-shadow: 0 2px 30px rgba(0,0,0,.2);
+.dialogContainer {
+	background-color:rgba(255,255,255,.9);
+	border:1px solid #07262c;
+	width:500px;
+	height:auto;
+	margin:300px auto 0;
+	overflow:hidden;
+	border-radius:3px;
+	box-shadow:0 2px 30px rgba(0,0,0,.2)
 }
-
-  .dialogContainer .inputWrapper {
-    display: block;
-    float: none;
-    position: relative;
-  }
-  .dialogContainer .mapImage {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    width: 270px;
-    height: 270px;
-    border: 1px solid #ccc;
-  }
-
+.dialogContainer .inputWrapper {
+	display:block;
+	float:none;
+	position:relative
+}
+.dialogButton,.infoContent,.infoLabel {
+	display:inline-block
+}
+.dialogContainer .mapImage {
+	position:absolute;
+	right:10px;
+	top:10px;
+	width:270px;
+	height:270px;
+	border:1px solid #ccc
+}
 .dialogTitle {
-  padding: 10px;
-  background: rgb(7, 38, 44);
-  color: #fff;
-  font-size: 15px;
-  text-align: center;
+	padding:10px;
+	background:#07262c;
+	color:#fff;
+	font-size:15px;
+	text-align:center
 }
-
 .dialogMessage {
-  padding: 20px 10px;
-  background: #eee;
-  color: #222;
-  font-size: 15px;
-  position: relative;
+	padding:20px 10px;
+	background:#eee;
+	color:#222;
+	font-size:15px;
+	position:relative
 }
-
 .dialogFooter {
-  padding: 10px;
-  text-align: right;
-  border-top: 1px solid rgba(0,0,0,.2);
+	padding:10px;
+	text-align:right;
+	border-top:1px solid rgba(0,0,0,.2)
 }
-
 .dialogButton {
-  display: inline-block;
-  padding: 5px 20px;
-  margin: 0 3px;
-  background: #808F92;
-  font-size: 15px;
-  border-radius: 3px;
-  border-bottom: 1px solid rgba(0,0,0,.7);
-  color: #fff;
-  cursor: pointer;
+	padding:5px 20px;
+	margin:0 3px;
+	background:#808f92;
+	font-size:15px;
+	border-radius:3px;
+	border-bottom:1px solid rgba(0,0,0,.7);
+	color:#fff;
+	cursor:pointer
 }
-
 .dialogButton.cancel {
-  background: transparent;
-  border: 1px solid #808f92;
-  color: #808f92;
+	background:0 0;
+	border:1px solid #808f92;
+	color:#808f92
 }
-
 .dialogButton.cancel:hover {
-  color: #fff;
+	color:#fff
 }
-
 .dialogButton:hover {
-  background-color: #97A7AB;
+	background-color:#97a7ab
 }
-
-.infoLabel{
-  font-weight: 600;
-  width: 115px;
-  display: inline-block;
-  vertical-align: top;
+.infoLabel {
+	font-weight:600;
+	width:115px;
+	vertical-align:top
 }
-
-.infoContent{
-  font-weight: 400;
-  display: inline-block;
-  position: relative;
-  right: 0;
-  white-space: normal;
-  overflow: hidden;
+.infoContent {
+	font-weight:400;
+	position:relative;
+	right:0;
+	white-space:normal;
+	overflow:hidden
 }
 
 @import 'admin/login/index.css';
