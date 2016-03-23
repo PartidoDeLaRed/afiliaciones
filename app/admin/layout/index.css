@@ -178,5 +178,5 @@ header .title {
 	overflow:hidden
 }
 
-@import 'admin/login/index.css';
-@import 'admin/peers/index.css';
+@import 'app/admin/login/index.css';
+@import 'app/admin/peers/index.css';
