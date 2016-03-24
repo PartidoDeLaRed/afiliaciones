@@ -21,10 +21,10 @@ function parse (req, res, next) {
     profesion: req.body.profesion,
     nombreMadre: req.body.nombreMadre,
     nombrePadre: req.body.nombrePadre,
-    tieneFirmas: req.body.tieneFirmas === 'check',
-    noAfiliadoOtroPartido: req.body.noAfiliadoOtroPartido === 'check',
+    tieneFirmas: req.body.tieneFirmas ? (req.body.tieneFirmas === 'Si') : null,
+    noAfiliadoOtroPartido: req.body.afiliadoOtroPartido ? (req.body.afiliadoOtroPartido === 'No') : null,
     formaContacto: req.body.formaContacto ,
-    deseaAyudar: req.body.deseaAyudar === 'Si',
+    deseaAyudar: req.body.deseaAyudar ? (req.body.deseaAyudar === 'Si') : null,
     mismoDomicilioDocumento: req.body.mismoDomicilioDocumento === 'check',
     domicilio: {
       calle: req.body.domicilio_calle,

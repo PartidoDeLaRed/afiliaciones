@@ -73,28 +73,43 @@
     <div class="inputWrapper third">
       <div class="imagePreview" id="picture-1-preview"></div>
       <label class="imageSelector">
-        <input type="file" name="picture-1" class="imagenDocumento" accept="image/*"/>
+        <input id="picture-1" type="file" name="picture-1" class="imagenDocumento" accept="image/*"/>
         <span class="buttonSelectImage">Frente o primera hoja</span>
       </label>
+      <div id="btnCancelPicture1" class="cancelSelection float"></div>
     </div>
     <div class="inputWrapper third">
       <div class="imagePreview" id="picture-2-preview"></div>
       <label class="imageSelector">
-        <input type="file" name="picture-2" class="imagenDocumento" accept="image/*">
+        <input id="picture-2" type="file" name="picture-2" class="imagenDocumento" accept="image/*">
         <span class="buttonSelectImage">Dorso o segunda hoja</span>
       </label>
+      <div id="btnCancelPicture2" class="cancelSelection float"></div>
     </div>
     <div class="inputWrapper third">
       <div class="imagePreview" id="picture-3-preview"></div>
       <label class="imageSelector">
-        <input type="file" name="picture-3" class="imagenDocumento" accept="image/*">
+        <input id="picture-3" type="file" name="picture-3" class="imagenDocumento" accept="image/*">
         <span class="buttonSelectImage">Cambio de domicilio</span>
       </label>
+      <div id="btnCancelPicture3" class="cancelSelection float"></div>
     </div>
   </div>
 
-  <div class="inputWrapper checkbox"><label><input type="checkbox" name="tieneFirmas" {{#if obj.peer.tieneFirmas}}checked{{/if}} value="check" />Tiene las firmas en las fichas de afiliación</label></div>
-  <div class="inputWrapper checkbox"><label><input type="checkbox" name="noAfiliadoOtroPartido" {{#if obj.peer.noAfiliadoOtroPartido}} checked{{/if}} value="check" />No está afiliado a otro partido</label></div>
+  <div class="formGroup header">¿Tiene las firmas en las fichas de afiliación?</div>
+  <div class="formGroup content">
+    <div class="inputWrapper fifth"><label><input type="radio" name="tieneFirmas" value="Si" {{obj.helpers.tieneFirmasSi}} />Si</label></div>
+    <div class="inputWrapper fifth"><label><input type="radio" name="tieneFirmas" value="No" {{obj.helpers.tieneFirmasNo}} />No</label></div>
+    <div id="btnCanceltieneFirmas" class="cancelSelection" style="display:{{obj.helpers.tieneFirmasCancel}}"></div>
+  </div>
+
+  <div class="formGroup header">¿Está afiliado a otro partido político?</div>
+  <div class="formGroup header subheader">Fijate acá: <a target="_blank" href="http://www.padron.gob.ar/cne_afiliados/">www.padron.gob.ar/cne_afiliados/</a></div>
+  <div class="formGroup content">
+    <div class="inputWrapper fifth"><label><input type="radio" name="afiliadoOtroPartido" value="Si" {{obj.helpers.afiliadoOtroPartidoSi}} />Si</label></div>
+    <div class="inputWrapper fifth"><label><input type="radio" name="afiliadoOtroPartido" value="No" {{obj.helpers.afiliadoOtroPartidoNo}} />No</label></div>
+    <div id="btnCancelafiliadoOtroPartido" class="cancelSelection" style="display:{{obj.helpers.afiliadoOtroPartidoCancel}}"></div>
+  </div>
 
   <div class="formGroup header">¿Cómo deséa ser contactado?</div>
   <div class="formGroup content">
@@ -107,10 +122,14 @@
   <div class="formGroup content">
     <div class="inputWrapper fifth"><label><input type="radio" name="deseaAyudar" value="Si" {{obj.helpers.deseaAyudarSi}} />Si</label></div>
     <div class="inputWrapper fifth"><label><input type="radio" name="deseaAyudar" value="No" {{obj.helpers.deseaAyudarNo}}/>No</label></div>
+    <div id="btnCanceldeseaAyudar" class="cancelSelection" style="display:{{obj.helpers.deseaAyudarCancel}}"></div>
   </div>
 
   <div class="errorList">
 
   </div>
 
-  <button type="submit">{{#if obj.peer.isNew}}Agregar{{else}}Editar{{/if}}</button>
+<div class="formButtons">
+  <button id="btnCancelEdit" type="button">Cancelar</button>
+  <button id="btnSubmitEdit" type="submit">{{#if obj.helpers.isNew}}Agregar{{else}}Editar{{/if}}</button>
+</div>

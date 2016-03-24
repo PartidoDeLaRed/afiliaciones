@@ -14,13 +14,17 @@ body {
 	background:0 0
 }
 body,button,input {
-	font-family:'Source Sans Pro',sans-serif
+	font-family:'Helvetica', Arial, sans-serif;
 }
 * {
 	padding:0;
 	box-sizing:border-box;
-	font-family:Lato,sans-serif;
+	font-family:'Helvetica', Arial, sans-serif;
 	cursor:default
+}
+a{
+  color: #54A1E4;
+  text-decoration: underline;
 }
 .fullSize {
 	width:100%;
@@ -76,7 +80,7 @@ header .title {
 	width:50px;
 	border-radius:25px;
 	float:right;
-	background-color:rgba(255,255,255,.3);
+	background-color:rgba(32, 199, 89, 0.64);
 	background-image:url(/images/add64.png);
 	background-position:center center;
 	background-repeat:no-repeat;
@@ -92,7 +96,7 @@ header .title {
 	transition:all .2s
 }
 .admin .heading .addButton:active {
-	background-color:rgba(0,0,0,.5);
+	background-color:rgba(14, 175, 70, 0.79);
 	-webkit-transition:all .1s;
 	transition:all .1s
 }

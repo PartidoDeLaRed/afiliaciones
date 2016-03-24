@@ -133,6 +133,7 @@ page('/admin/peers/new', function () {
     obj: {
       peer: {},
       helpers: {
+        isNew: true,
         formSelectTipoMatricula: function () {
           return '<option value="DNI">DNI</option>' +
           '<option value="LE">LE</option>' +
@@ -150,7 +151,7 @@ page('/admin/peers/new', function () {
         },
         formaContactoEmail: function(){ return 'checked' },
         formaContactoTelefono: function () { return '' },
-        formaContactoDomicilio: function () { return '' }
+        formaContactoDomicilio: function () { return '' },
       }
     }
   }));
@@ -170,6 +171,7 @@ page('/admin/peers/:id/edit', findPeer, loadContent, function (ctx, next) {
     obj: {
       peer: peer,
       helpers: {
+        isNew: false,
         formSelectTipoMatricula: function () {
           return '<option value="DNI" ' + ((peer.matricula.tipo == 'DNI')?'selected':'') + '>DNI</option>' +
       '<option value="LE" ' + ((peer.matricula.tipo == 'LE')?'selected':'') + '>LE</option>' +
@@ -185,11 +187,18 @@ page('/admin/peers/:id/edit', findPeer, loadContent, function (ctx, next) {
       '<option value="divorciado" ' + ((peer.estadoCivil == 'divorciado')?'selected':'') + '>Divorciado/a</option>' +
       '<option value="viudo" ' + ((peer.estadoCivil == 'viudo')?'selected':'') + '>Viudo/a</option>'
         },
+        tieneFirmasSi: function () { return peer.tieneFirmas != null ? (peer.tieneFirmas === true ? 'checked' : '') : '' },
+        tieneFirmasNo: function () { return peer.tieneFirmas != null ? (!peer.tieneFirmas === true ? 'checked' : '') : '' },
+        tieneFirmasCancel: function () { return peer.tieneFirmas != null ? 'block' : 'none' },
+        afiliadoOtroPartidoSi: function () { return peer.noAfiliadoOtroPartido != null ? (peer.noAfiliadoOtroPartido === false ? 'checked' : '') : '' },
+        afiliadoOtroPartidoNo: function () { return peer.noAfiliadoOtroPartido != null ? (!peer.noAfiliadoOtroPartido === false ? 'checked' : '') : '' },
+        afiliadoOtroPartidoCancel: function () { return peer.noAfiliadoOtroPartido != null ? 'block' : 'none' },
+        deseaAyudarSi: function () { return peer.deseaAyudar != null ? (peer.deseaAyudar === true ? 'checked' : '') : '' },
+        deseaAyudarNo: function () { return peer.deseaAyudar != null ? (!peer.deseaAyudar === true ? 'checked' : '') : '' },
+        deseaAyudarCancel: function () { return peer.deseaAyudar != null ? 'block' : 'none' },
         formaContactoEmail: function () { return peer.formaContacto == "Email" ? 'checked' : '' },
         formaContactoTelefono: function () { return peer.formaContacto == "Telefono" ? 'checked' : '' },
-        formaContactoDomicilio: function () { return peer.formaContacto == "Domicilio" ? 'checked' : '' },
-        deseaAyudarSi: function () { return peer.deseaAyudar ? 'checked' : '' },
-        deseaAyudarNo: function () { return !peer.deseaAyudar ? 'checked' : '' }
+        formaContactoDomicilio: function () { return peer.formaContacto == "Domicilio" ? 'checked' : '' }
       }
     }
   }))
@@ -225,9 +234,48 @@ function loadEvents()
       var reader = new window.FileReader()
       reader.onload = function (e) {
         $('#' + input.name + '-preview').css('background-image', 'url(' + e.target.result + ')')
+        $($(input).parents('.inputWrapper')[0]).children('.cancelSelection').css('display', 'block');
       }
       reader.readAsDataURL(file)
     }
+  })
+  
+  $('#btnCancelPicture1').on('click', function (evt) {
+    $('#picture-1-preview').css('background-image', '');
+    $('#picture-1').val('');
+    $(evt.currentTarget).css('display','none');
+  })
+  $('#btnCancelPicture2').on('click', function (evt) {
+    $('#picture-2-preview').css('background-image', '');
+    $('#picture-2').val('');
+    $(evt.currentTarget).css('display', 'none');
+  })
+  $('#btnCancelPicture3').on('click', function (evt) {
+    $('#picture-3-preview').css('background-image', '');
+    $('#picture-3').val('');
+    $(evt.currentTarget).css('display', 'none');
+  })
+  
+  $('input[type=radio]').on('change', function (evt) {
+    var radio = evt.target;
+    $('#btnCancel' + radio.name).css('display', 'block');
+  })
+  
+  $('#btnCanceltieneFirmas').on('click', function (evt){
+    $('input[name=tieneFirmas]').attr('checked', false);
+    $(evt.target).css('display','none');
+  })
+  $('#btnCancelafiliadoOtroPartido').on('click', function (evt) {
+    $('input[name=afiliadoOtroPartido]').attr('checked', false);
+    $(evt.target).css('display', 'none');
+  })
+  $('#btnCanceldeseaAyudar').on('click', function (evt) {
+    $('input[name=deseaAyudar]').attr('checked', false);
+    $(evt.target).css('display', 'none');
+  })
+  
+  $('#btnCancelEdit').on('click', function (evt) {
+    window.location = "/admin/peers";
   })
 }
 
