@@ -77,8 +77,6 @@ page.exit('/admin/peers', content.unload)
 function findPeers (ctx, next) {
   $.get('/admin/api/peers').done(function (res) {
     ctx.peers = res.map(function (p) {
-      p.id = p.id
-
       try {
         p.datosCompletos = (
           p.nombre &&
@@ -96,14 +94,18 @@ function findPeers (ctx, next) {
           p.domicilio.codPostal &&
           p.domicilio.localidad &&
           p.domicilio.provincia &&
-          (p.mismoDomicilioDocumento !== true ?
-            (p.domicilioReal.calle &&
-            p.domicilioReal.numero &&
-            p.domicilioReal.piso &&
-            p.domicilioReal.depto &&
-            p.domicilioReal.codPostal &&
-            p.domicilioReal.localidad &&
-            p.domicilioReal.provincia) : true)
+          (
+            p.mismoDomicilioDocumento !== true
+            ? (
+              p.domicilioReal.calle &&
+              p.domicilioReal.numero &&
+              p.domicilioReal.piso &&
+              p.domicilioReal.depto &&
+              p.domicilioReal.codPostal &&
+              p.domicilioReal.localidad &&
+              p.domicilioReal.provincia
+            ) : true
+          )
         )
       } catch (e) {
         p.datosCompletos = false
