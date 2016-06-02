@@ -3,6 +3,7 @@ var page = require('page')
 var content = require('../layout/content')
 var template = require('./index.hbs')
 var infoTemplate = require('./info.hbs')
+var dialogTemplate = require('./dialog.hbs')
 
 page('/admin/peers', content.load, findPeers, function (ctx) {
   var peers = ctx.peers
@@ -24,8 +25,8 @@ page('/admin/peers', content.load, findPeers, function (ctx) {
     showInfo(peers.find(function (peer) { return peer.id === id }))
   })
 
-  // $('.button.delete').click(function (evt) {
-  $('.button.delete').click(function (evt) {
+  // Delete Modal
+  ctx.content.on('click', '.button.delete', function (evt) {
     evt.preventDefault()
     evt.stopImmediatePropagation()
 
@@ -33,13 +34,11 @@ page('/admin/peers', content.load, findPeers, function (ctx) {
     var id = $(el).attr('data-id')
     var nombre = $(el).find('.peerNombre').html()
 
-    ShowDialog('Eliminación de Afiliado', '¿Realmente desea eliminar al afiliado <b>' + nombre + '</b>?', function () {
-      $.del('/admin/api/peers/' + id)
-      .done(function () {
+    showDialog('Eliminación de Afiliado', '¿Realmente desea eliminar al afiliado <b>' + nombre + '</b>?', function () {
+      $.del('/admin/api/peers/' + id).done(function () {
         $(el).slideUp('300', function () { $(this).remove() })
         $('#afiliacionesTitle').html('Afiliaciones (' + $('.peerContainer.visible').length + ')')
-      })
-      .fail(function (res) { })
+      }).fail(console.error.bind(console))
     })
   })
 
@@ -187,13 +186,11 @@ function showInfo (peer) {
 
   var view = $(infoTemplate(data))
 
-  view.on('click', '[data-close]', function () {
-    view.fadeOut(200, function () { view.remove() })
-  })
+  view.on('click', '[data-close]', view.remove.bind(view, undefined))
 
-  $(document.body).append(view)
+  view.appendTo(document.body)
 
-  view.fadeIn(200)
+  return view
 }
 
 function getGoogleMapsImage (address) {
@@ -208,4 +205,21 @@ function getPrettyAddress (address) {
     ' ' + address.numero +
     ', ' + address.localidad +
     ', ' + address.provincia
+}
+
+function showDialog (title, message, cb) {
+  var data = {
+    title: title,
+    message: message
+  }
+
+  var view = $(dialogTemplate(data))
+
+  view.on('click', '[data-accept]', cb.bind(cb, view))
+
+  view.on('click', '[data-accept], [data-close]', view.remove.bind(view, undefined))
+
+  view.appendTo(document.body)
+
+  return view
 }
