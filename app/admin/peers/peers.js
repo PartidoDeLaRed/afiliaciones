@@ -9,7 +9,8 @@ page('/admin/peers', content.load, findPeers, function (ctx) {
   var peers = ctx.peers
 
   var view = $(template({
-    peers: sortPeers(peers)
+    peers: parsePeers(peers),
+    slugify: slugify
   }))
 
   ctx.content.append(view)
@@ -117,17 +118,31 @@ function findPeers (ctx, next) {
   })
 }
 
-function sortPeers (peers) {
-  return peers.sort(function (a, b) {
+function parsePeers (peers) {
+  return peers.map(function (peer) {
+    return Object.assign({}, peer, {
+      nombreSlug: slugify(peer.apellido + ' ' + peer.nombre),
+      emailSlug: slugify(peer.email)
+    })
+  }).sort(function (a, b) {
     return b.apellido !== a.apellido ? (b.apellido <= a.apellido ? 1 : -1) : (b.nombre <= a.nombre ? 1 : -1)
   })
 }
 
-function loadSearchBoxes (content) {
-  var peerEls = content.find('.peerContainer')
+function slugify (text) {
+  return (text || '').toString().toLowerCase()
+    .replace(/\s+/g, '-')           // Replace spaces with -
+    .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+    .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+    .replace(/^-+/, '')             // Trim - from start of text
+    .replace(/-+$/, '')            // Trim - from end of text
+}
 
-  content.find('.listHeader:not(.actions, .state)').each(function (index, item) {
+function loadSearchBoxes (content) {
+  content.find('[data-field]').each(function (index, item) {
     var itemEl = $(item)
+    var field = itemEl.attr('data-field')
+    var style = $('<style/>')
 
     itemEl.children().remove()
 
@@ -135,36 +150,32 @@ function loadSearchBoxes (content) {
     var searchContainer = $('<div class="searchContainer" />').css('display', 'none')
     var searchField = $('<input type="text" class="searchField" />')
 
+    var itemSelector = 'data-field-' + field
+
     searchField.keyup(function (event) {
-      // Si borro todo, muestro todos
-      var val = this.value
-      if (val === null) {
-        peerEls.css('display', 'block')
-      } else {
-        // Sino, muestro solo los que coincidan con la busqueda
-        var field = $(this).parents('.listHeader').attr('data-field')
-        $('.peerContainer').each(function (index, item) {
-          if (itemEl.find('.peer' + field).html().toLowerCase().indexOf(val.toLowerCase()) >= 0) {
-            itemEl.css('display', 'block')
-          } else {
-            itemEl.css('display', 'none')
-          }
-        })
-      }
+      var val = slugify(searchField.val())
+
+      if (!val) return style.html('')
+
+      style.html([
+        '[' + itemSelector + ']{display:none}',
+        '[' + itemSelector + '][' + itemSelector + '*="' + val + '"]{display:block}'
+      ].join(''))
     })
 
     searchContainer.append(searchField)
+    searchContainer.append(style)
 
     searchContainer.append($('<div class="button cancel" />').click(function () {
       searchButton.fadeIn(100)
       searchContainer.fadeOut(100)
-      peerEls.css('display', 'block')
+      style.html('')
+      searchField.val('')
     }))
 
     searchButton.click(function () {
       searchButton.fadeOut(100)
       searchContainer.fadeIn(100)
-      searchField.value = ''
       searchField.focus()
     })
 
