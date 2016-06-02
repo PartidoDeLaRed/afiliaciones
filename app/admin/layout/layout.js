@@ -4,22 +4,11 @@ var page = require('page')
 var newTemplate = require('../peers/new.hbs')
 var editTemplate = require('../peers/edit.hbs')
 var pictures = require('../peers-pictures/peers-pictures')
+var content = require('./content')
 
 require('./lib/extend-jquery')
 
 require('../peers/peers')
-
-page()
-
-return
-
-function findPeer (ctx, next) {
-  $.get('/admin/api/peers/' + ctx.params.id)
-    .done(function (res) {
-      ctx.peer = res
-      next()
-    })
-}
 
 page('/admin/peers/new', function () {
   $('.content').html('').append(newTemplate({
@@ -42,17 +31,17 @@ page('/admin/peers/new', function () {
           '<option value="divorciado">Divorciado/a</option>' +
           '<option value="viudo">Viudo/a</option>'
         },
-        formaContactoEmail: function(){ return 'checked' },
+        formaContactoEmail: function () { return 'checked' },
         formaContactoTelefono: function () { return '' },
-        formaContactoDomicilio: function () { return '' },
+        formaContactoDomicilio: function () { return '' }
       }
     }
-  }));
+  }))
 
-  loadEvents();
-});
+  loadEvents()
+})
 
-page('/admin/peers/:id/edit', findPeer, loadContent, function (ctx, next) {
+page('/admin/peers/:id/edit', findPeer, content.load, function (ctx, next) {
   var peer = ctx.peer
   var content = ctx.content
 
@@ -66,19 +55,19 @@ page('/admin/peers/:id/edit', findPeer, loadContent, function (ctx, next) {
       helpers: {
         isNew: false,
         formSelectTipoMatricula: function () {
-          return '<option value="DNI" ' + ((peer.matricula.tipo == 'DNI')?'selected':'') + '>DNI</option>' +
-      '<option value="LE" ' + ((peer.matricula.tipo == 'LE')?'selected':'') + '>LE</option>' +
-      '<option value="LI" ' + ((peer.matricula.tipo == 'LI')?'selected':'') + '>LI</option>'
+          return '<option value="DNI" ' + ((peer.matricula.tipo === 'DNI') ? 'selected' : '') + '>DNI</option>' +
+            '<option value="LE" ' + ((peer.matricula.tipo === 'LE') ? 'selected' : '') + '>LE</option>' +
+            '<option value="LI" ' + ((peer.matricula.tipo === 'LI') ? 'selected' : '') + '>LI</option>'
         },
         formSelectSexo: function () {
-          return '<option value="F" ' + ((peer.sexo === 'F')?'selected':'') + '>Femenino</option>' +
-      '<option value="M" ' + ((peer.sexo === 'M')?'selected':'') + '>Masculino</option>'
+          return '<option value="F" ' + (peer.sexo === 'F' ? 'selected' : '') + '>Femenino</option>' +
+            '<option value="M" ' + (peer.sexo === 'M' ? 'selected' : '') + '>Masculino</option>'
         },
         formSelectEstadoCivil: function () {
-          return '<option value="soltero" ' + ((peer.estadoCivil == 'soltero')?'selected':'') + '>Soltero/a</option>' +
-      '<option value="casado" ' + ((peer.estadoCivil == 'casado')?'selected':'') + '>Casado/a</option>' +
-      '<option value="divorciado" ' + ((peer.estadoCivil == 'divorciado')?'selected':'') + '>Divorciado/a</option>' +
-      '<option value="viudo" ' + ((peer.estadoCivil == 'viudo')?'selected':'') + '>Viudo/a</option>'
+          return '<option value="soltero" ' + (peer.estadoCivil === 'soltero' ? 'selected' : '') + '>Soltero/a</option>' +
+            '<option value="casado" ' + (peer.estadoCivil === 'casado' ? 'selected' : '') + '>Casado/a</option>' +
+            '<option value="divorciado" ' + (peer.estadoCivil === 'divorciado' ? 'selected' : '') + '>Divorciado/a</option>' +
+            '<option value="viudo" ' + (peer.estadoCivil === 'viudo' ? 'selected' : '') + '>Viudo/a</option>'
         },
         tieneFirmasSi: function () { return peer.tieneFirmas != null ? (peer.tieneFirmas === true ? 'checked' : '') : '' },
         tieneFirmasNo: function () { return peer.tieneFirmas != null ? (!peer.tieneFirmas === true ? 'checked' : '') : '' },
@@ -89,19 +78,27 @@ page('/admin/peers/:id/edit', findPeer, loadContent, function (ctx, next) {
         deseaAyudarSi: function () { return peer.deseaAyudar != null ? (peer.deseaAyudar === true ? 'checked' : '') : '' },
         deseaAyudarNo: function () { return peer.deseaAyudar != null ? (!peer.deseaAyudar === true ? 'checked' : '') : '' },
         deseaAyudarCancel: function () { return peer.deseaAyudar != null ? 'block' : 'none' },
-        formaContactoEmail: function () { return peer.formaContacto == "Email" ? 'checked' : '' },
-        formaContactoTelefono: function () { return peer.formaContacto == "Telefono" ? 'checked' : '' },
-        formaContactoDomicilio: function () { return peer.formaContacto == "Domicilio" ? 'checked' : '' }
+        formaContactoEmail: function () { return peer.formaContacto === 'Email' ? 'checked' : '' },
+        formaContactoTelefono: function () { return peer.formaContacto === 'Telefono' ? 'checked' : '' },
+        formaContactoDomicilio: function () { return peer.formaContacto === 'Domicilio' ? 'checked' : '' }
       }
     }
   }))
 
-  loadEvents();
+  loadEvents()
 })
 
 page()
 
-function loadEvents() {
+function findPeer (ctx, next) {
+  $.get('/admin/api/peers/' + ctx.params.id)
+    .done(function (res) {
+      ctx.peer = res
+      next()
+    })
+}
+
+function loadEvents () {
   $('#peerForm').on('submit', function (ev) {
     ev.preventDefault()
     ev.stopImmediatePropagation()
@@ -126,52 +123,52 @@ function loadEvents() {
       var reader = new window.FileReader()
       reader.onload = function (e) {
         $('#' + input.name + '-preview').css('background-image', 'url(' + e.target.result + ')')
-        $($(input).parents('.inputWrapper')[0]).children('.cancelSelection').css('display', 'block');
+        $($(input).parents('.inputWrapper')[0]).children('.cancelSelection').css('display', 'block')
       }
       reader.readAsDataURL(file)
     }
   })
-  
+
   $('#btnCancelPicture1').on('click', function (evt) {
-    $('#picture-1-preview').css('background-image', '');
-    $('#picture-1').val('');
-    $(evt.currentTarget).css('display','none');
+    $('#picture-1-preview').css('background-image', '')
+    $('#picture-1').val('')
+    $(evt.currentTarget).css('display', 'none')
   })
   $('#btnCancelPicture2').on('click', function (evt) {
-    $('#picture-2-preview').css('background-image', '');
-    $('#picture-2').val('');
-    $(evt.currentTarget).css('display', 'none');
+    $('#picture-2-preview').css('background-image', '')
+    $('#picture-2').val('')
+    $(evt.currentTarget).css('display', 'none')
   })
   $('#btnCancelPicture3').on('click', function (evt) {
-    $('#picture-3-preview').css('background-image', '');
-    $('#picture-3').val('');
-    $(evt.currentTarget).css('display', 'none');
+    $('#picture-3-preview').css('background-image', '')
+    $('#picture-3').val('')
+    $(evt.currentTarget).css('display', 'none')
   })
-  
+
   $('input[type=radio]').on('change', function (evt) {
-    var radio = evt.target;
-    $('#btnCancel' + radio.name).css('display', 'block');
+    var radio = evt.target
+    $('#btnCancel' + radio.name).css('display', 'block')
   })
-  
-  $('#btnCanceltieneFirmas').on('click', function (evt){
-    $('input[name=tieneFirmas]').attr('checked', false);
-    $(evt.target).css('display','none');
+
+  $('#btnCanceltieneFirmas').on('click', function (evt) {
+    $('input[name=tieneFirmas]').attr('checked', false)
+    $(evt.target).css('display', 'none')
   })
   $('#btnCancelafiliadoOtroPartido').on('click', function (evt) {
-    $('input[name=afiliadoOtroPartido]').attr('checked', false);
-    $(evt.target).css('display', 'none');
+    $('input[name=afiliadoOtroPartido]').attr('checked', false)
+    $(evt.target).css('display', 'none')
   })
   $('#btnCanceldeseaAyudar').on('click', function (evt) {
-    $('input[name=deseaAyudar]').attr('checked', false);
-    $(evt.target).css('display', 'none');
+    $('input[name=deseaAyudar]').attr('checked', false)
+    $(evt.target).css('display', 'none')
   })
-  
+
   $('#btnCancelEdit').on('click', function (evt) {
-    window.location = "/admin/peers";
+    window.location = '/admin/peers'
   })
 }
 
-function SaveData() {
+function SaveData () {
   $('.errorList').slideUp('50', function () {
     $('.errorList').html('')
 
@@ -179,98 +176,78 @@ function SaveData() {
 
     if (form.id) {
       $.put('/admin/api/peers/' + form.id, form)
-      .done(function (res) { UploadImages(res, function () { window.location = '/admin/peers'; }); })
-      .fail(function (res) { showErrors($.parseJSON(res.responseText)); });
-    }
-    else {
+      .done(function (res) { UploadImages(res, function () { window.location = '/admin/peers' }) })
+      .fail(function (res) { showErrors($.parseJSON(res.responseText)) })
+    } else {
       $.post('/admin/api/peers/', form)
-      .done(function (res) { UploadImages(res, function () { window.location = '/admin/peers'; }); })
-      .fail(function (res) { showErrors($.parseJSON(res.responseText)); });
+      .done(function (res) { UploadImages(res, function () { window.location = '/admin/peers' }) })
+      .fail(function (res) { showErrors($.parseJSON(res.responseText)) })
     }
-  });
+  })
 }
 
-function UploadImages(peer, cb) {
-  var save = false;
-  var imagenes = [];
+function UploadImages (peer, cb) {
+  var imagenes = []
+
   $('.imagenDocumento').each(function (index, item) {
     var file = item.files[0]
-    if (file)
-      if (file.size <= 10000000)
-        imagenes.push(item);
-  });
-  var i = 0;
+    if (file) {
+      if (file.size <= 10000000) {
+        imagenes.push(item)
+      }
+    }
+  })
+
+  if (!imagenes.length) return cb()
+
+  var i = 0
   imagenes.forEach(function (item) {
     var file = item.files[0]
-    pictures.getUploadUrl(peer.id, file)
-    .done(function (resDir) {
+    pictures.getUploadUrl(peer.id, file).done(function (resDir) {
       console.log('UploadUrl: ', resDir)
       pictures.upload(file, resDir.uploadUrl)
       .progress(function (data) {
         console.log('progess: ', data)
       })
       .done(function (res) {
-        i++;
+        i++
         console.log('done: ', res)
-        save = true;
-        if (!peer.imagenesDocumento)
-          peer.imagenesDocumento = {};
-        if (item.name == 'picture-1') peer.imagenesDocumento.frente = resDir.file;
-        else if (item.name == 'picture-2') peer.imagenesDocumento.dorso = resDir.file;
-        else if (item.name == 'picture-3') peer.imagenesDocumento.cambioDomicilio = resDir.file;
+        save = true
+        if (!peer.imagenesDocumento) {
+          peer.imagenesDocumento = {}
+        }
+        if (item.name === 'picture-1') peer.imagenesDocumento.frente = resDir.file
+        else if (item.name === 'picture-2') peer.imagenesDocumento.dorso = resDir.file
+        else if (item.name === 'picture-3') peer.imagenesDocumento.cambioDomicilio = resDir.file
 
-        if (i == imagenes.length)
+        if (i === imagenes.length) {
           $.put('/admin/api/peers/' + peer.id + '/pictures', peer.imagenesDocumento)
-          .done(function (res) {
-            window.location = '/admin/peers';
-          })
-          .fail(function (res) {
-            showErrors($.parseJSON(res.responseText));
-          });
+            .done(function (res) {
+              window.location = '/admin/peers'
+            })
+            .fail(function (res) {
+              showErrors($.parseJSON(res.responseText))
+            })
+        }
       })
       .fail(function (err) {
-        i++;
+        i++
         console.log('fail: ', err)
       })
     })
     .fail(function (err) {
       console.error(err)
+      window.alert('No se pudieron guardar las imágenes.')
+    })
+  })
+}
+
+function showErrors (err) {
+  $(err.errors).each(function (index, error) {
+    $(Object.keys(error)).each(function (index, item) {
+      $('.errorList').append($('<div class="errorItem" />').html(error[item].message))
     })
   })
 
-  if (save) {
-
-  }
-}
-
-function showErrors(err)
-{
-  $(err.errors).each(function (index, error) {
-    $(Object.keys(error)).each(function (index, item) {
-      $('.errorList').append($('<div class="errorItem" />').html(error[item].message));
-    })
-  });
-  $('.errorList').slideDown('50');
-}
-
-function ShowDialog(title, message, cb) {
-  var wrapper = $('<div class="wrapper fullSize"/>').css('display','none');
-  var container = $('<div class="dialogContainer centered"/>');
-  var titleContainer = $('<div class="dialogTitle"/>').html(title);
-  var messageContainer = $('<div class="dialogMessage"/>').html(message);
-  var buttonsContainer = $('<div class="dialogFooter"/>');
-  var buttonAccept = $('<div class="dialogButton accept"/>').html('Aceptar').click(function () {
-    wrapper.fadeOut('200ms', function () {
-      wrapper.remove();
-      cb();
-    });
-  });
-  var buttonCancel = $('<div class="dialogButton cancel"/>').html('Cancelar').click(function () {
-    wrapper.fadeOut('200ms', function () {
-      wrapper.remove();
-    });
-  });
-
-  $('body').append(wrapper.append(container.append(titleContainer).append(messageContainer).append(buttonsContainer.append(buttonAccept).append(buttonCancel))));
-  wrapper.fadeIn('200ms');
+  $('.errorList').slideDown('50')
 }
