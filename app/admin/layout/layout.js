@@ -121,7 +121,7 @@ function loadEvents () {
     if (!file) return
     if (file.size > 10000000) {
       input.value = ''
-      return window.alert('La foto es muy pesada, el tamaño máximo es 10MB.')
+      return window.alert('La foto es muy pesada, el tamaÃ±o mÃ¡ximo es 10MB.')
     } else {
       var reader = new window.FileReader()
       reader.onload = function (e) {
@@ -181,7 +181,7 @@ function SaveData () {
     $[action]('/admin/api/peers/' + form.id, form).done(function (res) {
       notify('Par guardado.')
       UploadImages(res, function () {
-        notify('Imágenes guardadas.')
+        notify('ImÃ¡genes guardadas.')
       })
     }).fail(function (res) {
       notify.error('No se pudo guardar, por favor revise los errores.')
@@ -240,7 +240,7 @@ function UploadImages (peer, cb) {
     })
     .fail(function (err) {
       console.error(err)
-      window.alert('No se pudieron guardar las imágenes.')
+      window.alert('No se pudieron guardar las imÃ¡genes.')
     })
   })
 }
