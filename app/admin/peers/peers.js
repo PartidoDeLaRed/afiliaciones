@@ -43,31 +43,32 @@ page('/admin/peers', content.load, findPeers, function (ctx) {
     })
   })
 
-  // $('#listType').change(function () {
-  //   var val = document.getElementById('listType').value
-  //   switch (val) {
-  //     case 'todos': $('.peerContainer').addClass('visible').removeClass('hidden') break
-  //     case 'todoOk':
-  //       $('.peerContainer').each(function (index, item) {
-  //         $(item).children('.ok').length == 3 ? $(item).addClass('visible').removeClass('hidden') : $(item).addClass('hidden').removeClass('visible')
-  //       })
-  //       break
-  //     case 'faltanDatos':
-  //       $('.peerEstado.datosCompletos.no').parent('.peerContainer').addClass('visible').removeClass('hidden')
-  //       $('.peerEstado.datosCompletos.ok').parent('.peerContainer').addClass('hidden').removeClass('visible')
-  //       break
-  //     case 'faltanFirmas':
-  //       $('.peerEstado.tieneFirmas.no').parent('.peerContainer').addClass('visible').removeClass('hidden')
-  //       $('.peerEstado.tieneFirmas.ok').parent('.peerContainer').addClass('hidden').removeClass('visible')
-  //       break
-  //     case 'afiliadoOtroPartido':
-  //       $('.peerEstado.noAfiliado.no').parent('.peerContainer').addClass('visible').removeClass('hidden')
-  //       $('.peerEstado.noAfiliado.ok').parent('.peerContainer').addClass('hidden').removeClass('visible')
-  //       break
-  //     default : $('.peerContainer').addClass('visible').removeClass('hidden') break
-  //   }
-  //   $('#afiliacionesTitle').html('Afiliaciones (' + $('.peerContainer.visible').length + ')')
-  // })
+  $('#listType').change(function () {
+    var val = document.getElementById('listType').value
+    switch (val) {
+      case 'todos': $('.peerContainer').addClass('visible').removeClass('hidden')
+        break
+      case 'todoOk':
+        $('.peerContainer').each(function (index, item) {
+          $(item).children('.ok').length == 3 ? $(item).addClass('visible').removeClass('hidden') : $(item).addClass('hidden').removeClass('visible')
+        })
+        break
+      case 'faltanDatos':
+        $('.peerEstado.datosCompletos.no').parent('.peerContainer').addClass('visible').removeClass('hidden')
+        $('.peerEstado.datosCompletos.ok').parent('.peerContainer').addClass('hidden').removeClass('visible')
+        break
+      case 'faltanFirmas':
+        $('.peerEstado.tieneFirmas.no').parent('.peerContainer').addClass('visible').removeClass('hidden')
+        $('.peerEstado.tieneFirmas.ok').parent('.peerContainer').addClass('hidden').removeClass('visible')
+        break
+      case 'afiliadoOtroPartido':
+        $('.peerEstado.noAfiliado.no').parent('.peerContainer').addClass('visible').removeClass('hidden')
+        $('.peerEstado.noAfiliado.ok').parent('.peerContainer').addClass('hidden').removeClass('visible')
+        break
+      default: $('.peerContainer').addClass('visible').removeClass('hidden')
+    }
+    $('#afiliacionesTitle').html('Afiliaciones (' + $('.peerContainer.visible').length + ')')
+  })
 
   loadSearchBoxes(ctx.content)
 })
