@@ -114,37 +114,36 @@ function loadEvents () {
     $('#sectionDomicilioReal')[action]('100')
   })
 
-  $('.imagenDocumento').on('change', function (evt) {
-    var input = evt.currentTarget
-    var file = input.files[0]
-    if (!file) return
-    if (file.size > 10000000) {
-      input.value = ''
-      return window.alert('La foto es muy pesada, el tamaño máximo es 10MB.')
-    } else {
-      var reader = new window.FileReader()
-      reader.onload = function (e) {
-        $('#' + input.name + '-preview').css('background-image', 'url(' + e.target.result + ')')
-        $($(input).parents('.inputWrapper')[0]).children('.cancelSelection').css('display', 'block')
-      }
-      reader.readAsDataURL(file)
-    }
-  })
+  $('[data-peer-imagen]').each(function (i, el) {
+    var $el = $(el)
 
-  $('#btnCancelPicture1').on('click', function (evt) {
-    $('#picture-1-preview').css('background-image', '')
-    $('#picture-1').val('')
-    $(evt.currentTarget).css('display', 'none')
-  })
-  $('#btnCancelPicture2').on('click', function (evt) {
-    $('#picture-2-preview').css('background-image', '')
-    $('#picture-2').val('')
-    $(evt.currentTarget).css('display', 'none')
-  })
-  $('#btnCancelPicture3').on('click', function (evt) {
-    $('#picture-3-preview').css('background-image', '')
-    $('#picture-3').val('')
-    $(evt.currentTarget).css('display', 'none')
+    function cancel () {
+      $el.find('[data-peer-imagen-preview]').css('background-image', '')
+      $el.find('[data-peer-imagen-input]').val('')
+      $el.find('[data-peer-imagen-cancel]').css('display', 'none')
+    }
+
+    $el.on('change', '[data-peer-imagen-input]', function (evt) {
+      var input = evt.currentTarget
+      var file = input.files[0]
+      if (!file) return
+
+      if (file.size > 10000000) {
+        cancel()
+        notify('La foto es muy pesada, el tamaño máximo es 10MB.')
+      } else {
+        var reader = new window.FileReader()
+
+        reader.onload = function (e) {
+          $el.find('[data-peer-imagen-preview]').css('background-image', 'url(' + e.target.result + ')')
+          $el.find('[data-peer-imagen-cancel]').css('display', 'block')
+        }
+
+        reader.readAsDataURL(file)
+      }
+    })
+
+    $el.on('click', '[data-peer-imagen-cancel]', cancel)
   })
 
   $('input[type=radio]').on('change', function (evt) {
@@ -196,7 +195,7 @@ function SaveData () {
 function UploadImages (peer, cb) {
   var imagenes = []
 
-  $('.imagenDocumento').each(function (index, item) {
+  $('[data-peer-imagen-input]').each(function (index, item) {
     var file = item.files[0]
     if (file) {
       if (file.size <= 10000000) {
@@ -226,9 +225,7 @@ function UploadImages (peer, cb) {
 
         if (!peer.imagenesDocumento) peer.imagenesDocumento = {}
 
-        if (item.name === 'picture-1') peer.imagenesDocumento.frente = resDir.file
-        else if (item.name === 'picture-2') peer.imagenesDocumento.dorso = resDir.file
-        else if (item.name === 'picture-3') peer.imagenesDocumento.cambioDomicilio = resDir.file
+        peer.imagenesDocumento[item.name] = resDir.file
 
         if (i < imagenes.length) return
 

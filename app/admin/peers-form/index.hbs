@@ -144,38 +144,34 @@
 
 <div class="formGroup header">Imágenes del documento</div>
 
-{{#if obj.helpers.isNew}}
-  <p>Primero tenes que agregar al par antes de poder cargar las fotos.</p>
-{{ else }}
-  <div id="sectionImagenesDocumento" class="formGroup content">
-    <div class="inputWrapper third">
-      <div class="imagePreview" id="picture-1-preview"></div>
-      <label class="imageSelector">
-        <input id="picture-1" type="file" name="picture-1" class="imagenDocumento" accept="image/*">
-        <span class="buttonSelectImage">Frente o primera hoja</span>
-      </label>
-      <div id="btnCancelPicture1" class="cancelSelection float"></div>
-    </div>
-
-    <div class="inputWrapper third">
-      <div class="imagePreview" id="picture-2-preview"></div>
-      <label class="imageSelector">
-        <input id="picture-2" type="file" name="picture-2" class="imagenDocumento" accept="image/*">
-        <span class="buttonSelectImage">Dorso o segunda hoja</span>
-      </label>
-      <div id="btnCancelPicture2" class="cancelSelection float"></div>
-    </div>
-
-    <div class="inputWrapper third">
-      <div class="imagePreview" id="picture-3-preview"></div>
-      <label class="imageSelector">
-        <input id="picture-3" type="file" name="picture-3" class="imagenDocumento" accept="image/*">
-        <span class="buttonSelectImage">Cambio de domicilio</span>
-      </label>
-      <div id="btnCancelPicture3" class="cancelSelection float"></div>
-    </div>
+<div id="sectionImagenesDocumento" class="formGroup content">
+  <div class="inputWrapper third" data-peer-imagen>
+    <div class="imagePreview" data-peer-imagen-preview></div>
+    <label class="imageSelector">
+      <input type="file" name="frente" accept="image/*" data-peer-imagen-input>
+      <span class="buttonSelectImage">Frente o primera hoja</span>
+    </label>
+    <div class="cancelSelection float" data-peer-imagen-cancel></div>
   </div>
-{{/if}}
+
+  <div class="inputWrapper third" data-peer-imagen>
+    <div class="imagePreview" data-peer-imagen-preview></div>
+    <label class="imageSelector">
+      <input type="file" name="dorso" accept="image/*" data-peer-imagen-input>
+      <span class="buttonSelectImage">Dorso o segunda hoja</span>
+    </label>
+    <div class="cancelSelection float" data-peer-imagen-cancel></div>
+  </div>
+
+  <div class="inputWrapper third" data-peer-imagen>
+    <div class="imagePreview" data-peer-imagen-preview></div>
+    <label class="imageSelector">
+      <input type="file" name="cambioDomicilio" accept="image/*" data-peer-imagen-input>
+      <span class="buttonSelectImage">Cambio de domicilio</span>
+    </label>
+    <div class="cancelSelection float" data-peer-imagen-cancel></div>
+  </div>
+</div>
 
 <div class="formGroup header">¿Tiene las firmas en las fichas de afiliación?</div>
 
@@ -234,8 +230,8 @@
 <div class="errorList"></div>
 
 <div class="formButtons">
-  <button id="btnCancelEdit" type="button">Cancelar</button>
+  <button id="btnCancelEdit" type="button">Volver</button>
   <button id="btnSubmitEdit" type="submit">
-    {{#if obj.helpers.isNew}}Agregar{{else}}Editar{{/if}}
+    {{#if obj.helpers.isNew}}Crear{{else}}Editar{{/if}}
   </button>
 </div>
