@@ -33,8 +33,8 @@ app.get('/peers', function (req, res) {
 })
 
 app.post('/peers', peersForm.parse, function (req, res) {
-  req.peer.createdBy = req.user.id.toString();
-  req.peer.lastEditedBy = req.user.id.toString();
+  req.peer.createdBy = req.user.id.toString()
+  req.peer.lastEditedBy = req.user.id.toString()
   Peer.create(req.peer, function (err, peer) {
     if (err) return res.status(500).send(err)
     res.status(200).json(peer)
@@ -42,7 +42,7 @@ app.post('/peers', peersForm.parse, function (req, res) {
 })
 
 app.put('/peers/:id', peersForm.parse, function (req, res) {
-  req.peer.lastEditedBy = req.user.id.toString();
+  req.peer.lastEditedBy = req.user.id.toString()
   req.peer.save(function (err) {
     if (err) return res.status(500).send(err)
     res.status(200).json(req.peer)

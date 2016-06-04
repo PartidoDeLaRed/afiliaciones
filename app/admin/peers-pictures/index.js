@@ -60,12 +60,11 @@ function getUrls (peer, cb) {
     batch.concurrency(3)
 
     data.Contents.forEach(function (item) {
-      var file = item.Key.replace(prefix, '')
-      if (!file) return
+      if (!item.Key) return
 
       var fetch = s3.getSignedUrl.bind(s3, 'getObject', {
         Bucket: config.aws.bucket,
-        Key: file,
+        Key: item.Key,
         Expires: 120
       })
 
@@ -73,7 +72,7 @@ function getUrls (peer, cb) {
         fetch(function (err, url) {
           if (err) return done(err)
           done(null, {
-            file: file,
+            file: item.Key,
             url: url
           })
         })
@@ -94,5 +93,5 @@ function folderFor (peer) {
 }
 
 function random () {
-  return crypto.randomBytes(8).toString('hex')
+  return crypto.randomBytes(3).toString('hex')
 }

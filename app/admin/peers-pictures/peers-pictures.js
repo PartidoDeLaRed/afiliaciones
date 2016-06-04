@@ -8,7 +8,14 @@ function baseUrl (id, suffix) {
   return url
 }
 
-module.exports = {
+window.pictures = module.exports = {
+  getUrls: function (peerId) {
+    return $.ajax({
+      type: 'get',
+      url: baseUrl(peerId)
+    })
+  },
+
   getUploadUrl: function (peerId, file) {
     if (!(file instanceof window.File)) {
       return $.Deferred().reject(new Error('Invalid File.'))

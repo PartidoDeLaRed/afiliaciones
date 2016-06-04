@@ -87,7 +87,8 @@ page('/admin/peers/:id/edit', findPeer, content.load, function (ctx, next) {
     }
   }))
 
-  loadEvents()
+  loadEvents(peer)
+  loadCurrentPictures(peer)
 })
 
 page()
@@ -100,7 +101,7 @@ function findPeer (ctx, next) {
     })
 }
 
-function loadEvents () {
+function loadEvents (peer) {
   $('#peerForm').on('submit', function (ev) {
     ev.preventDefault()
     ev.stopImmediatePropagation()
@@ -114,16 +115,17 @@ function loadEvents () {
     $('#sectionDomicilioReal')[action]('100')
   })
 
-  $('[data-peer-imagen]').each(function (i, el) {
+  $('[data-peers-imagen]').each(function (i, el) {
     var $el = $(el)
+    var name = $el.attr('data-peers-imagen')
 
     function cancel () {
-      $el.find('[data-peer-imagen-preview]').css('background-image', '')
-      $el.find('[data-peer-imagen-input]').val('')
-      $el.find('[data-peer-imagen-cancel]').css('display', 'none')
+      $el.find('[data-peers-imagen-preview]').css('background-image', '')
+      $el.find('[data-peers-imagen-input]').val('')
+      $el.find('[data-peers-imagen-cancel]').css('display', 'none')
     }
 
-    $el.on('change', '[data-peer-imagen-input]', function (evt) {
+    $el.on('change', '[data-peers-imagen-input]', function (evt) {
       var input = evt.currentTarget
       var file = input.files[0]
       if (!file) return
@@ -135,15 +137,15 @@ function loadEvents () {
         var reader = new window.FileReader()
 
         reader.onload = function (e) {
-          $el.find('[data-peer-imagen-preview]').css('background-image', 'url(' + e.target.result + ')')
-          $el.find('[data-peer-imagen-cancel]').css('display', 'block')
+          $el.find('[data-peers-imagen-preview]').css('background-image', 'url(' + e.target.result + ')')
+          $el.find('[data-peers-imagen-cancel]').css('display', 'block')
         }
 
         reader.readAsDataURL(file)
       }
     })
 
-    $el.on('click', '[data-peer-imagen-cancel]', cancel)
+    $el.on('click', '[data-peers-imagen-cancel]', cancel)
   })
 
   $('input[type=radio]').on('change', function (evt) {
@@ -169,6 +171,31 @@ function loadEvents () {
   })
 }
 
+function loadCurrentPictures (peer) {
+  if (!peer.imagenesDocumento) return
+  if (!Object.keys(peer.imagenesDocumento).length) return
+
+  pictures.getUrls(peer.id).done(function (pics) {
+    Object.keys(peer.imagenesDocumento).forEach(function (name) {
+      var path = peer.imagenesDocumento[name]
+      var pic = pics.find(function (p) { return path === p.file })
+
+      if (!pic) {
+        notify('No se encontró la foto del "' + name + '" en el servidor.')
+        console.log('Foto faltante: ', peer.imagenesDocumento[name])
+        return
+      }
+
+      $('[data-peers-imagen="' + name + '"]')
+        .find('[data-peers-imagen-preview]')
+          .css('background-image', 'url(' + pic.url + ')')
+    })
+  }).fail(function (res) {
+    console.error(res)
+    notify('No se pudieron cargar las fotos.')
+  })
+}
+
 function SaveData () {
   $('.errorList').slideUp('50', function () {
     $('.errorList').html('')
@@ -180,7 +207,7 @@ function SaveData () {
     $[action]('/admin/api/peers/' + form.id, form).done(function (res) {
       UploadImages(res, function (err) {
         if (err) {
-          notify.scope('peer-form')('Se produjo un error subiendo las imágenes, por favor vuelva a intentarlo.')
+          notify.scope('peer-form')('Se produjo un error subiendo las fotos, por favor vuelva a intentarlo.')
         } else {
           notify.scope('peer-form')('¡Listo!')
         }
@@ -195,7 +222,7 @@ function SaveData () {
 function UploadImages (peer, cb) {
   var imagenes = []
 
-  $('[data-peer-imagen-input]').each(function (index, item) {
+  $('[data-peers-imagen-input]').each(function (index, item) {
     var file = item.files[0]
     if (file) {
       if (file.size <= 10000000) {
@@ -208,7 +235,7 @@ function UploadImages (peer, cb) {
 
   if (!imagenes.length) return cb()
 
-  var msg = imagenes.length === 1 ? ' imágen...' : ' imágenes...'
+  var msg = imagenes.length === 1 ? ' foto...' : ' fotos...'
   notify.scope('peer-form')('Guardando ' + imagenes.length + msg)
 
   var i = 0
