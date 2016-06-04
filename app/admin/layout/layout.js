@@ -212,7 +212,6 @@ function UploadImages (peer, cb) {
       .done(function (res) {
         i++
         console.log('done: ', res)
-        save = true
         if (!peer.imagenesDocumento) {
           peer.imagenesDocumento = {}
         }
