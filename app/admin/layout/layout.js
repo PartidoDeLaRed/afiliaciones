@@ -1,10 +1,13 @@
 var $ = require('jquery')
 var toObject = require('form-to-object')
 var page = require('page')
+var notify = require('notification')
 var newTemplate = require('../peers/new.hbs')
 var editTemplate = require('../peers/edit.hbs')
 var pictures = require('../peers-pictures/peers-pictures')
 var content = require('./content')
+
+notify.Notification.effect = 'default'
 
 require('./lib/extend-jquery')
 
@@ -173,16 +176,17 @@ function SaveData () {
     $('.errorList').html('')
 
     var form = toObject(document.querySelector('form'))
+    var action = form.id ? 'put' : 'post'
 
-    if (form.id) {
-      $.put('/admin/api/peers/' + form.id, form)
-      .done(function (res) { UploadImages(res, function () { window.location = '/admin/peers' }) })
-      .fail(function (res) { showErrors($.parseJSON(res.responseText)) })
-    } else {
-      $.post('/admin/api/peers/', form)
-      .done(function (res) { UploadImages(res, function () { window.location = '/admin/peers' }) })
-      .fail(function (res) { showErrors($.parseJSON(res.responseText)) })
-    }
+    $[action]('/admin/api/peers/' + form.id, form).done(function (res) {
+      notify('Par guardado.')
+      UploadImages(res, function () {
+        notify('Imágenes guardadas.')
+      })
+    }).fail(function (res) {
+      notify.error('No se pudo guardar, por favor revise los errores.')
+      showErrors($.parseJSON(res.responseText))
+    })
   })
 }
 

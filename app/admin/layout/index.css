@@ -1,3 +1,29 @@
+@import 'node_modules/notification/notification.css';
+
+#notifications {
+  position: fixed;
+  left: 0;
+  top: 5px;
+  width: 100%;
+}
+
+#notifications .notification {
+  margin: 0 auto 5px;
+  border: 0;
+  max-width: 400px;
+  color: #fff;
+  font-weight: 700;
+  border-radius: 2px;
+  opacity: 1;
+  transition: opacity 300ms;
+  background: rgba(50, 50, 50, .98);
+}
+
+#notifications .notification.hide {
+	display: block !important;
+  opacity: 0;
+}
+
 *,.content {
 	margin:0
 }
