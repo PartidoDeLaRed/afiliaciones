@@ -7,9 +7,8 @@ var editTemplate = require('../peers/edit.hbs')
 var pictures = require('../peers-pictures/peers-pictures')
 var content = require('./content')
 
-notify.Notification.effect = 'default'
-
 require('./lib/extend-jquery')
+require('./lib/extend-notification')
 
 require('../peers/peers')
 
@@ -178,13 +177,17 @@ function SaveData () {
     var form = toObject(document.querySelector('form'))
     var action = form.id ? 'put' : 'post'
 
+    notify.scope('peer-form')('Guardando Datos...')
     $[action]('/admin/api/peers/' + form.id, form).done(function (res) {
-      notify('Par guardado.')
-      UploadImages(res, function () {
-        notify('Imágenes guardadas.')
+      UploadImages(res, function (err) {
+        if (err) {
+          notify.scope('peer-form')('Se produjo un error subiendo las imágenes, por favor vuelva a intentarlo.')
+        } else {
+          notify.scope('peer-form')('¡Listo!')
+        }
       })
     }).fail(function (res) {
-      notify.error('No se pudo guardar, por favor revise los errores.')
+      notify.scope('peer-form')('No se pudo guardar, por favor revise los errores.')
       showErrors($.parseJSON(res.responseText))
     })
   })
@@ -198,49 +201,53 @@ function UploadImages (peer, cb) {
     if (file) {
       if (file.size <= 10000000) {
         imagenes.push(item)
+      } else {
+        notify('La imagen "' + file.name + '" es muy grande. El tamaño máximo es 10MB.')
       }
     }
   })
 
   if (!imagenes.length) return cb()
 
+  var msg = imagenes.length === 1 ? ' imágen...' : ' imágenes...'
+  notify.scope('peer-form')('Guardando ' + imagenes.length + msg)
+
   var i = 0
   imagenes.forEach(function (item) {
     var file = item.files[0]
     pictures.getUploadUrl(peer.id, file).done(function (resDir) {
       console.log('UploadUrl: ', resDir)
-      pictures.upload(file, resDir.uploadUrl)
-      .progress(function (data) {
+
+      pictures.upload(file, resDir.uploadUrl).progress(function (data) {
         console.log('progess: ', data)
-      })
-      .done(function (res) {
+      }).done(function (res) {
         i++
         console.log('done: ', res)
-        if (!peer.imagenesDocumento) {
-          peer.imagenesDocumento = {}
-        }
+
+        if (!peer.imagenesDocumento) peer.imagenesDocumento = {}
+
         if (item.name === 'picture-1') peer.imagenesDocumento.frente = resDir.file
         else if (item.name === 'picture-2') peer.imagenesDocumento.dorso = resDir.file
         else if (item.name === 'picture-3') peer.imagenesDocumento.cambioDomicilio = resDir.file
 
-        if (i === imagenes.length) {
-          $.put('/admin/api/peers/' + peer.id + '/pictures', peer.imagenesDocumento)
-            .done(function (res) {
-              window.location = '/admin/peers'
-            })
-            .fail(function (res) {
-              showErrors($.parseJSON(res.responseText))
-            })
-        }
-      })
-      .fail(function (err) {
+        if (i < imagenes.length) return
+
+        var saveUrl = '/admin/api/peers/' + peer.id + '/pictures'
+        $.put(saveUrl, peer.imagenesDocumento).done(function () {
+          cb()
+        }).fail(function (res) {
+          cb(new Error())
+          showErrors($.parseJSON(res.responseText))
+        })
+      }).fail(function (err) {
         i++
         console.log('fail: ', err)
+        cb(err)
       })
-    })
-    .fail(function (err) {
+    }).fail(function (err) {
+      i++
       console.error(err)
-      window.alert('No se pudieron guardar las imágenes.')
+      cb(err)
     })
   })
 }
