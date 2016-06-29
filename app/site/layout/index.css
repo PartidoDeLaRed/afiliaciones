@@ -1,17 +1,3 @@
-.header {
-  background-color: transparent;
-}
-
-.header .logo {
-  height: 60px;
-  filter: brightness(10);
-}
-
-.header .navbar-brand {
-  max-width: 66px;
-  overflow: hidden;
-}
-
 footer {
   margin-top: 150px;
 }
