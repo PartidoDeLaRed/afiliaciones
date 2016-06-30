@@ -1,69 +1,80 @@
 .cover {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  padding-top: 90px;
-  min-height: 500px;
-  height: 80vh;
-  z-index: 0;
-  border-radius: 0;
-  overflow: hidden;
-  background-color: #333;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    padding-top: 90px;
+    min-height: 500px;
+    height: 80vh;
+    z-index: 0;
+    border-radius: 0;
+    overflow: hidden;
+    background-color: #333;
 }
 
 .cover:before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  filter: blur(2px);
-  background-image: url('/site/home/cover.png');
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    filter: blur(2px);
+    background-image: url('/site/home/cover.png');
 }
 
 .cover:after {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  background-color: rgba(0, 0, 0, .4);
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background-color: rgba(0, 0, 0, .4);
 }
 
 .cover .logo {
-  position: relative;
-  top: -65px;
+    position: relative;
+    top: -65px;
 }
 
 .cover .container {
-  max-width: 550px;
-  z-index: 1;
+    max-width: 550px;
+    z-index: 1;
 }
 
 .cover p {
-  margin-bottom: 1.5em;
-  color: #eee;
+    margin-bottom: 1.5em;
+    color: #eee;
+}
+
+.cover p.lead {
+    font-size: 1.9em;
+    font-weight: 700;
+    font-family: 'open sans', 'helvetica';
 }
 
 .cover .btn {
-  padding: 0.7em 2.3em;
-  border-radius: 0;
-  font-size: 1.3em;
+    padding: 0.7em 2.3em;
+    border-radius: 0;
+    font-size: 1.3em;
 }
 
 .home-steps {
-  text-align: center;
+    text-align: center;
+    font-family: 'open sans', 'helvetica';
 }
 
 .home-steps .icon {
-  width: 90px;
+    width: 90px;
 }
 
 .home-steps [src="/site/home/plus.svg"] {
-  width: 75px;
+    width: 75px;
+}
+
+.home-steps .big-number {
+   font-size: 1.1em; 
 }
