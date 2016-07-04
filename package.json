@@ -1,6 +1,6 @@
 {
   "name": "afiliaciones",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "App del Partido de la Red para administrar afiliados.",
   "main": "index.js",
   "scripts": {
