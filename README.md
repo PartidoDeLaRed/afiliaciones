@@ -54,7 +54,7 @@ Desde el server hay que usar `var Peer = require('../models').Peer`, y en el bro
 
 ## Crear Admins
 
-Desde la terminal, con el comando `node bin/create-user -e mail@mail.com -p lapassword`.
+Desde la terminal, con el comando `node bin/create-user -e mail@mail.com -p lapassword`
 
 ## Extras
 * Info afiliaciones
