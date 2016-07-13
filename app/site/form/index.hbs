@@ -1,41 +1,41 @@
+<header>
+    <div class="title">Partido de la Red</div>
+</header>
 <div class="container">
-  <div class="col-md-12">
-    <form class="form-horizontal">
-      <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Nombre</label>
-        <div class="col-sm-10">
-          <input type="text" class="form-control" id="inputEmail3" placeholder="Nombre" required autofocus>
+  <div class="row">
+    <div class="col-sm-6 col-sm-offset-3">
+      <form id="form-afiliate" class="form-horizontal" method="post">
+        <div class="form-group">
+          <label for="name">Nombre</label>
+            <input name="name" type="text" class="form-control" id="inputEmail3" placeholder="Nombre" required autofocus>
         </div>
-      </div>
-      <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Apellido</label>
-        <div class="col-sm-10">
-          <input type="text" class="form-control" id="inputEmail3" placeholder="Apellido" required>
+        <div class="form-group">
+          <label for="lastname" class="control-label">Apellido</label>
+            <input name="lastname" type="text" class="form-control" id="inputEmail3" placeholder="Apellido" required>
         </div>
-      </div>
-      <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-        <div class="col-sm-10">
-          <input type="email" class="form-control" id="inputEmail3" placeholder="Email" required>
+        <div class="form-group">
+          <label for="email" class="control-label">Email</label>
+            <input name="email" type="email" class="form-control" id="inputEmail3" placeholder="Email" required>
         </div>
-      </div>
-      <div class="form-group">
-        <label for="inputPassword3" class="col-sm-2 control-label">Teléfono</label>
-        <div class="col-sm-10">
-          <input type="number" class="form-control" id="inputPassword3" placeholder="Teléfono" required>
+        <div class="form-group">
+          <label for="tel" class="control-label">Teléfono</label>
+            <input name="tel" type="number" class="form-control" id="inputPassword3" placeholder="Teléfono" required>
         </div>
-      </div>
-      <div class="form-group">
-        <label for="inputPassword3" class="col-sm-2 control-label">¿Por qué barrios te gustaría encontrarnos?</label>
-        <div class="col-sm-10">
-          <select id="select-state" multiple="multiple" placeholder="Elegí al menos un barrio" required></select>
+        <div class="form-group">
+          <div>
+            <label for="barrios">¿Por qué barrios te movés?</label>
+          </div>
+          <small class="text-muted">Para poder afiliarte tenemos que encontrarnos con vos, elegí el barrio donde vivís, donde trabajás o donde prefieras.</small>
+          <select name="barrios" id="select-state" multiple="multiple" placeholder="Elegí al menos un barrio"></select> 
         </div>
-      </div>
-      <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-          <button type="submit" class="btn btn-default">Afiliate</button>
+        <div class="form-group">
+          <input type="checkbox">
+          <label>No tengo domicilio en Capital Federal</label>
         </div>
-      </div>
-    </form>
+        <div class="form-group">
+            <button id="form-submit" type="submit" class="btn btn-primary btn-lg">Finalizar</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
