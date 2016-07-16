@@ -44,8 +44,13 @@
                             <div><b>Teléfono:</b> {{datos.tel}}</div>
                           </p>
                           <p style="color:#666666;font-weight:400;font-size:15px;line-height:21px;font-family:'Helvetica neue',Helvetica,arial,sans-serif">
-                            <div><b>Barrios por los que se mueve:</b> {{datos.barriosString}}</div>
+                            <div><b>Barrios por los que se mueve:</b> {{#if datos.barriosString}}{{datos.barriosString}}{{else}}Ninguno{{/if}}</div>
                           </p>
+                          {{#if datos.noDomicilioCaba}}
+                          <p style="line-height:21px;font-family:'Helvetica neue',Helvetica,arial,sans-serif">
+                            <div style="Background: #EE7777; color:#FFF;font-size:15px;font-weight:400; padding:10px; border-radius: 3px;">No posee domicilio en CABA</div>
+                          </p>
+                          {{/if }}
                           <p></p>
                           <p style="color:#666666;font-weight:400;font-size:17px;line-height:24px;font-family:'Helvetica neue',Helvetica,arial,sans-serif;margin-bottom:6px;margin-top:36px">
                             Saludos,
