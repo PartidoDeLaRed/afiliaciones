@@ -28,7 +28,8 @@ app.post('/afiliate', function (req, res) {
   transporter.use('compile', hbs(optionsTemplate));
   
   var data = req.body;
-  data.barriosString = data['barrios'].join(', ');
+  if(data['barrios'])
+    data.barriosString = data['barrios'].join ? data['barrios'].join(', ') : data['barrios'];
   
   ///////MAIL PARA EL AFILIADO
   var mailAfiliadoOptions = {
@@ -58,7 +59,7 @@ app.post('/afiliate', function (req, res) {
   var mailAdminOptions = {
     from: '"Afiliaciones - PDR" <afiliaciones@partidodelared.org>',
     to: 'afiliaciones@partidodelared.org',
-    subject: data.name + ' ' + data.lastname + ' - ' + data.barriosString,
+    subject: data.name + ' ' + data.lastname + ' - ' + data.barriosString ? data.barriosString : '(Ningún barrio)',
     template: 'mail-afiliado-admin',
     context: {
       datos : data
