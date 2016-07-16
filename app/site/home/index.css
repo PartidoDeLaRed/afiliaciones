@@ -1,3 +1,97 @@
+html, body, main {
+    width: 100%;
+    height: 100%;
+}
+
+.header {
+    display: table;
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.header .bk{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('/site/home/cover.jpg') no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+.header .bk:before {
+    position: absolute;
+    content:"";
+    height:100%;
+    width:100%;
+    top:0;
+    left:0;
+    background: linear-gradient(to bottom, rgba(20,20,20,.2) 0%,rgba(20,20,20,0.7) 80%);
+}
+
+.text-vertical-center {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    color: #fff;
+    position: relative;
+}
+
+.text-vertical-center h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 4.5em;
+    font-weight: 700;
+}
+
+.logo{
+    margin-bottom: 50px;
+    border-bottom: 1px solid;
+}
+
+.btn-lg {
+    border-radius: 4px;
+    color: #fff;
+    font-weight: 600;
+    background-color: rgba(22,156,191,0.8);
+    border-bottom: 2px solid rgba(0,0,0,.5);
+    padding: 15px 50px;
+    font-size: 30px;
+    -webkit-transition: all 500ms;
+    -moz-transition: all 500ms;
+    transition: all 500ms;
+    outline: none;
+}
+
+.btn-lg:focus, .btn-lg:hover {
+    color: #fff;
+    background-color: rgb(22,156,191);
+    box-shadow: 0 2px 4px rgb(0,0,0,.8);
+    -webkit-transition: all 500ms;
+    -moz-transition: all 500ms;
+    transition: all 500ms;
+}
+.btn-lg:active {
+    color: #fff;
+    border-bottom: 0px;
+    border-top: 2px solid rgba(0,0,0,.5);
+}
+
+.new{
+    font-family: 'Rock Salt', cursive;
+}
+.old{
+    font-family: 'Black Ops One', cursive;
+}
+
+.inline{
+    display: inline-block;
+}
+
+
+
 .cover {
     display: flex;
     flex-direction: column;
