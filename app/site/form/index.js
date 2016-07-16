@@ -59,7 +59,7 @@ app.post('/afiliate', function (req, res) {
   var mailAdminOptions = {
     from: '"Afiliaciones - PDR" <afiliaciones@partidodelared.org>',
     to: 'afiliaciones@partidodelared.org',
-    subject: data.name + ' ' + data.lastname + ' - ' + data.barriosString ? data.barriosString : '(Ningún barrio)',
+    subject: data.name + ' ' + data.lastname + ' - ' + (data.barriosString ? data.barriosString : '(Ningún barrio)'),
     template: 'mail-afiliado-admin',
     context: {
       datos : data
