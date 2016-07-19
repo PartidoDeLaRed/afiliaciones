@@ -1,6 +1,13 @@
+.font-rock-salt {
+  font-family: 'Rock Salt', cursive;
+}
+
+.font-blacks-ops-one {
+  font-family: 'Black Ops One', cursive;
+}
+
 footer {
   margin-top: 60px;
 }
 
 @import 'app/site/home/index.css';
-@import 'app/site/form/index.css';

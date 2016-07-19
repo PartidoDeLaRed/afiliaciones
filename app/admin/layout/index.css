@@ -60,16 +60,7 @@ a{
 	top:0;
 	left:0
 }
-header {
-	background:#46a4c9;
-	padding:15px;
-	width:100%
-}
-header .title {
-	color:#EEE;
-	font-size:25px;
-	text-shadow:0 2px 1px rgba(0,0,0,.3)
-}
+
 .admin {
 	max-width:1100px;
 	padding:10px 0;
