@@ -1,0 +1,12 @@
+*.sublime-*
+*.bat
+.dockerignore
+Dockerfile
+.DS_Store
+.git
+.gitignore
+build
+node_modules
+npm-debug.log
+config/*.json
+!config/defaults.json
