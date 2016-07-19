@@ -4,7 +4,7 @@
   "description": "App del Partido de la Red para administrar afiliados.",
   "main": "index.js",
   "scripts": {
-    "postinstall": "mkdirp ./build && npm run build",
+    "heroku:postinstall": "mkdirp ./build && npm run build",
     "test": "standard",
     "start": "node index.js",
     "dev": "DEBUG=afiliciones* node-dev index.js --no-deps",
