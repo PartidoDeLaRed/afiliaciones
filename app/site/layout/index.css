@@ -10,4 +10,8 @@ footer {
   margin-top: 60px;
 }
 
+.btn {
+  border-bottom: 2px solid rgba(0,0,0,.5);
+}
+
 @import 'app/site/home/index.css';
