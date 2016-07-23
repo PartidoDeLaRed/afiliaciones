@@ -1,41 +1,39 @@
-<header>
-    <div class="title">Partido de la Red</div>
-</header>
-<div class="container">
-  <div class="row">
-    <div class="col-sm-6 col-sm-offset-3">
-      <form id="form-afiliate" class="form-horizontal" method="post">
-        <div class="form-group">
-          <label for="name">Nombre</label>
-            <input name="name" type="text" class="form-control" id="inputEmail3" placeholder="Nombre" required autofocus>
+<section class="cover blue jumbotron text-xs-center">
+</section>
+<div class="row">
+  <img class="logo" src="/site/home/isologo.png">
+  <div class="col-sm-6" style="margin:auto; float:none;">
+    <form id="form-afiliate" class="form-horizontal" method="post">
+      <div class="form-group">
+        <label for="name">Nombre</label>
+          <input name="name" type="text" class="form-control" id="inputEmail3" placeholder="Nombre" required autofocus>
+      </div>
+      <div class="form-group">
+        <label for="lastname" class="control-label">Apellido</label>
+          <input name="lastname" type="text" class="form-control" id="inputEmail3" placeholder="Apellido" required>
+      </div>
+      <div class="form-group">
+        <label for="email" class="control-label">Email</label>
+          <input name="email" type="email" class="form-control" id="inputEmail3" placeholder="Email" required>
+      </div>
+      <div class="form-group">
+        <label for="tel" class="control-label">Teléfono</label>
+          <input name="tel" type="number" class="form-control" id="inputPassword3" placeholder="Teléfono" required>
+      </div>
+      <div class="form-group">
+        <div>
+          <label for="barrios">¿Por qué barrios te movés?</label>
         </div>
-        <div class="form-group">
-          <label for="lastname" class="control-label">Apellido</label>
-            <input name="lastname" type="text" class="form-control" id="inputEmail3" placeholder="Apellido" required>
-        </div>
-        <div class="form-group">
-          <label for="email" class="control-label">Email</label>
-            <input name="email" type="email" class="form-control" id="inputEmail3" placeholder="Email" required>
-        </div>
-        <div class="form-group">
-          <label for="tel" class="control-label">Teléfono</label>
-            <input name="tel" type="number" class="form-control" id="inputPassword3" placeholder="Teléfono" required>
-        </div>
-        <div class="form-group">
-          <div>
-            <label for="barrios">¿Por qué barrios te movés?</label>
-          </div>
-          <small class="text-muted">Como último paso, para poder completar tu afiliación tenemos que encontrarnos con vos, elegí el barrio donde vivís, donde trabajás o donde prefieras.</small>
-          <select name="barrios" id="select-state" multiple="multiple" placeholder="Elegí al menos un barrio"></select> 
-        </div>
-        <div class="form-group">
-          <input type="checkbox" name="noDomicilioCaba" id="noDomicilioCaba">
-          <label>No voto en Capital Federal</label>
-        </div>
-        <div class="form-group">
-            <button id="form-submit" type="submit" class="btn btn-primary btn-lg">¡Listo!</button>
-        </div>
-      </form>
-    </div>
+        <div class="text-muted">Como último paso, para poder completar tu afiliación tenemos que encontrarnos con vos, elegí el barrio donde vivís, donde trabajás o donde prefieras.</div>
+        <select name="barrios" id="select-state" multiple="multiple" placeholder="Elegí al menos un barrio"></select> 
+      </div>
+      <div class="form-group">
+        <input type="checkbox" name="noDomicilioCaba" id="noDomicilioCaba">
+        <label>No voto en Capital Federal</label>
+      </div>
+      <div class="form-group text-center">
+          <button id="form-submit" type="submit" class="btn btn-primary btn-lg btn-white">¡Listo!</button>
+      </div>
+    </form>
   </div>
 </div>
