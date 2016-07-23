@@ -46,17 +46,17 @@
     "handlebars": "~4.0.5",
     "hbsfy": "~2.4.1",
     "jquery": "~2.1.4",
-    "mailchimp-api": "^2.0.7",
+    "mailchimp-api": "~2.0.7",
     "method-override": "~2.3.5",
     "mime-types": "~2.1.9",
     "mkdirp": "~0.5.1",
     "moment": "~2.10.6",
     "mongoose": "~4.3.4",
     "mongoose-validators": "~0.1.0",
-    "nodemailer": "^2.5.0",
-    "nodemailer-direct-transport": "^3.2.0",
-    "nodemailer-express-handlebars": "^2.0.0",
-    "nodemailer-sendgrid-transport": "^0.2.0",
+    "nodemailer": "~2.5.0",
+    "nodemailer-direct-transport": "~3.2.0",
+    "nodemailer-express-handlebars": "~2.0.0",
+    "nodemailer-sendgrid-transport": "~0.2.0",
     "notification": "0.0.6",
     "npm-run-all": "~1.5.1",
     "page": "~1.6.4",
@@ -64,12 +64,12 @@
     "passport-local": "~1.0.0",
     "passport-local-mongoose": "~3.1.0",
     "pleeease-cli": "~4.0.0",
-    "selectize": "^0.12.2",
+    "selectize": "~0.12.2",
     "url-parse": "~1.0.5",
-    "watchify": "^3.6.1"
+    "watchify": "~3.6.1"
   },
   "devDependencies": {
-    "node-dev": "^2.7.1",
-    "standard": "^5.4.1"
+    "node-dev": "~2.7.1",
+    "standard": "~5.4.1"
   }
 }
