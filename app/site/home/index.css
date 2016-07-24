@@ -51,6 +51,12 @@ footer{
   height: 100%;
   z-index: 0;
   background-color: rgba(0, 0, 0, .4);
+  -webkit-transition-delay: all 1s;
+  -moz-transition-delay: all 1s;
+  transition-delay: 2s;
+  -webkit-transition: all 1s;
+  -moz-transition: all 1s;
+  transition: all 1s;
 }
 
 .cover.blue{
@@ -61,6 +67,12 @@ footer{
 }
 .cover.blue:after {
   background-color: rgba(12, 155, 181, 0.9);
+  -webkit-transition-delay: all 1s;
+  -moz-transition-delay: all 1s;
+  transition-delay: 2s;
+  -webkit-transition: all 1s;
+  -moz-transition: all 1s;
+  transition: all 1s;
 }
 
 .logo {
@@ -98,11 +110,36 @@ footer{
   font-family: 'open sans', 'helvetica';
 }
 
-.cover .btn {
-  margin-top: 1.2em;
-  padding: 0.7em 2.3em;
-  border-radius: 0;
-  font-size: 1.3em;
+.btn {
+  margin-top: 40px;
+  padding: 20px 60px;
+  border-radius: 10px;
+  font-size: 30px;
+}
+
+.btn.btn-primary {
+  background-color: rgba(22,151,191, .95);
+  border-bottom: 3px solid rgba(0,0,0,.4);
+  color: #fff;
+  font-weight: 600;
+  -webkit-transition: all 200ms;
+  -moz-transition: all 200ms;
+  transition: all 200ms;
+}
+.btn.btn-primary:hover {
+  background: rgb(22,151,191);
+  border-color: 3px solid rgba(0,0,0,.8);
+  -webkit-transition: all 200ms;
+  -moz-transition: all 200ms;
+  transition: all 200ms;
+}
+
+.btn.btn-primary:active {
+  border-color: transparent;
+  box-shadow: inset 0 1px 5px rgba(0,0,0,.5);
+  -webkit-transition: all 200ms;
+  -moz-transition: all 200ms;
+  transition: all 200ms;
 }
 
 .row{
@@ -144,6 +181,11 @@ footer{
   border-radius: 0;
 }
 
+.selectize-control.multi {
+    padding: 10px 10px 7px;
+    border-radius: 0;
+}
+
 .col-sm-6{
   z-index: 1;
 }
@@ -165,6 +207,6 @@ footer{
 }
 
 .btn-white{
-  background-color:rgba(255,255,255,.9);
-  color:  #169CBF;
+  background-color:rgba(255,255,255,.9) !important;
+  color:  #169CBF !important;
 }

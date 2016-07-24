@@ -24,10 +24,4 @@ footer {
   background-color: rgb(22, 156, 191);
 }
 
-.btn-primary:active {
-  position: relative;
-  top: 4px;
-  border-bottom-color: red;
-}
-
 @import 'app/site/home/index.css';
