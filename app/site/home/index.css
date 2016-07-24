@@ -2,15 +2,23 @@ html, body, main{
   height: 100%;
 }
 
-footer{
+footer {
   position: fixed;
   bottom: 0;
   width: 100%;
-  max-width: 100% !important;
-  background: linear-gradient(rgba(0,0,0,0),rgba(0,0,0,.4));
+  max-width: 100%!important;
+  background: rgba(22,156,191,1);
   margin: 0;
   text-align: center;
   color: #fff;
+  z-index: 100;
+}
+footer p {
+  margin: 10px 0;
+}
+footer a {
+  color: #fff;
+  text-decoration: underline;
 }
 
 .cover {
