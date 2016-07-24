@@ -168,6 +168,16 @@ footer{
    font-size: 1.1em;
 }
 
+.col-sm-6{
+  z-index: 1;
+  max-width: 550px;
+}
+
+#form-afiliate{
+  background: rgba(0,0,0,.3);
+  border-radius: 3px;
+  padding: 40px 0px;
+}
 
 .form-group{
   max-width: 400px;
@@ -181,13 +191,9 @@ footer{
   border-radius: 0;
 }
 
-.selectize-control.multi {
+.selectize-input {
     padding: 10px 10px 7px;
     border-radius: 0;
-}
-
-.col-sm-6{
-  z-index: 1;
 }
 
 .text-muted{
