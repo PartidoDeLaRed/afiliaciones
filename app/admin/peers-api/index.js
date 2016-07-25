@@ -28,7 +28,7 @@ app.get('/peers/:id', function (req, res) {
 app.get('/peers', function (req, res) {
   Peer.find({deletedAt: null}).exec(function (err, peers) {
     if (err) return res.status(500).send(err)
-    res.json(peers)
+    res.jsonp(peers)
   })
 })
 
