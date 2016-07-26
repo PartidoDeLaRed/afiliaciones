@@ -3,29 +3,28 @@ var barrios = require('./barrios.json')
 
 require('selectize')
 
-var multiSelectBarrios = $('#select-state').selectize({
-    options: barrios
-});
+$('#select-state').selectize({
+  options: barrios
+}).show().css({
+  'float': 'left',
+  'position': 'relative',
+  'top': '38px',
+  'left': '150px',
+  'height': '0px',
+  'opacity': '0'
+})
 
-var barriosValue = multiSelectBarrios[0].selectize;
-$('#select-state').show();
-$('#select-state').css({ 'height': '0px', 'float': 'left', 'position': 'relative', 'top': '38px', 'left': '150px', 'opacity': '0' });
+$('#form-afiliate').on('submit', function (evt) {
+  evt.preventDefault()
+  evt.stopPropagation()
 
-$(document).ready(function() {
+  var data = $(this).serializeArray()
+  $.post('/afiliate', data).success(function () {
+    window.location = '/afiliate/success'
+  }).fail(function (err) {
+    window.alert('¡Hubo un error! Intentalo mas tarde por favor.')
+    console.error(err)
+  })
 
-    $('#form-afiliate').on('submit', function(evt) {
-        evt.preventDefault();
-        evt.stopPropagation();
-
-        data = $(this).serializeArray();
-        $.post('/afiliate', data)
-            .success(function() {
-                window.location = '/afiliate/success';
-            })
-            .fail(function(err) {
-                alert(err);
-            })
-
-        return false;
-    })
+  return false
 })

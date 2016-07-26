@@ -55,6 +55,7 @@
     "mongoose": "~4.3.4",
     "mongoose-validators": "~0.1.0",
     "nodemailer": "^2.5.0",
+    "nodemailer-sendgrid-transport": "^0.2.0",
     "notification": "0.0.6",
     "npm-run-all": "~1.5.1",
     "page": "~1.6.4",
