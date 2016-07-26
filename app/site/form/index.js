@@ -1,75 +1,75 @@
 var express = require('express')
-var nodemailer = require('nodemailer')
-var sendgridTransport = require('nodemailer-sendgrid-transport')
-var hbs = require('nodemailer-express-handlebars')
+var config = require('../../config')
+var mailer = require('../../shared/mailer')
+
 var app = express.Router()
 
 app.get('/afiliate', function (req, res) {
   res.render('form')
 })
 
-app.post('/afiliate', function (req, res) {
-  var optionsTransport = {
-    auth: {
-      api_key: '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'
-    }
-  }
+app.post('/afiliate', function validate (req, res, next) {
+  req.check('email').notEmpty().isEmail().normalizeEmail()
+  req.check('name').notEmpty().isLength({max: 124})
+  req.check('lastname').optional().isLength({max: 124})
+  req.check('barrios').optional().isArray()
 
-  var optionsTemplate = {
-    viewEngine: {
-      extname: '.hbs',
-      layoutsDir: 'app/site/emails/'
-    },
-    viewPath: 'app/site/emails/',
-    extName: '.hbs'
-  }
-  var transporter = nodemailer.createTransport(sendgridTransport(optionsTransport))
-  transporter.use('compile', hbs(optionsTemplate))
+  req.sanitize('name').trim().escape()
+  req.sanitize('lastname').trim().escape()
 
+  if (req.validationErrors()) {
+    res.status(400).send()
+  } else {
+    next()
+  }
+}, function (req, res) {
   var data = req.body
-  if (data['barrios']) {
-    data.barriosString = data['barrios'].join ? data['barrios'].join(', ') : data['barrios']
+
+  if (data.barrios) {
+    data.barrios = data.barrios.join ? data.barrios.join(', ') : data.barrios
   }
 
-  // MAIL PARA EL AFILIADO
-  var mailAfiliadoOptions = {
-    from: '"Afiliaciones - PDR" <afiliaciones@partidodelared.org>',
-    to: data.email,
-    subject: '¡Bienvenido al Partido de la Red!',
-    template: 'mail-afiliado',
-    context: {
-      datos: data
+  app.render('emails/mail-afiliado', data, function (err, html) {
+    if (err) {
+      console.error(err)
+      return
     }
-  }
 
-  transporter.sendMail(mailAfiliadoOptions, function (error, info) {
-    if (error) {
-      res.status(500).send('error')
-      console.log(error)
-    } else {
-      res.status(200).send('ok')
-      console.log('sent to peer')
-    }
+    mailer.sendMail({
+      from: config.mailer.sender.name,
+      to: data.email,
+      subject: '¡Bienvenido al Partido de la Red!',
+      html: html
+    }, function (err, info) {
+      if (err) {
+        console.error(err)
+      } else {
+        console.log('Mail "emails/mail-afiliado" sent with data: ', data)
+      }
+    })
   })
 
-  // MAIL PARA EL ADMINISTRADOR
-  var mailAdminOptions = {
-    from: '"Afiliaciones - PDR" <afiliaciones@partidodelared.org>',
-    to: 'afiliaciones@partidodelared.org',
-    subject: data.name + ' ' + data.lastname + ' - ' + (data.barriosString ? data.barriosString : '(Ningún barrio)'),
-    template: 'mail-afiliado-admin',
-    context: {
-      datos: data
+  app.render('emails/mail-afiliado-admin', data, function (err, html) {
+    if (err) {
+      console.error(err)
+      return
     }
-  }
 
-  transporter.sendMail(mailAdminOptions, function (error, info) {
-    if (error) {
-      console.log(error)
-    } else {
-      console.log('sent to admin')
-    }
+    mailer.sendMail({
+      from: config.mailer.sender.name,
+      to: config.mailer.sender.email,
+      subject: `[${data.barriosString || 'Ningún barrio'}] ${data.name} ${data.lastname}`,
+      html: html
+    }, function (err) {
+      if (err) {
+        console.error(err)
+      } else {
+        console.log('Mail "emails/mail-afiliado-admin" sent with data: ', data)
+      }
+    })
   })
+
+  res.status(200).send('ok')
 })
 
 module.exports = app

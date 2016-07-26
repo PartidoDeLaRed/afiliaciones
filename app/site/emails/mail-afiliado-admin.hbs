@@ -35,18 +35,18 @@
                             Hay un nuevo afiliado:
                           </h2>
                           <p style="color:#666666;font-weight:400;font-size:15px;line-height:21px;font-family:'Helvetica neue',Helvetica,arial,sans-serif">
-                            <div><b>Nombre y Apellido: </b> {{datos.name}} {{datos.lastname}}</div>
+                            <div><b>Nombre y Apellido: </b> {{name}} {{lastname}}</div>
                           </p>
                           <p style="color:#666666;font-weight:400;font-size:15px;line-height:21px;font-family:'Helvetica neue',Helvetica,arial,sans-serif">
-                            <div><b>Email:</b> {{datos.email}}</div>
+                            <div><b>Email:</b> {{email}}</div>
                           </p>
                           <p style="color:#666666;font-weight:400;font-size:15px;line-height:21px;font-family:'Helvetica neue',Helvetica,arial,sans-serif">
-                            <div><b>Teléfono:</b> {{datos.tel}}</div>
+                            <div><b>Teléfono:</b> {{tel}}</div>
                           </p>
                           <p style="color:#666666;font-weight:400;font-size:15px;line-height:21px;font-family:'Helvetica neue',Helvetica,arial,sans-serif">
-                            <div><b>Barrios por los que se mueve:</b> {{#if datos.barriosString}}{{datos.barriosString}}{{else}}Ninguno{{/if}}</div>
+                            <div><b>Barrios por los que se mueve:</b> {{#if barriosString}}{{barriosString}}{{else}}Ninguno{{/if}}</div>
                           </p>
-                          {{#if datos.noDomicilioCaba}}
+                          {{#if noDomicilioCaba}}
                           <p style="line-height:21px;font-family:'Helvetica neue',Helvetica,arial,sans-serif">
                             <div style="Background: #EE7777; color:#FFF;font-size:15px;font-weight:400; padding:10px; border-radius: 3px;">No posee domicilio en CABA</div>
                           </p>
