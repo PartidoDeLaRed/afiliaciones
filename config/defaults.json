@@ -15,5 +15,9 @@
     "region": "",
     "accessKeyId": "",
     "secretAccessKey": ""
+  },
+  "certbot": {
+    "key": "",
+    "token": ""
   }
 }

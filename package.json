@@ -40,6 +40,7 @@
     "debug": "~2.2.0",
     "democracyos-config": "~0.1.1",
     "express": "~4.13.3",
+    "express-certbot-endpoint": "~1.0.0",
     "express-form": "~0.12.4",
     "express-handlebars": "~2.0.1",
     "express-validator": "^2.20.8",

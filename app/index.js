@@ -1,9 +1,12 @@
 var path = require('path')
 var express = require('express')
+var certbotEndpoint = require('express-certbot-endpoint')
 var config = require('./config')
 var models = require('./shared/models')
 
 var app = express()
+
+app.use(certbotEndpoint(config.certbot))
 
 require('./shared/setup-server')(app)
 require('./shared/auth')(app)
