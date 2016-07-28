@@ -25,7 +25,6 @@ module.exports = mongoose.Schema({
   telefono: {
     type: String,
     lowercase: true,
-    require: true,
     trim: true
   },
   matricula: {
