@@ -10,6 +10,7 @@ function parse (req, res, next) {
     apellido: req.body.lastname,
     email: req.body.email,
     telefono: req.body.tel,
+    mismoDomicilioDocumento: false
   }
   req.peer = new Peer(data)
 

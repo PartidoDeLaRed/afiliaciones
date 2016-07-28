@@ -187,4 +187,5 @@ module.exports = mongoose.Schema({
   lastEditedBy: { type: String },
   createdAt: { type: Date, default: Date.now },
   deletedAt: { type: Date },
+  enlace: { type: String }
 })
