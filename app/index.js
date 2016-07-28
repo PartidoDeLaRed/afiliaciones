@@ -1,7 +1,7 @@
 var path = require('path')
 var express = require('express')
 var certbotEndpoint = require('express-certbot-endpoint')
-var forceSSL = require('express-force-ssl')
+var enforce = require('express-sslify')
 var config = require('./config')
 var models = require('./shared/models')
 
@@ -9,7 +9,7 @@ var app = express()
 
 app.use(certbotEndpoint(config.certbot))
 
-if (config.forceSSL) app.use(forceSSL)
+if (config.forceSSL) app.use(enforce.HTTPS(true))
 
 require('./shared/setup-server')(app)
 require('./shared/auth')(app)
