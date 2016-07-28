@@ -9,7 +9,7 @@ var app = express()
 
 app.use(certbotEndpoint(config.certbot))
 
-if (config.forceSSL) app.use(enforce.HTTPS(true))
+if (config.forceSSL) app.use(enforce.HTTPS({trustProtoHeader: true}))
 
 require('./shared/setup-server')(app)
 require('./shared/auth')(app)
