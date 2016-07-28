@@ -19,11 +19,13 @@ module.exports = mongoose.Schema({
     type: String,
     validate: validators.isEmail({ skipNull: true, message: 'El email debe tener el formato ejemplo@dominio.com' }),
     trim: true,
+    require: true,
     lowercase: true
   },
   telefono: {
     type: String,
     lowercase: true,
+    require: true,
     trim: true
   },
   matricula: {
@@ -184,5 +186,5 @@ module.exports = mongoose.Schema({
   createdBy: { type: String },
   lastEditedBy: { type: String },
   createdAt: { type: Date, default: Date.now },
-  deletedAt: { type: Date }
+  deletedAt: { type: Date },
 })

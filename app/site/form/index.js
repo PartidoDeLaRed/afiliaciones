@@ -1,6 +1,8 @@
 var express = require('express')
 var config = require('../../config')
 var mailer = require('../../shared/mailer')
+var Peer = require('../../shared/models').Peer
+var personForm = require('../person-form')
 
 var app = express.Router()
 
@@ -8,7 +10,7 @@ app.get('/afiliate', function (req, res) {
   res.render('form')
 })
 
-app.post('/afiliate', function validate (req, res, next) {
+app.post('/afiliate', personForm.parse, function validate (req, res, next) {
   // req.check({
   //   email: {
   //     notEmpty: true,
@@ -44,6 +46,12 @@ app.post('/afiliate', function validate (req, res, next) {
     data.barrios = data.barrios.join ? data.barrios.join(', ') : data.barrios
   }
 
+  //Guardamos en la base de datos a la persona
+  Peer.create(req.peer, function(err, peer) {
+    if (err) return res.status(500).send(err)
+  });
+
+  //Mandamos los mail al inscripto y al administrador
   res.render('emails/mail-afiliado', data, function (err, html) {
     if (err) {
       console.error(err)
