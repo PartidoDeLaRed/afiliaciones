@@ -2,11 +2,19 @@ var cookieParser = require('cookie-parser')
 var cookieSession = require('cookie-session')
 var bodyParser = require('body-parser')
 var methodOverride = require('method-override')
+var validator = require('express-validator')
 var config = require('../../config')
 
 module.exports = function setupServer (app) {
   // Parse parameters
   app.use(bodyParser.json())
+
+  app.use(validator({
+    customValidators: {
+      isArray: function isArray (value) { return Array.isArray(value) }
+    }
+  }))
+
   app.use(bodyParser.urlencoded({extended: false}))
 
   // Allow to override HTTP method via _method param

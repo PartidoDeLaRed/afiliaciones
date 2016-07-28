@@ -19,6 +19,7 @@ module.exports = mongoose.Schema({
     type: String,
     validate: validators.isEmail({ skipNull: true, message: 'El email debe tener el formato ejemplo@dominio.com' }),
     trim: true,
+    require: true,
     lowercase: true
   },
   telefono: {
@@ -79,18 +80,10 @@ module.exports = mongoose.Schema({
       }
     ]
   },
-  // Ni idea qué es lugar de nacimiento, Pais? Ciudad? En mi DNI dice "Ciudad de Buenos Aires"...
   lugarDeNacimiento: {
     type: String,
     trim: true,
     maxlength: 2048
-  },
-  formaContacto: {
-    type: String,
-    trim: true
-  },
-  deseaAyudar: {
-    type: Boolean
   },
   tieneFirmas: {
     type: Boolean
@@ -184,5 +177,6 @@ module.exports = mongoose.Schema({
   createdBy: { type: String },
   lastEditedBy: { type: String },
   createdAt: { type: Date, default: Date.now },
-  deletedAt: { type: Date }
+  deletedAt: { type: Date },
+  enlace: { type: String }
 })

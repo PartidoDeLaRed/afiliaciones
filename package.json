@@ -15,11 +15,13 @@
     "watch:css:site": "pleeease-watch -t build/css/site.css app/site/layout/index.css",
     "watch:css": "npm-run-all --parallel watch:css:admin watch:css:site",
     "build:js:admin": "mkdirp ./build/js && browserify -t [ hbsfy -t ] -e app/admin/layout/layout.js -o build/js/admin.js",
-    "build:js": "npm-run-all --parallel build:js:admin",
+    "build:js:site": "mkdirp ./build/js && browserify -t [ hbsfy -t ] -e app/site/layout/layout.js -o build/js/site.js",
+    "build:js": "npm-run-all --parallel build:js:admin build:js:site",
     "watch:js:admin": "mkdir -p ./build/js && watchify -t [ hbsfy -t ] -e app/admin/layout/layout.js -o build/js/admin.js",
-    "watch:js": "npm-run-all --parallel watch:js:admin",
+    "watch:js:site": "mkdir -p ./build/js && watchify -t [ hbsfy -t ] -e app/site/layout/layout.js -o build/js/site.js",
+    "watch:js": "npm-run-all --parallel watch:js:admin watch:js:site",
     "watch:admin": "npm-run-all --parallel watch:js:admin watch:css:admin",
-    "watch:site": "npm-run-all --parallel watch:css:site",
+    "watch:site": "npm-run-all --parallel watch:css:site watch:js:site",
     "watch": "npm-run-all --parallel watch:js watch:css",
     "build": "npm-run-all --parallel build:js build:css"
   },
@@ -40,16 +42,20 @@
     "express": "~4.13.3",
     "express-form": "~0.12.4",
     "express-handlebars": "~2.0.1",
+    "express-validator": "^2.20.8",
     "form-to-object": "~5.0.0",
     "handlebars": "~4.0.5",
     "hbsfy": "~2.4.1",
     "jquery": "~2.1.4",
+    "mailchimp-api": "~2.0.7",
     "method-override": "~2.3.5",
     "mime-types": "~2.1.9",
     "mkdirp": "~0.5.1",
     "moment": "~2.10.6",
     "mongoose": "~4.3.4",
     "mongoose-validators": "~0.1.0",
+    "nodemailer": "^2.5.0",
+    "nodemailer-sendgrid-transport": "^0.2.0",
     "notification": "0.0.6",
     "npm-run-all": "~1.5.1",
     "page": "~1.6.4",
@@ -57,11 +63,12 @@
     "passport-local": "~1.0.0",
     "passport-local-mongoose": "~3.1.0",
     "pleeease-cli": "~4.0.0",
+    "selectize": "~0.12.2",
     "url-parse": "~1.0.5",
-    "watchify": "^3.6.1"
+    "watchify": "~3.6.1"
   },
   "devDependencies": {
-    "node-dev": "^2.7.1",
-    "standard": "^5.4.1"
+    "node-dev": "~2.7.1",
+    "standard": "~5.4.1"
   }
 }

@@ -77,12 +77,6 @@ page('/admin/peers/:id/edit', findPeer, content.load, function (ctx, next) {
         afiliadoOtroPartidoSi: function () { return peer.noAfiliadoOtroPartido != null ? (peer.noAfiliadoOtroPartido === false ? 'checked' : '') : '' },
         afiliadoOtroPartidoNo: function () { return peer.noAfiliadoOtroPartido != null ? (!peer.noAfiliadoOtroPartido === false ? 'checked' : '') : '' },
         afiliadoOtroPartidoCancel: function () { return peer.noAfiliadoOtroPartido != null ? 'block' : 'none' },
-        deseaAyudarSi: function () { return peer.deseaAyudar != null ? (peer.deseaAyudar === true ? 'checked' : '') : '' },
-        deseaAyudarNo: function () { return peer.deseaAyudar != null ? (!peer.deseaAyudar === true ? 'checked' : '') : '' },
-        deseaAyudarCancel: function () { return peer.deseaAyudar != null ? 'block' : 'none' },
-        formaContactoEmail: function () { return peer.formaContacto === 'Email' ? 'checked' : '' },
-        formaContactoTelefono: function () { return peer.formaContacto === 'Telefono' ? 'checked' : '' },
-        formaContactoDomicilio: function () { return peer.formaContacto === 'Domicilio' ? 'checked' : '' }
       }
     }
   }))
@@ -159,10 +153,6 @@ function loadEvents (peer) {
   })
   $('#btnCancelafiliadoOtroPartido').on('click', function (evt) {
     $('input[name=afiliadoOtroPartido]').attr('checked', false)
-    $(evt.target).css('display', 'none')
-  })
-  $('#btnCanceldeseaAyudar').on('click', function (evt) {
-    $('input[name=deseaAyudar]').attr('checked', false)
     $(evt.target).css('display', 'none')
   })
 
