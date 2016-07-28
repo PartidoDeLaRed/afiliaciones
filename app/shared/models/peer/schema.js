@@ -81,18 +81,10 @@ module.exports = mongoose.Schema({
       }
     ]
   },
-  // Ni idea qué es lugar de nacimiento, Pais? Ciudad? En mi DNI dice "Ciudad de Buenos Aires"...
   lugarDeNacimiento: {
     type: String,
     trim: true,
     maxlength: 2048
-  },
-  formaContacto: {
-    type: String,
-    trim: true
-  },
-  deseaAyudar: {
-    type: Boolean
   },
   tieneFirmas: {
     type: Boolean
