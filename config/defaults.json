@@ -20,5 +20,6 @@
   "certbot": {
     "key": "",
     "token": ""
-  }
+  },
+  "analytics": ""
 }

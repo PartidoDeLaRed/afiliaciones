@@ -15,6 +15,7 @@ module.exports = function setupViews (app, options) {
   app.set('views', options.path)
 
   app.all('*', function (req, res, next) {
+    res.locals.config = config
     if (req.user) res.locals.user = req.user
     next()
   })
