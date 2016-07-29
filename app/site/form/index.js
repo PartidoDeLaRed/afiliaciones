@@ -81,7 +81,7 @@ app.post('/afiliate', personForm.parse, function validate (req, res, next) {
     mailer.sendMail({
       from: config.mailer.sender.name,
       to: config.mailer.sender.email,
-      subject: '[${data.barriosString || "Ningún barrio"}] ${data.name} ${data.lastname}',
+      subject: '['+(data.barrios || "Ningún barrio")+'] '+data.name + ' ' + data.lastname,
       html: html
     }, function (err) {
       if (err) {
