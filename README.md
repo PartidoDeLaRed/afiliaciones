@@ -14,9 +14,10 @@ App para administrar los afiliados del Partido de la Red.
 
 ```bash
 afiliaciones
-└── lib // Lógica compartida, Modelos, etc
-└── site // Home pública de la app, ¿Qué son las afiliaciones?, ¿Dónde me afilio?, etc.
-└── admin // Administrador de afiliados.
+└── app // Acá esta La posta
+    └── shared // Lógica compartida, Modelos, etc
+    └── site // Home pública de la app, formularios para afiliarte, etc.
+    └── admin //Administrador de afiliados.
 └── config // Archivos de configuración
     └── defaults.json // Valores predeterminados ¡No editar!
     └── development.json // [git-ignored] Valores para development local. Cambiar a piacere.
