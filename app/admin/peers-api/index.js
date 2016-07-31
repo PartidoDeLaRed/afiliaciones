@@ -35,7 +35,7 @@ app.get('/peers', function (req, res) {
 app.get('/lastPeers', function (req, res) {
   var today = new Date();
   var monthAgo = new Date(today.setDate(today.getDate()-req.query.days));
-  Peer.find({deletedAt: null, createdAt: {
+  Peer.find({deletedAt: null, email: {$ne: 'prueba@prueba.com' }, createdAt: {
     $gt: monthAgo
   }}).exec(function (err, peers) {
     if (err) return res.status(500).send(err)
