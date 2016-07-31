@@ -1,19 +1,19 @@
 {
   "port": 3000,
-  "mongoUrl": "mongodb://localhost/pdr-afiliaciones",
+  "mongoUrl": "",
   "secret": "",
   "mailer": {
-    "transport": "sendgrid",
-    "key": "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",
+    "transport": "",
+    "key": "",
     "sender": {
-      "name": "\"Afiliaciones - PDR\" <afiliaciones@partidodelared.org>",
-      "email": "federico.villedary@gmail.com"
+      "name": "",
+      "email": ""
     }
   },
   "aws": {
-    "bucket": "afiliaciones-partidodelared",
-    "region": "sa-east-1",
-    "accessKeyId": "AKIAISO4BMZ7KS3DL76A",
-    "secretAccessKey": "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"
+    "bucket": "",
+    "region": "",
+    "accessKeyId": "",
+    "secretAccessKey": ""
   }
 }
