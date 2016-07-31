@@ -6,7 +6,7 @@ var app = express()
 
 require('../shared/setup-views')(app, {path: __dirname})
 
-app.get('/admin', redirect('/admin/peers'))
+app.get('/admin', redirect('/admin/home'))
 app.use('/admin', require('./login'))
 app.use('/admin/api', require('./peers-api'))
 app.use('/admin/*', renderLayout)

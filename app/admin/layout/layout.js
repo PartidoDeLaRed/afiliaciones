@@ -11,6 +11,7 @@ require('./lib/extend-jquery')
 require('./lib/extend-notification')
 
 require('../peers/peers')
+require('../peers/home')
 
 page('/admin/peers/new', function () {
   $('.content').html('').append(newTemplate({

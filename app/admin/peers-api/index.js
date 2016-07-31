@@ -32,6 +32,17 @@ app.get('/peers', function (req, res) {
   })
 })
 
+app.get('/lastPeers', function (req, res) {
+  var today = new Date();
+  var monthAgo = new Date(today.setDate(today.getDate()-req.query.days));
+  Peer.find({deletedAt: null, createdAt: {
+    $gt: monthAgo
+  }}).exec(function (err, peers) {
+    if (err) return res.status(500).send(err)
+    res.jsonp(peers)
+  })
+})
+
 app.post('/peers', peersForm.parse, function (req, res) {
   req.peer.createdBy = req.user.id.toString()
   req.peer.lastEditedBy = req.user.id.toString()

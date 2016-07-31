@@ -13,9 +13,9 @@ var UserSchema = mongoose.Schema({
     lowercase: true,
     validate: validators.isEmail()
   },
-  admin: {
-    type: Boolean,
-    default: false
+  rol: {
+    type: Number,
+    default: 2
   }
 })
 

@@ -67,7 +67,8 @@
     "pleeease-cli": "~4.0.0",
     "selectize": "~0.12.2",
     "url-parse": "~1.0.5",
-    "watchify": "~3.6.1"
+    "watchify": "~3.6.1",
+    "dateformat": "~1.0.12"
   },
   "devDependencies": {
     "node-dev": "~2.7.1",
