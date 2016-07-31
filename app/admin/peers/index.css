@@ -87,6 +87,9 @@
   margin: 5px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
   border:none;
+  vertical-align: top;
+  min-height: 130px;
+  width: 260px;
 }
 
 .admin .peersList .peerContainer .peerEstado,.button {
@@ -108,7 +111,7 @@
 	color: #222;
 	display: block;
 	vertical-align: top;
-	width: 100%;
+	width: 100% !important;
 }
 .admin .peersList .peerContainer .peerNombre {
 	width:25%
