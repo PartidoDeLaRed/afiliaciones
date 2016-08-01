@@ -1,7 +1,8 @@
 {
   "port": 3000,
-  "mongoUrl": "",
+  "mongoUrl": "mongodb://localhost/pdr-afiliaciones",
   "secret": "",
+  "forceSSL": false,
   "mailer": {
     "transport": "",
     "key": "",
@@ -15,5 +16,10 @@
     "region": "",
     "accessKeyId": "",
     "secretAccessKey": ""
-  }
+  },
+  "certbot": {
+    "key": "",
+    "token": ""
+  },
+  "analytics": ""
 }
