@@ -142,6 +142,7 @@ a{
 	position:absolute;
 	right:10px;
 	top:10px;
+  max-height:100%;
 	width:270px;
 	height:270px;
 	border:1px solid #ccc
