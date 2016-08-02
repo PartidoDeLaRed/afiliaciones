@@ -214,6 +214,7 @@ function getGoogleMapsImage (address) {
 }
 
 function getPrettyAddress (address) {
+  if (!address) return ''
   return address.calle +
     ' ' + address.numero +
     ', ' + address.localidad +
