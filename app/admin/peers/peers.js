@@ -50,7 +50,7 @@ page('/admin/peers', content.load, findPeers, function (ctx) {
         break
       case 'todoOk':
         $('.peerContainer').each(function (index, item) {
-          $(item).children('.ok').length == 3 ? $(item).addClass('visible').removeClass('hidden') : $(item).addClass('hidden').removeClass('visible')
+          $(item).children('.ok').length === 3 ? $(item).addClass('visible').removeClass('hidden') : $(item).addClass('hidden').removeClass('visible')
         })
         break
       case 'faltanDatos':
@@ -82,9 +82,9 @@ function findPeers (ctx, next) {
         p.datosCompletos = (
           p.nombre &&
           p.apellido &&
-          p.email &&
+          // p.email &&
           p.matricula.numero &&
-          p.matricula.tipo &&
+          // p.matricula.tipo &&
           p.sexo &&
           p.estadoCivil &&
           p.lugarDeNacimiento &&
@@ -92,21 +92,22 @@ function findPeers (ctx, next) {
           p.profesion &&
           p.domicilio.calle &&
           p.domicilio.numero &&
-          p.domicilio.codPostal &&
-          p.domicilio.localidad &&
-          p.domicilio.provincia &&
-          (
-            p.mismoDomicilioDocumento !== true
-            ? (
-              p.domicilioReal.calle &&
-              p.domicilioReal.numero &&
-              p.domicilioReal.piso &&
-              p.domicilioReal.depto &&
-              p.domicilioReal.codPostal &&
-              p.domicilioReal.localidad &&
-              p.domicilioReal.provincia
-            ) : true
-          )
+          // p.domicilio.codPostal &&
+          // p.domicilio.localidad &&
+          // p.domicilio.provincia &&
+          // (
+          //   p.mismoDomicilioDocumento !== true
+          //   ? (
+          //     p.domicilioReal.calle &&
+          //     p.domicilioReal.numero &&
+          //     p.domicilioReal.piso &&
+          //     p.domicilioReal.depto &&
+          //     p.domicilioReal.codPostal &&
+          //     p.domicilioReal.localidad &&
+          //     p.domicilioReal.provincia
+          //   ) : true
+          // )
+          true
         )
       } catch (e) {
         p.datosCompletos = false
