@@ -47,7 +47,7 @@ page('/admin/home', content.load, findLastPeers, function (ctx, req) {
     showDialog('Eliminación de Afiliado', '¿Realmente desea eliminar al afiliado <b>' + nombre + '</b>?', function () {
       $.del('/admin/api/peers/' + id).done(function () {
         $(el).slideUp('300', function () { $(this).remove() })
-        $('#afiliacionesTitle').html('Afiliaciones (' + $('.peerContainer.visible').length + ')')
+        $('#afiliacionesTitle').html('Afiliaciones (' + $('.peerContainer:visible').length + ')')
       }).fail(console.error.bind(console))
     })
   })
@@ -104,7 +104,7 @@ function findLastPeers (ctx, next) {
   })
 }
 
-function onlyUniqueDates(array) { 
+function onlyUniqueDates(array) {
   var distinct = [];
   array.forEach(function(el) {
     if(distinct.filter(function(d){return d.date == el.date}).length == 0)

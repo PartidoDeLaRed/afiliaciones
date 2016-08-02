@@ -38,7 +38,7 @@ page('/admin/peers', content.load, findPeers, function (ctx) {
     showDialog('Eliminación de Afiliado', '¿Realmente desea eliminar al afiliado <b>' + nombre + '</b>?', function () {
       $.del('/admin/api/peers/' + id).done(function () {
         $(el).slideUp('300', function () { $(this).remove() })
-        $('#afiliacionesTitle').html('Afiliaciones (' + $('.peerContainer.visible').length + ')')
+        $('#afiliacionesTitle').html('Afiliaciones (' + $('.peerContainer:visible').length + ')')
       }).fail(console.error.bind(console))
     })
   })
@@ -61,13 +61,16 @@ page('/admin/peers', content.load, findPeers, function (ctx) {
         $('.peerEstado.tieneFirmas.no').parent('.peerContainer').addClass('visible').removeClass('hidden')
         $('.peerEstado.tieneFirmas.ok').parent('.peerContainer').addClass('hidden').removeClass('visible')
         break
+      case 'faltanFotos':
+        $('.peerContainer').addClass('hidden').filter('.faltanFotos').removeClass('hidden').addClass('visible')
+        break
       case 'afiliadoOtroPartido':
         $('.peerEstado.noAfiliado.no').parent('.peerContainer').addClass('visible').removeClass('hidden')
         $('.peerEstado.noAfiliado.ok').parent('.peerContainer').addClass('hidden').removeClass('visible')
         break
       default: $('.peerContainer').addClass('visible').removeClass('hidden')
     }
-    $('#afiliacionesTitle').html('Afiliaciones (' + $('.peerContainer.visible').length + ')')
+    $('#afiliacionesTitle').html('Afiliaciones (' + $('.peerContainer:visible').length + ')')
   })
 
   loadSearchBoxes(ctx.content)
@@ -112,6 +115,8 @@ function findPeers (ctx, next) {
       } catch (e) {
         p.datosCompletos = false
       }
+
+      p.tieneFotos = !!p.imagenesDocumento
 
       return p
     })

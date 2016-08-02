@@ -32,7 +32,7 @@
 	width:100%
 }
 .admin .peersListHeaders .listHeader.state {
-	width:10%;
+	width:7%;
 	white-space:nowrap;
 	overflow:hidden;
 	text-overflow:ellipsis
@@ -145,7 +145,7 @@
 
 .admin .peersList .peerContainer .peerEstado {
 	margin-left:0;
-	width:10%;
+	width:7%;
 	height:40px;
 	position:relative;
 	left:0;
@@ -170,6 +170,12 @@
 .admin .peersList .peerContainer .peerEstado.noAfiliado.no {
 	background-image:url(/images/noAfiliadoNO.png)
 }
+.peerContainer .peerEstado.tieneFotos {
+	background-image:url(/images/tieneFotosNO.png)
+}
+.peerContainer.tieneFotos .peerEstado.tieneFotos {
+	background-image:url(/images/tieneFotosOK.png)
+}
 .admin .peersList .peerContainer .actionsContainer {
 	position:absolute;
 	right:0;
@@ -181,6 +187,7 @@
 	margin-right:0;
 	padding:0
 }
+
 
 .admin .peersList.boxes .peerContainer .actionsContainer {
     position: relative;
