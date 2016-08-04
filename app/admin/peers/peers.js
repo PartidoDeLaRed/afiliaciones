@@ -50,7 +50,7 @@ page('/admin/peers', content.load, findPeers, function (ctx) {
         break
       case 'todoOk':
         $('.peerContainer').each(function (index, item) {
-          $(item).children('.ok').length === 3 ? $(item).addClass('visible').removeClass('hidden') : $(item).addClass('hidden').removeClass('visible')
+          $(item).children('.ok').length === 4 ? $(item).addClass('visible').removeClass('hidden') : $(item).addClass('hidden').removeClass('visible')
         })
         break
       case 'faltanDatos':
