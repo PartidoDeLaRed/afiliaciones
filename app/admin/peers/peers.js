@@ -222,8 +222,7 @@ function getPrettyAddress (address) {
   if (!address) return ''
   return address.calle +
     ' ' + address.numero +
-    ', ' + address.localidad +
-    ', ' + address.provincia
+    ', Buenos Aires, Argentina'
 }
 
 function showDialog (title, message, cb) {
