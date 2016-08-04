@@ -32,7 +32,10 @@ app.get('/peers', function (req, res) {
   })
 })
 
+app.get('/delPrueba', function (req, res) {
+  Peer.update({ email: 'prueba@prueba.com' }, { email: null }, { multi: true }, function (err, num) {
     if (err) return res.status(500).send(err)
+    res.status(200).send('Ok')
   })
 })
 
