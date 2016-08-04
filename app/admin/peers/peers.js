@@ -73,13 +73,6 @@ page('/admin/peers', content.load, findPeers, function (ctx) {
     $('#afiliacionesTitle').html('Afiliaciones (' + $('.peerContainer:visible').length + ')')
   })
 
-  $('#btnDelPrueba').on('click', function(evt){
-    $.get('/admin/api/delPrueba').done(function (res) {
-      console.log(res)
-      location.reload()
-    })
-  })
-
   loadSearchBoxes(ctx.content)
 })
 
