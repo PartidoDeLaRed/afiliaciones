@@ -11,7 +11,7 @@ dateFormat.masks.onlyDate = 'dd/mm/yyyy';
 page('/admin/home', content.load, findLastPeers, function (ctx, req) {
 
   var peers = parsePeers(ctx.peers);
-  var groups = onlyUniqueDates(peers.map(function(p){return {date:dateFormat(p.createdAt,'onlyDate'), dateString: dateFormat(p.createdAt, 'isoDateTime')}}))
+  var groups = onlyUniqueDates(peers.map(function(p){return {date:p.createdAt, dateString: dateFormat(p.createdAt, 'isoDateTime')}}))
   .sort(function (a, b) {
     return b.date !== a.date ? (b.date <= a.date ? -1 : 1) : 1
   });
