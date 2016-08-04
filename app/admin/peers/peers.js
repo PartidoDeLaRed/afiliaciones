@@ -49,8 +49,8 @@ page('/admin/peers', content.load, findPeers, function (ctx) {
       case 'todos': $('.peerContainer').addClass('visible').removeClass('hidden')
         break
       case 'todoOk':
-        $('.peerContainer.tieneFotos').each(function (index, item) {
-          $(item).children('.ok').length === 3 ? $(item).addClass('visible').removeClass('hidden') : $(item).addClass('hidden').removeClass('visible')
+        $('.peerContainer').addClass('hidden').filter('.tieneFotos').each(function (index, item) {
+          $(item).children('.ok').length === 3 ? $(item).addClass('visible').removeClass('hidden') : $(item).removeClass('visible')
         })
         break
       case 'faltanDatos':
