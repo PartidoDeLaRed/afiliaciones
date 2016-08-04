@@ -249,14 +249,14 @@
 }
 .newContainer input {
 	padding:10px;
-	margin:5px 1%;
+	margin:2px 1%;
 	font-size:17px;
 	background:#fff;
 	border:1px solid #ddd;
 	border-top-width:2px;
 	border-radius:4px;
 	width:98%;
-	height:56px;
+	height:48px;
 	color:#46a4c9;
 	outline:0;
 	-webkit-transition:border-color .2s;
@@ -386,14 +386,14 @@ label.imageSelector:hover > span::after {
 
 .newContainer select {
 	padding:10px;
-	margin:5px 1%;
+	margin:2px 1%;
 	font-size:17px;
 	background:#fff;
 	border:1px solid #ddd;
 	border-bottom-width:2px;
 	border-radius:4px;
 	width:98%;
-	height:56px;
+	height:48px;
 	color:#46a4c9;
 	outline:0;
 	-webkit-transition:border-color .2s;

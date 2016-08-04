@@ -8,7 +8,7 @@ function parse (req, res, next) {
   var data = {
     nombre: req.body.nombre,
     apellido: req.body.apellido,
-    email: req.body.email,
+    email: req.body.email != '' ? req.body.email : null,
     matricula: {
       numero: req.body.matricula_numero,
       tipo: req.body.matricula_tipo

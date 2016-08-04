@@ -19,7 +19,7 @@ module.exports = mongoose.Schema({
     type: String,
     validate: validators.isEmail({ skipNull: true, message: 'El email debe tener el formato ejemplo@dominio.com' }),
     trim: true,
-    require: true,
+    require: false,
     lowercase: true
   },
   telefono: {
@@ -67,16 +67,17 @@ module.exports = mongoose.Schema({
     validate: [
       {
         validator: function (string) {
-          return moment(string, 'YYYY-MM-DD').isValid()
+          return moment(string, 'DD-MM-YYYY').isValid()
         },
-        msg: 'La fecha de nacimiento debe tener el formato AAAA-MM-DD.'
+        msg: 'La fecha de nacimiento es obligatoria. Debe tener el formato DD-MM-YYYY.'
       },
       {
         validator: function (string) {
           var minor = moment().subtract(16, 'years')
-          return moment(string, 'YYYY-MM-DD').isBefore(minor)
+          var mayor = moment().subtract(100, 'years')
+          return moment(string, 'YYYY-MM-DD').isBefore(minor) && moment(string, 'YYYY-MM-DD').isAfter(mayor)
         },
-        msg: 'El afiliado debe tener al menos 16 años. (Fecha de Nacimiento)'
+        msg: 'El afiliado debe tener entre 16 y 100 años. (Fecha de Nacimiento)'
       }
     ]
   },
