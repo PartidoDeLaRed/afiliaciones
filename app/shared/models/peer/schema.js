@@ -67,7 +67,7 @@ module.exports = mongoose.Schema({
     validate: [
       {
         validator: function (string) {
-          return moment(string, 'DD-MM-YYYY').isValid()
+          return moment(string, 'YYYY-MM-DD').isValid()
         },
         msg: 'La fecha de nacimiento es obligatoria. Debe tener el formato DD-MM-YYYY.'
       },
