@@ -13,7 +13,7 @@ require('./lib/extend-notification')
 require('../peers/peers')
 require('../peers/home')
 
-page('/admin/peers/new', function () {
+page('/admin/peers/new', content.load, function () {
   $('.content').html('').append(newTemplate({
     obj: {
       peer: {},
@@ -43,6 +43,8 @@ page('/admin/peers/new', function () {
 
   loadEvents()
 })
+
+page.exit('/admin/peers/new', content.unload)
 
 page('/admin/peers/:id/edit', findPeer, content.load, function (ctx, next) {
   var peer = ctx.peer
@@ -85,6 +87,8 @@ page('/admin/peers/:id/edit', findPeer, content.load, function (ctx, next) {
   loadEvents(peer)
   loadCurrentPictures(peer)
 })
+
+page.exit('/admin/peers/:id/edit', content.unload)
 
 page()
 
@@ -201,6 +205,7 @@ function SaveData () {
           notify.scope('peer-form')('Se produjo un error subiendo las fotos, por favor vuelva a intentarlo.')
         } else {
           notify.scope('peer-form')('¡Listo!')
+          page('/admin/peers')
         }
       })
     }).fail(function (res) {
