@@ -1,30 +1,43 @@
-
-
 .login {
-  padding: 15px;
-  width: 400px;
-  min-height: 400px;
-  margin: 2% auto 0 auto;
+    padding: 15px;
+    padding-top: 105px;
+    min-height: 400px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    display: flex;
+    align-items: center;
 }
+
 .login .heading {
-  text-align: center;
-  margin-top: 1%;
+    text-align: center;
+    max-width: 450px;
+    margin: auto;
+    padding: 25px;
+    background: #05323a;
+    border-radius: 4px;
+    box-shadow: 0 3px 10px rgba(0,0,0,.2);
 }
+
 .login .heading h2 {
-  font-size: 3em;
-  font-weight: 300;
-  color: rgba(255, 255, 255, 0.7);
-  display: inline-block;
-  padding-bottom: 5px;
-  text-shadow: 1px 1px 3px #23203b;
+    font-size: 3em;
+    font-weight: 300;
+    color: rgba(255,255,255,.8);
+    display: inline-block;
+    padding-bottom: 5px;
+    margin: 0 auto 20px 0;
 }
+
 .login form .input-group {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255,255,255,.1);
+    border-top: 1px solid rgba(0,0,0,.5);
+    background-color: rgba(255,255,255,.1);
+    margin-bottom: 4px;
 }
-.login form .input-group:last-of-type {
-  border-top: none;
-}
+
 .login form .input-group span {
   background: transparent;
   min-width: 53px;
@@ -32,7 +45,7 @@
 }
 .login form .input-group span i {
   font-size: 1.5em;
-  color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.7);
 }
 .login form input.form-control {
   display: block;
@@ -48,6 +61,7 @@
   width: 100%;
   background: transparent;
   color: #c2b8b1;
+  cursor: text;
 }
 .login form input.form-control:focus {
   border: none;

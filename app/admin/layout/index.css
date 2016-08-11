@@ -1,5 +1,80 @@
 @import 'node_modules/notification/notification.css';
 
+header{
+	padding: 15px 30px;
+	background: #05323a;
+	z-index: 100;
+}
+
+header .wrapper{
+	max-width: 1200px;
+	margin: 0 auto;
+	background: none;
+}
+
+header .title{
+	font-size: 30px;
+	color: #eee;
+	text-align: left;
+	vertical-align: middle;
+	display: inline-block;
+}
+.logo{
+	background-image: url(/images/logo-white.png);
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	width: 60px;
+	height: 60px;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+header nav{
+	float: right;
+}
+
+nav li{
+	margin: 0 5px;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 5px 10px;
+    border-radius: 3px;
+    -webkit-transition: all 400ms;
+    transition: all 400ms;
+    cursor: pointer;
+}
+
+nav li:hover{
+	background-color: rgba(255,255,255,.1);
+	transition: all 400ms;
+}
+
+nav li .icon{
+	width: 30px;
+	height: 30px;
+	margin: auto;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+	cursor: pointer;
+}
+nav li .icon.home{
+	background-image: url(/images/homeIcon.png);
+}
+nav li .icon.list{
+	background-image: url(/images/listIcon.png);
+}
+
+nav li .iconTitle{
+	font-size: 13px;
+	font-weight: 300;
+	text-align: center;
+	line-height: 13px;
+	color: #ccc;
+	cursor: pointer;
+} 
+
 input[type="date"]:after {
   content: attr(value);
   display: block;
@@ -37,7 +112,7 @@ input[type="date"]:after {
 *,.content {
 	margin:0
 }
-.content,header {
+.content {
 	text-align:center
 }
 input[type=text] {
@@ -78,17 +153,17 @@ a{
 	max-width: 1200px;
 }
 .admin .heading {
-	margin-top:1%;
-	text-align:left;
-	border-bottom:1px solid #46a4c9
+    margin-top: 1%;
+    text-align: left;
+    background: #eaeaea;
+    border-radius: 4px 4px 0 0;
 }
 .admin .heading h2 {
-	font-size:3em;
-	font-weight:300;
-	color:#46a4c9;
-	display:inline-block;
-	padding-bottom:5px;
-	margin:10px
+    font-size: 3em;
+    font-weight: 300;
+    color: #05323a;
+    display: inline-block;
+    margin: 13px 17px;
 }
 .admin .heading .mainSelect {
 	display:inline-block;

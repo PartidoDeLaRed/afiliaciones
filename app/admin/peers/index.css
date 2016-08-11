@@ -1,5 +1,5 @@
 .admin .peersListHeaders {
-	margin:10px 0 0;
+	margin:0;
 	background:#05323a
 }
 .admin .peersListHeaders .listHeader {
@@ -59,7 +59,8 @@
 .groupHeader {
     padding: 10px 15px;
     font-size: 25px;
-    background: #169CBF;
+	background: #05323a;
+    text-align: center;
     color: #fff;
 }
 
