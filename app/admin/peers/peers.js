@@ -215,7 +215,7 @@ function getGoogleMapsImage (address) {
   address = encodeURIComponent(address)
   return 'https://maps.googleapis.com/maps/api/staticmap?center=' +
     address + '&markers=color:0x13BDE8%7Clabel:P%7C' +
-    address + '&zoom=16&size=270x270&maptype=roadmap'
+    address + '&zoom=16&size=270x270&maptype=roadmap&key=AIzaSyAVJj-kWmMjQBZA5pN3BqCdHY4pUYZ-Kmo'
 }
 
 function getPrettyAddress (address) {
