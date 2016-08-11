@@ -5,6 +5,7 @@ var el = $('.content')
 module.exports = {
   load: function load (ctx, next) {
     ctx.content = el
+    $('.spinnerContainer').show();
     next()
   },
 

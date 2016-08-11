@@ -52,9 +52,7 @@ page('/admin/home', content.load, findLastPeers, function (ctx, req) {
     })
   })
 
-  $(document).ready(function(){
-    $('.spinnerContainer').hide();
-  })
+  $('.spinnerContainer').hide();
 })
 
 page.exit('/admin/home', content.unload)
