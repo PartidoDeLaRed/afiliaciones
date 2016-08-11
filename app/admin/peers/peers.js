@@ -74,6 +74,9 @@ page('/admin/peers', content.load, findPeers, function (ctx) {
   })
 
   loadSearchBoxes(ctx.content)
+  $(document).ready(function(){
+    $('.spinnerContainer').hide();
+  })
 })
 
 page.exit('/admin/peers', content.unload)

@@ -51,6 +51,10 @@ page('/admin/home', content.load, findLastPeers, function (ctx, req) {
       }).fail(console.error.bind(console))
     })
   })
+
+  $(document).ready(function(){
+    $('.spinnerContainer').hide();
+  })
 })
 
 page.exit('/admin/home', content.unload)

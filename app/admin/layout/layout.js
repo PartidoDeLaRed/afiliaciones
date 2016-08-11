@@ -41,6 +41,9 @@ page('/admin/peers/new', content.load, function () {
     }
   }))
 
+  $(document).ready(function(){
+    $('.spinnerContainer').hide();
+  })
   loadEvents()
 })
 
@@ -84,6 +87,9 @@ page('/admin/peers/:id/edit', findPeer, content.load, function (ctx, next) {
     }
   }))
 
+  $(document).ready(function(){
+    $('.spinnerContainer').hide();
+  })
   loadEvents(peer)
   loadCurrentPictures(peer)
 })
