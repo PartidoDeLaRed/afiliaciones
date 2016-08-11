@@ -14,7 +14,7 @@ page('/admin/home', content.load, findLastPeers, function (ctx, req) {
   var groups = onlyUniqueDates(peers.map(function(p){return {date:dateFormat(p.createdAt,'onlyDate'), dateString: dateFormat(p.createdAt, 'isoDateTime')}}))
     .map(function(g){return {date: g.date, dateString: FechaATexto(g.dateString), peers: peers.filter(function(p){return p.formatedDate == g.date})}})
     .sort(function (a, b) {
-      return b.date !== a.date ? (b.date <= a.date ? -1 : 1) : 1
+      return Date.parse(b.date) !== Date.parse(a.date) ? (Date.parse(b.date) <= Date.parse(a.date) ? -1 : 1) : 1
     });
 
   var view = $(homeAdminTemplate({

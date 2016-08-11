@@ -42,17 +42,23 @@ app.get('/delPrueba', function (req, res) {
 app.get('/lastPeers', function (req, res) {
   var today = new Date();
   var monthAgo = new Date(today.setDate(today.getDate()-req.query.days));
-  Peer.find({deletedAt: null, createdBy: null, telefono: {$ne: null }, createdAt: {
-    $gt: monthAgo
-  }}).exec(function (err, peers) {
+  Peer.find({
+    deletedAt: null, 
+    createdBy: null, 
+    lastEditedBy: null, 
+    createdAt: { $gt: monthAgo }
+  }).exec(function (err, peers) {
     if (err) return res.status(500).send(err)
     res.jsonp(peers)
   })
 })
 
 app.post('/peers', peersForm.parse, function (req, res) {
-  req.peer.createdBy = req.user.id.toString()
-  req.peer.lastEditedBy = req.user.id.toString()
+  if(req.user){
+    req.peer.createdBy = req.user.id.toString()
+    req.peer.lastEditedBy = req.user.id.toString()
+  }
+  req.peer.createdAt = new Date();
   Peer.create(req.peer, function (err, peer) {
     if (err) return res.status(500).send(err)
     res.status(200).json(peer)
