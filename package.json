@@ -3,6 +3,7 @@
   "version": "0.1.1",
   "description": "App del Partido de la Red para administrar afiliados.",
   "main": "index.js",
+  "repository": "https://github.com/PartidoDeLaRed/afiliaciones",
   "scripts": {
     "heroku-postbuild": "mkdirp ./build && npm run build",
     "test": "standard",
