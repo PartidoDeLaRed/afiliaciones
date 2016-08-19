@@ -1,17 +1,12 @@
 version: "2"
 
 services:
-  lb:
-    image: ngnix
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile.produ
-    image: partidodelared/afiliaciones:dev
-    restart: unless-stopped
+    # build: .
+    image: partidodelared/afiliaciones:latest
     env_file: .env
     ports:
-      - "80:3000"
+      - "3000:3000"
     depends_on:
       - db
     # volumes:
