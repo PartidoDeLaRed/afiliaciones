@@ -9,7 +9,7 @@ app.get('/api/peers/count', function (req, res) {
       return res.status(500).end()
     }
 
-    res.json(200, count)
+    res.status(200).json(count)
   })
 })
 
