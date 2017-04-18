@@ -53,6 +53,12 @@ page('/admin/peers', content.load, findPeers, function (ctx) {
           $(item).children('.ok').length === 3 ? $(item).addClass('visible').removeClass('hidden') : $(item).removeClass('visible')
         })
         break
+      case 'firmasOK':
+        $('.peerEstado.tieneFirmas.ok')
+          .parent('.peerContainer').addClass('visible').removeClass('hidden')
+        $('.peerEstado.tieneFirmas.no')
+          .parent('.peerContainer').addClass('hidden').removeClass('visible')
+        break
       case 'faltanDatos':
         $('.peerEstado.datosCompletos.no').parent('.peerContainer').addClass('visible').removeClass('hidden')
         $('.peerEstado.datosCompletos.ok').parent('.peerContainer').addClass('hidden').removeClass('visible')
