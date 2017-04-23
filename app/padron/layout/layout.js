@@ -7,10 +7,6 @@ var content = require('./content')
 require('./lib/extend-jquery')
 require('./lib/extend-notification')
 
-<<<<<<< HEAD
 require('../lista/lista')
-=======
-require('../')
->>>>>>> origin/master
 
 page()
