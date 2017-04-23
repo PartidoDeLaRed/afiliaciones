@@ -2,10 +2,8 @@ var $ = require('jquery')
 var page = require('page')
 var content = require('../layout/content')
 var template = require('./index.hbs')
-var infoTemplate = require('./info.hbs')
-var dialogTemplate = require('./dialog.hbs')
 
-page('/admin/peers', content.load, findPeers, function (ctx) {
+page('/padron', content.load, findPeers, function (ctx) {
   var peers = ctx.peers
 
   var view = $(template({
@@ -14,34 +12,6 @@ page('/admin/peers', content.load, findPeers, function (ctx) {
   }))
 
   ctx.content.append(view)
-
-  // Info Modal
-  ctx.content.on('click', '.button.info', function (evt) {
-    evt.preventDefault()
-    evt.stopImmediatePropagation()
-
-    var el = $(this).parents('.peerContainer')
-    var id = $(el).attr('data-id')
-
-    showInfo(peers.find(function (peer) { return peer.id === id }))
-  })
-
-  // Delete Modal
-  ctx.content.on('click', '.button.delete', function (evt) {
-    evt.preventDefault()
-    evt.stopImmediatePropagation()
-
-    var el = $(this).parents('.peerContainer')
-    var id = $(el).attr('data-id')
-    var nombre = $(el).find('.peerNombre').html()
-
-    showDialog('Eliminación de Afiliado', '¿Realmente desea eliminar al afiliado <b>' + nombre + '</b>?', function () {
-      $.del('/admin/api/peers/' + id).done(function () {
-        $(el).slideUp('300', function () { $(this).remove() })
-        $('#afiliacionesTitle').html('Afiliaciones (' + $('.peerContainer:visible').length + ')')
-      }).fail(console.error.bind(console))
-    })
-  })
 
   $('#listType').change(function () {
     var val = document.getElementById('listType').value
@@ -83,7 +53,7 @@ page('/admin/peers', content.load, findPeers, function (ctx) {
   $('.spinnerContainer').hide();
 })
 
-page.exit('/admin/peers', content.unload)
+page.exit('/padron', content.unload)
 
 function findPeers (ctx, next) {
   $.get('/admin/api/peers').done(function (res) {
@@ -136,7 +106,7 @@ function parsePeers (peers) {
   return peers.map(function (peer) {
     return Object.assign({}, peer, {
       nombreSlug: slugify(peer.apellido + ' ' + peer.nombre),
-      emailSlug: slugify(peer.email)
+      matriculaSlug: slugify(peer.matricula.numero)
     })
   }).sort(function (a, b) {
     return b.apellido !== a.apellido ? (b.apellido <= a.apellido ? 1 : -1) : (b.nombre <= a.nombre ? 1 : -1)
@@ -196,40 +166,6 @@ function loadSearchBoxes (content) {
     itemEl.append(searchButton)
     itemEl.append(searchContainer)
   })
-}
-
-function showInfo (peer) {
-  var domicilio = getPrettyAddress(peer.domicilio)
-
-  var data = {
-    peer: peer,
-    nombreCompleto: [peer.nombre, peer.apellido].join(' '),
-    sexo: peer.sexo === 'F' ? 'Femenino' : 'Masculino',
-    domicilio: domicilio,
-    mapa: getGoogleMapsImage(domicilio + ', Argentina')
-  }
-
-  var view = $(infoTemplate(data))
-
-  view.on('click', '[data-close]', view.remove.bind(view, undefined))
-
-  view.appendTo(document.body)
-
-  return view
-}
-
-function getGoogleMapsImage (address) {
-  address = encodeURIComponent(address)
-  return 'https://maps.googleapis.com/maps/api/staticmap?center=' +
-    address + '&markers=color:0x13BDE8%7Clabel:P%7C' +
-    address + '&zoom=16&size=270x270&maptype=roadmap&key=AIzaSyAVJj-kWmMjQBZA5pN3BqCdHY4pUYZ-Kmo'
-}
-
-function getPrettyAddress (address) {
-  if (!address) return ''
-  return address.calle +
-    ' ' + address.numero +
-    ', Buenos Aires, Argentina'
 }
 
 function showDialog (title, message, cb) {
