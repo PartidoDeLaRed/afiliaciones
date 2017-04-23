@@ -21,6 +21,7 @@ app.use(express.static(path.join(__dirname, '..', 'build')))
 // Load Sub-apps
 app.use(require('./site'))
 app.use(require('./admin'))
+app.use(require('./padron'))
 
 /**
  * Start the server

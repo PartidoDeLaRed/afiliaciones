@@ -1,0 +1,48 @@
+<div class="padron">
+  <div class="heading">
+    <h2 id="afiliacionesTitle">Padrón de Afiliados {{#if peers}}({{peers.length}}){{/if}}</h2>
+<!--
+    <select id="listType" class="mainSelect">
+      <option value="todos">Todos los afiliados</option>
+      <option value="todoOk">Afiliados con todo OK</option>
+      <option value="firmasOK">Con fichas completas</option>
+      <optgroup label="Afiliados Con Errores">
+        <option value="faltanDatos">Que les faltan datos</option>
+        <option value="faltanFirmas">Que les faltan firmas en las fichas</option>
+        <option value="faltanFotos">Que les faltan las fotos del DNI</option>
+        <option value="afiliadoOtroPartido">Que están afiliados a otro partido</option>
+      </optgroup>
+    </select>
+-->
+  </div>
+  <div class="peersListHeaders">
+    <div class="listHeader name" data-field="nombre">
+      Nombre
+    </div><div class="listHeader state datos min">
+      Datos <br/> completos
+    </div><div class="listHeader state firmas min">
+      Fichas <br/>  completas
+    </div><div class="listHeader state noAfiliado min">
+      No Afiliado <br/> a otro part.
+    </div><div class="listHeader state tieneFotos">
+      Fotos
+    </div>
+  </div>
+  <div class="peersList">
+    {{#if peers}}
+      {{#each peers}}
+        <div class="peerContainer visible {{#if tieneFotos}}tieneFotos{{else}}faltanFotos{{/if}}" data-id="{{id}}" data-field-nombre="{{nombreSlug}}" data-field-email="{{emailSlug}}">
+          <div class="peerNombre">
+            {{apellido}}, {{nombre}}
+          </div><div class="peerEstado datosCompletos {{#if datosCompletos}}ok{{else}}no{{/if}}">
+          </div><div class="peerEstado tieneFirmas {{#if tieneFirmas}}ok{{else}}no{{/if}}">
+          </div><div class="peerEstado noAfiliado {{#if noAfiliadoOtroPartido}}ok{{else}}no{{/if}}">
+          </div><div class="peerEstado tieneFotos">
+          </div>
+        </div>
+      {{/each}}
+    {{else}}
+      <div class="noItems">No hay afiliados</div>
+    {{/if}}
+  </div>
+</div>
