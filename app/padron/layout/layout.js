@@ -7,6 +7,6 @@ var content = require('./content')
 require('./lib/extend-jquery')
 require('./lib/extend-notification')
 
-require('../padron')
+require('../')
 
 page()
