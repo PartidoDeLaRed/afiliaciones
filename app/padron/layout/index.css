@@ -199,26 +199,42 @@ a{
 	left:0
 }
 
+<<<<<<< HEAD
 .padron {
+=======
+.admin {
+>>>>>>> origin/master
 	padding:10px;
 	margin:0 auto;
 	text-align:left;
 	max-width: 1200px;
 }
+<<<<<<< HEAD
 .padron .heading {
+=======
+.admin .heading {
+>>>>>>> origin/master
     margin-top: 1%;
     text-align: left;
     background: #eaeaea;
     border-radius: 4px 4px 0 0;
 }
+<<<<<<< HEAD
 .padron .heading h2 {
+=======
+.admin .heading h2 {
+>>>>>>> origin/master
     font-size: 3em;
     font-weight: 300;
     color: #05323a;
     display: inline-block;
     margin: 13px 17px;
 }
+<<<<<<< HEAD
 .padron .heading .mainSelect {
+=======
+.admin .heading .mainSelect {
+>>>>>>> origin/master
 	display:inline-block;
 	float:right;
 	height:50px;
@@ -230,7 +246,11 @@ a{
 	-ms-filter:url('progid:DXImageTransform.Microsoft.Alpha(Opacity=80)');
 	outline:0
 }
+<<<<<<< HEAD
 .padron .heading .addButton {
+=======
+.admin .heading .addButton {
+>>>>>>> origin/master
 	height:50px;
 	width:50px;
 	border-radius:25px;
@@ -245,12 +265,20 @@ a{
 	-webkit-transition:all .2s;
 	transition:all .2s
 }
+<<<<<<< HEAD
 .padron .heading .addButton:hover {
+=======
+.admin .heading .addButton:hover {
+>>>>>>> origin/master
 	background-color:rgba(32,199,89,1);
 	-webkit-transition:all .2s;
 	transition:all .2s
 }
+<<<<<<< HEAD
 .padron .heading .addButton:active {
+=======
+.admin .heading .addButton:active {
+>>>>>>> origin/master
 	background-color:rgba(14, 175, 70, 0.79);
 	-webkit-transition:all .1s;
 	transition:all .1s
@@ -336,4 +364,10 @@ a{
 	overflow:hidden
 }
 
+<<<<<<< HEAD
 @import 'app/padron/lista/index.css';
+=======
+@import 'app/admin/login/index.css';
+@import 'app/admin/peers/index.css';
+@import 'app/admin/peers-form/index.css';
+>>>>>>> origin/master
