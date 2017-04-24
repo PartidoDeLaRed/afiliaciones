@@ -56,48 +56,8 @@ page('/padron', content.load, findPeers, function (ctx) {
 page.exit('/padron', content.unload)
 
 function findPeers (ctx, next) {
-  $.get('/admin/api/peers').done(function (res) {
-    ctx.peers = res.map(function (p) {
-      try {
-        p.datosCompletos = (
-          p.nombre &&
-          p.apellido &&
-          // p.email &&
-          p.matricula.numero &&
-          // p.matricula.tipo &&
-          p.sexo &&
-          p.estadoCivil &&
-          p.lugarDeNacimiento &&
-          p.fechaDeNacimiento &&
-          p.profesion &&
-          p.domicilio.calle &&
-          p.domicilio.numero &&
-          // p.domicilio.codPostal &&
-          // p.domicilio.localidad &&
-          // p.domicilio.provincia &&
-          // (
-          //   p.mismoDomicilioDocumento !== true
-          //   ? (
-          //     p.domicilioReal.calle &&
-          //     p.domicilioReal.numero &&
-          //     p.domicilioReal.piso &&
-          //     p.domicilioReal.depto &&
-          //     p.domicilioReal.codPostal &&
-          //     p.domicilioReal.localidad &&
-          //     p.domicilioReal.provincia
-          //   ) : true
-          // )
-          true
-        )
-      } catch (e) {
-        p.datosCompletos = false
-      }
-
-      p.tieneFotos = !!p.imagenesDocumento
-
-      return p
-    })
-
+  $.get('/api/peers').done(function (res) {
+    ctx.peers = res;
     next()
   })
 }

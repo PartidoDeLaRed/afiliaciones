@@ -1,5 +1,4 @@
 var express = require('express')
-var redirect = require('../shared/redirect')
 var renderLayout = require('./layout')
 
 var app = express()

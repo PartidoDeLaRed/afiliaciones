@@ -1,5 +1,4 @@
 var $ = require('jquery')
-var toObject = require('form-to-object')
 var page = require('page')
 var notify = require('notification')
 var content = require('./content')
