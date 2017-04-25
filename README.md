@@ -12,12 +12,12 @@ App para administrar los afiliados del Partido de la Red.
 
 ## Estructura
 
-```bash
 afiliaciones
 └── app // Acá esta La posta
     └── shared // Lógica compartida, Modelos, etc
     └── site // Home pública de la app, formularios para afiliarte, etc.
     └── admin //Administrador de afiliados.
+    └── padron //Consulta pública de Padrón del PDR.
 └── config // Archivos de configuración
     └── defaults.json // Valores predeterminados ¡No editar!
     └── development.json // [git-ignored] Valores para development local. Cambiar a piacere.
@@ -25,7 +25,6 @@ afiliaciones
 └── bin // Comandos para ser usados desde la terminal.
 └── public // Assets státicos, servidos en '/'.
 └── build // [git-ignored] Assets buildeados.
-```
 
 ## Code Styles
 * **Javascript:** [Javascript Standard](https://github.com/feross/standard)
