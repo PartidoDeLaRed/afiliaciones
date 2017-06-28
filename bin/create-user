@@ -1,7 +1,9 @@
-var options = require('commander')
-var models = require('../app/shared/models')
+#!/usr/bin/env node
 
-var User = models.User
+const options = require('commander')
+const models = require('../app/shared/models')
+
+const User = models.User
 
 options
   .option('-e, --email <value>', 'User email')
@@ -9,8 +11,9 @@ options
   .parse(process.argv)
 
 models.ready()
-  .then(function () {
-    var user = new User({email: options.email})
+  .then(() => {
+    const user = new User({ email: options.email })
+
     User.register(user, options.password, function (err, user) {
       if (err) {
         console.error(err)
