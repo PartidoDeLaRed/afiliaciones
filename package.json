@@ -56,7 +56,7 @@
     "hbsfy": "~2.4.1",
     "jquery": "~2.1.4",
     "mailchimp-api": "~2.0.7",
-    "method-override": "~2.3.5",
+    "method-override": "~2.3.10",
     "mime-types": "~2.1.9",
     "mkdirp": "~0.5.1",
     "moment": "~2.10.6",
